@@ -1,0 +1,214 @@
+import React, { useEffect, useState } from "react";
+import { FaStar, FaRupeeSign, FaMapMarkerAlt, FaClock } from "react-icons/fa";
+
+const HomeSection3 = () => {
+  const [priceRange, setPriceRange] = useState(2000);
+  const [products, setProducts] = useState('');
+  const [categories, setCategories] = useState('');
+
+  const salon = [
+    {
+      id: 1,
+      name: "Elegance Beauty Lounge",
+      distance: "1.4 km",
+      rating: 4.8,
+      services: [
+        { name: "Women's Haircut", price: 499 },
+        { name: "Balayage", price: 399 },
+      ],
+    },
+    {
+      id: 2,
+      name: "Modern Cut Studio",
+      distance: "2.1 km",
+      rating: 4.8,
+      services: [
+        { name: "Men's Haircut", price: 299 },
+        { name: "Beard Trim", price: 199 },
+      ],
+    },
+    {
+      id: 3,
+      name: "Serene Spa & Wellness",
+      distance: "3.5 km",
+      rating: 4.9,
+      services: [
+        { name: "Swedish Massage", price: 999 },
+        { name: "Facial Treatment", price: 499 },
+      ],
+    },
+    {
+      id: 4,
+      name: "Glow Nail Bar",
+      distance: "0.8 km",
+      rating: 4.9,
+      services: [
+        { name: "Gel Manicure", price: 499 },
+        { name: "Pedicure", price: 599 },
+      ],
+    },
+    {
+      id: 5,
+      name: "Luxe Hair Salon",
+      distance: "2.7 km",
+      rating: 4.9,
+      services: [
+        { name: "Women's Haircut", price: 499 },
+        { name: "Highlights", price: 599 },
+      ],
+    },
+    {
+      id: 6,
+      name: "Radiant Skin Clinic",
+      distance: "1.9 km",
+      rating: 4.9,
+      services: [
+        { name: "Hydra Facial", price: 999 },
+        { name: "Chemical Peel", price: 1499 },
+      ],
+    },
+  ];
+
+  useEffect(() => {
+    fetch('https://saloonbackend-mumt.onrender.com/api/user/get-featured-salons')
+      .then(res => res.json())
+      .then((data) => {
+        setProducts(data)
+      })
+      .catch((err) => console.log(err))
+  }, [])
+  useEffect(() => {
+    fetch('https://saloonbackend-mumt.onrender.com/api/user/get-all-categories')
+      .then(res => res.json())
+      .then((data) => {
+        setCategories(data)
+      })
+      .catch((err) => console.log(err))
+  }, [])
+  return (
+    <div className="p-4">
+      <div>
+        <p className='font-bold text-2xl'>Top Rated Salons</p>
+      </div>
+
+      <div className="grid md:grid-cols-3 lg:grid-cols-4 gap-4 mt-2"> 
+        {
+        products&&  products.salons.map((salon, i) => (
+            <div key={i} className='shadow-lg rounded p-2 mb-4'>
+              <p> <span className="font-medium">Salon Name :- </span>{salon.shopName}</p>
+              <p> <span className="font-medium">Shop Type :- </span>{salon.shopType}</p>
+              <p> <span className="font-medium">Category :- </span>{salon.salonCategory?salon.salonCategory:"N/A"}</p>
+              <p> <span className="font-medium">Address :- </span>{salon.location?.address?salon.location?.address:"N/A"}</p>
+              <p> <span className="font-medium">About :- </span>{salon.about?salon.about:"N/A"}</p>
+            </div>
+          ))
+        }
+      </div>
+      <div className="flex bg-gray-50 md:h-190 p-6">
+        {/* Left Sidebar */}
+        <div className="w-1/4 bg-white rounded-2xl p-5 shadow-sm hidden md:block">
+          <div className="flex justify-between items-center mb-4">
+            <h2 className="text-lg font-semibold">Filters</h2>
+            <button className="text-sm text-gray-500 hover:text-indigo-600">
+              Reset All
+            </button>
+          </div>
+
+          {/* Location */}
+          <div className="mb-6">
+            <h3 className="font-medium mb-2">Location</h3>
+            <input
+              type="text"
+              placeholder="Enter your location"
+              className="w-full border border-gray-300 rounded-md p-2 focus:outline-indigo-500"
+            />
+          </div>
+
+          {/* Services */}
+          <div className="mb-6">
+            <h3 className="font-medium mb-2">Services</h3>
+            {categories&& categories.categories.map(
+              (service) => (
+                <div key={service._id} className="flex items-center gap-2 mb-2">
+                  <input type="checkbox" id={service._id} />
+                  <label htmlFor={service._id}>{service.name}</label>
+                </div>
+              )
+            )}
+          </div>
+
+          {/* Price Range */}
+          <div className="mb-6">
+            <h3 className="font-medium mb-2">Price Range</h3>
+            <input
+              type="range"
+              min="0"
+              max="2000"
+              value={priceRange}
+              onChange={(e) => setPriceRange(e.target.value)}
+              className="w-full accent-indigo-600"
+            />
+            <p className="text-sm text-gray-500 mt-1">
+              ₹{priceRange}
+            </p>
+          </div>
+
+          {/* Salon at Home */}
+          <div className="mb-6">
+            <h3 className="font-medium mb-2">Salon at Home</h3>
+            <div className="flex items-center gap-2">
+              <input type="checkbox" id="homeService" />
+              <label htmlFor="homeService">Available for Home Service</label>
+            </div>
+          </div>
+
+          {/* Apply Button */}
+          <button className="w-full bg-gray-700 hover:bg-gray-800 text-white py-2 rounded-md font-medium">
+            Apply Filters
+          </button>
+        </div>
+
+        {/* Salon Cards */}
+        <div className="flex-1 grid md:grid-cols-2 lg:grid-cols-3 gap-6 px-4  md:overflow-y-scroll scrollbar-hideen">
+          {salon.map((salon) => (
+            <div
+              key={salon.id}
+              className="bg-white rounded-2xl shadow-sm hover:shadow-md p-4 cursor-pointer transition-all"
+            >
+              <div className="h-36 bg-gray-200 rounded-lg mb-3"></div>
+              <div className="flex justify-between items-center mb-1">
+                <h3 className="font-semibold">{salon.name}</h3>
+                <div className="flex items-center gap-1 text-yellow-500 text-sm">
+                  <FaStar /> {salon.rating}
+                </div>
+              </div>
+              <div className="flex items-center text-sm text-gray-500 mb-2">
+                <FaMapMarkerAlt className="mr-1" /> {salon.distance}
+              </div>
+              <div className="text-sm text-gray-700 mb-2">
+                {salon.services.map((srv, i) => (
+                  <div key={i} className="flex justify-between">
+                    <span>{srv.name}</span>
+                    <span className="flex items-center">
+                      <FaRupeeSign className="text-xs mr-1" /> {srv.price}
+                    </span>
+                  </div>
+                ))}
+              </div>
+              <div className="flex justify-between text-sm text-gray-500">
+                <span className="flex items-center gap-1">
+                  <FaClock /> 30–60 min
+                </span>
+                <button className="text-indigo-600 font-medium hover:underline">
+                  See More
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export default HomeSection3

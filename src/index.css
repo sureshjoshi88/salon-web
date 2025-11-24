@@ -1,0 +1,29 @@
+@import "tailwindcss";
+
+/* navbar custum css */
+@media (max-width:950px) {
+    .hidden-mobile{
+        display: none;
+    }
+}
+@media (min-width:951px) {
+    .desltop-hidden{
+        display: none;
+    }
+}
+
+.scrollbar-hideen::-webkit-scrollbar {
+  display: none;
+ 
+}
+
+
+
+
+:root {
+  --primary-gradient: linear-gradient(90deg, #9333EA, #EC4899, #F43F5E);
+  --primary :#9333EA;
+  --secondary: #F3E8FF;
+  --accent: #f8b400;
+  --foter-gradient: linear-gradient(90deg, #320E51, #5D0AA8)
+}
