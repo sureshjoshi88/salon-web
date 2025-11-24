@@ -4,8 +4,8 @@ import { BeatLoader } from "react-spinners";
 
 const AdminSpecialist = () => {
     const [specialists, setSpecialists] = useState('')
-    const [specialForm,setspecialForm] = useState(false)
-    const [loading,setLoading] = useState(false)
+    const [specialForm, setspecialForm] = useState(false)
+    const [loading, setLoading] = useState(false)
     const token = localStorage.getItem("authtoken");
 
     const handleGetData = async () => {
@@ -101,15 +101,26 @@ const AdminSpecialist = () => {
         e.preventDefault();
 
         try {
-            const res = await fetch(`${import.meta.env.VITE_API_URL}salon-admin/add-specialist`, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(form),
-            });
+            const myHeaders = new Headers();
+            myHeaders.append("Content-Type", "application/json");
+            myHeaders.append("Authorization", `Bearer ${token}`);
 
-            const data = await res.json();
-            console.log("Success:", data);
-            alert("Specialist Added Successfully!");
+            const raw = JSON.stringify(form);
+
+            const requestOptions = {
+                method: "POST",
+                headers: myHeaders,
+                body: raw,
+                redirect: "follow"
+            };
+
+            fetch(`${import.meta.env.VITE_API_URL}salon-admin/add-specialist`, requestOptions)
+                .then((response) => response.json())
+                .then((result) => {
+                    console.log(result)
+                    alert("Specialist Added Successfully!");
+                    handleGetData();
+                })
         } catch (err) {
             console.log(err);
         }
@@ -145,14 +156,14 @@ const AdminSpecialist = () => {
     return (
         <div className='relative'>
 
-              <div className="flex justify-between items-center mb-6 p-3">
-            <h2 className="text-2xl font-semibold">Specialists Management</h2>
-            <button onClick={()=>setspecialForm(!specialForm)}  className="flex items-center gap-2 bg-gradient-to-r from-purple-600 to-pink-500 text-white px-4 py-2 rounded-lg cursor-pointer font-semibold">
-              <span className="text-xl">＋</span> Add Specialists
-            </button>
-          </div>
+            <div className="flex justify-between items-center mb-6 p-3">
+                <h2 className="text-2xl font-semibold">Specialists Management</h2>
+                <button onClick={() => setspecialForm(!specialForm)} className="flex items-center gap-2 bg-gradient-to-r from-purple-600 to-pink-500 text-white px-4 py-2 rounded-lg cursor-pointer font-semibold">
+                    <span className="text-xl">＋</span> Add Specialists
+                </button>
+            </div>
 
-            {loading && <div className="flex justify-center items-center h-64"><BeatLoader size={20} /></div> }
+            {loading && <div className="flex justify-center items-center h-64"><BeatLoader size={20} /></div>}
             <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
                 {specialists &&
                     specialists.specialists.map((item) => (
@@ -234,7 +245,7 @@ const AdminSpecialist = () => {
 
 
 
-           {specialForm && <form onSubmit={handleSubmit} className="max-w-2xl mx-auto p-6 bg-white shadow-md rounded-lg mt-5 absolute z-10 top-20 right-0 left-0 border border-gray-300">
+            {specialForm && <form onSubmit={handleSubmit} className="max-w-2xl mx-auto p-6 bg-white shadow-md rounded-lg mt-5 absolute z-10 top-20 right-0 left-0 border border-gray-300">
                 <h2 className="text-2xl font-bold mb-4">Add Specialist</h2>
 
                 {/* SALON ID */}
@@ -311,7 +322,7 @@ const AdminSpecialist = () => {
                 ))}
                 <button
                     type="button"
-                    style={{background:"var(--primary-gradient)"}}
+                    style={{ background: "var(--primary-gradient)" }}
                     className=" text-white px-3 py-1 rounded mb-3"
                     onClick={addCertification}
                 >
@@ -350,7 +361,7 @@ const AdminSpecialist = () => {
 
                 <button
                     type="button"
-                    style={{background:"var(--primary-gradient)"}}
+                    style={{ background: "var(--primary-gradient)" }}
                     className=" text-white px-3 py-1 rounded mb-4"
                     onClick={addAvailability}
                 >
@@ -358,10 +369,11 @@ const AdminSpecialist = () => {
                 </button>
 
                 {/* SUBMIT */}
-                <button  style={{background:"var(--primary-gradient)"}} className="w-full  text-white p-2 rounded hover:bg-gray-800 font-medium text-lg  cursor-pointer">
+                <button type='submit' style={{ background: "var(--primary-gradient)" }} className="w-full  text-white p-2 rounded hover:bg-gray-800 font-medium text-lg  cursor-pointer">
                     Submit
                 </button>
             </form>}
+
 
         </div>
     )
