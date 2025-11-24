@@ -90,6 +90,7 @@ const HomeSection4 = () => {
         {
           data.data?.men.map((item) =>
             <div key={item._id} className='shadow-lg rounded p-2'>
+              <img className='w-full' src="https://imgmediagumlet.lbb.in/media/2024/11/6735a5b5ce87bc4aebc0ccc9_1731569077158.jpg" alt="" />
               <p>{item.shopType}</p>
               <p>{item.shopName}</p>
               <p>{item.salonCategory}</p>
@@ -103,6 +104,7 @@ const HomeSection4 = () => {
       <div className='grid md:grid-cols-4 gap-3'>
         {data.data?.beautyParlour.map((item) =>
           <div key={item._id} className='shadow-lg rounded p-2'>
+            <img className='w-full' src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6dcT7ViYSzGhHUNJYjreWLyt7Q2Yfbp1eGg&s" alt="" />
             <p>{item.shopType}</p>
             <p>{item.shopName}</p>
             <p>{item.salonCategory}</p>
@@ -117,6 +119,7 @@ const HomeSection4 = () => {
       <div className='grid md:grid-cols-4 gap-3'>
         {data.data?.unisex.map((item) =>
           <div key={item._id} className='shadow-lg rounded p-2'>
+            <img className='w-full' src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTajkARADaVCLJlzyl7nIIXOgEYX5PuVH-6uQ&s" alt="" />
             <p>{item.shopType}</p>
             <p>{item.shopName}</p>
             <p>{item.salonCategory}</p>
