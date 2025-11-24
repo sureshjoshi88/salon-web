@@ -101,7 +101,7 @@ const AdminSpecialist = () => {
         e.preventDefault();
 
         try {
-            const res = await fetch("https://your-backend-url.com/api/specialist/create", {
+            const res = await fetch(`${import.meta.env.VITE_API_URL}salon-admin/add-specialist`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(form),
