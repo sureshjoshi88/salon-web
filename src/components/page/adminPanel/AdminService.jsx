@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { FiEdit2, FiTrash2, FiClock } from "react-icons/fi";
+import { BeatLoader } from 'react-spinners';
 
 const AdminService = () => {
   const [serviceItems, setServiceItems] = useState('');
@@ -7,6 +8,7 @@ const AdminService = () => {
   const [formOpen, setFormOpen] = useState(false);
   const [updateFormOpen, setUpdateFormOpen] = useState(false);
   const [id, setId] = useState('');
+  const [loading, setLoading] = useState(false);
 
 
 const token = localStorage.getItem("authtoken");
@@ -197,14 +199,19 @@ fetch(`${import.meta.env.VITE_API_URL}salon-admin/delete-service-item/${Id}`, re
       redirect: "follow"
     };
 
+    setLoading(true);
     fetch(`${import.meta.env.VITE_API_URL}salon-admin/get-service-items`, requestOptions)
       .then((response) => response.json())
       .then((result) => {
         console.log(result)
         setServiceItems(result);
+        setLoading(false);
       })
-      .catch((error) => console.error(error));
-  }, [handleSubmit,handleDelete,handleUpdates])
+      .catch((error) => {
+        console.error(error);
+        setLoading(false);
+      });
+  }, [])
 
 
   return (
@@ -219,6 +226,9 @@ fetch(`${import.meta.env.VITE_API_URL}salon-admin/delete-service-item/${Id}`, re
               <span className="text-xl">＋</span> Add Service
             </button>
           </div>
+
+                    {loading && <div className="flex justify-center items-center h-64"><BeatLoader size={20} /></div>}
+
 
           {/* Service Cards */}
           <div className="grid md:grid-cols-2 gap-6 bg-gray-50">

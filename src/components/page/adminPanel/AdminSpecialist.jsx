@@ -1,13 +1,17 @@
 import React, { useEffect, useState } from 'react'
 import { FiEdit2, FiTrash2 } from 'react-icons/fi';
 import { BeatLoader } from "react-spinners";
+import { CiCircleRemove } from "react-icons/ci";
+
 
 const AdminSpecialist = () => {
     const [specialists, setSpecialists] = useState('')
     const [specialForm, setspecialForm] = useState(false)
     const [loading, setLoading] = useState(false)
+    const [updateForm, setUpdateForm] = useState(false)
+    const [updateId, setUpdateId] = useState('')
     const token = localStorage.getItem("authtoken");
-
+    console.log(updateId)
     const handleGetData = async () => {
         try {
             const myHeaders = new Headers();
@@ -51,6 +55,7 @@ const AdminSpecialist = () => {
         ],
     });
 
+    console.log(form)
     const expertiseOptions = ["Hair", "Skin", "Makeup", "Massage", "Nails", "Other"];
     const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 
@@ -95,11 +100,14 @@ const AdminSpecialist = () => {
         });
     };
 
-    console.log(form)
     // SUBMIT FORM
     const handleSubmit = async (e) => {
         e.preventDefault();
-
+        if (!form.salon || !form.name || !form.contactNumber) {
+            alert("Please fill all required fields: Salon ID, Name, Contact Number");
+            setspecialForm(false);
+            return;
+        }
         try {
             const myHeaders = new Headers();
             myHeaders.append("Content-Type", "application/json");
@@ -153,6 +161,36 @@ const AdminSpecialist = () => {
         }
     }
 
+    const handleUpdates = async (e) => {
+        e.preventDefault();
+        setUpdateForm(false);
+        const myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+        myHeaders.append("Authorization", `Bearer ${token}`);
+
+        const raw = JSON.stringify(form);
+
+        const requestOptions = {
+            method: "PUT",
+            headers: myHeaders,
+            body: raw,
+            redirect: "follow"
+        };
+
+        fetch(`${import.meta.env.VITE_API_URL}salon-admin/update-specialist/${updateId}`, requestOptions)
+            .then((response) => response.json())
+            .then((result) => {
+                if (result.success === false) {
+                    alert(result.message);
+                   
+                    return;
+                }
+                console.log(result)
+                alert("Specialist Updated Successfully");
+                handleGetData();
+            })
+            .catch((error) => console.error(error));
+    }
     return (
         <div className='relative'>
 
@@ -183,7 +221,18 @@ const AdminSpecialist = () => {
                                         Name :- {item.name}
                                     </p>
                                     <div className="flex gap-3 text-gray-600">
-                                        <FiEdit2 className="cursor-pointer" size={18} />
+                                        <FiEdit2 onClick={() => {
+                                            setUpdateForm(true); setUpdateId(item._id); setForm({
+                                                salon: item.salon,
+                                                name: item.name,
+                                                contactNumber: item.contactNumber,
+                                                expertise: item.expertise,
+                                                experienceYears: item.experienceYears,
+                                                image: item.image,
+                                                certifications: item.certifications,
+                                                availability: item.availability
+                                            });
+                                        }} className="cursor-pointer" size={18} />
                                         <FiTrash2 onClick={() => handlespecialDelete(item._id)} className="cursor-pointer" size={18} />
                                     </div>
 
@@ -246,8 +295,10 @@ const AdminSpecialist = () => {
 
 
             {specialForm && <form onSubmit={handleSubmit} className="max-w-2xl mx-auto p-6 bg-white shadow-md rounded-lg mt-5 absolute z-10 top-20 right-0 left-0 border border-gray-300">
-                <h2 className="text-2xl font-bold mb-4">Add Specialist</h2>
-
+<div className='flex justify-between items-center p-3 mb-4'>
+                    <h2 className="text-2xl font-bold mb-4">Add Specialist</h2>
+                    <p>  <CiCircleRemove className="cursor-pointer text-3xl text-red-700 font-medium" onClick={() => setspecialForm(false)} /></p>
+</div>
                 {/* SALON ID */}
                 <input
                     type="text"
@@ -373,6 +424,135 @@ const AdminSpecialist = () => {
                     Submit
                 </button>
             </form>}
+
+            {updateForm && (
+                <form onSubmit={handleUpdates} className="max-w-2xl mx-auto p-6 bg-white shadow-md rounded-lg mt-5 absolute z-10 top-20 right-0 left-0 border border-gray-300">
+                  <div className='flex justify-between items-center p-3 mb-4'>
+                      <h2 className="text-2xl font-bold ">Update Specialist</h2>
+                        <CiCircleRemove className="cursor-pointer text-3xl text-red-700 font-medium" onClick={() => setUpdateForm(false)} />
+                  </div>
+                    <input
+                        type="text"
+                        name="salon"
+                        value={form.salon}
+                        placeholder="Salon ID"
+                        className="w-full border p-2 rounded mb-3"
+                        onChange={handleChange}
+                    />
+
+                    <input
+                        type="text"
+                        name="name"
+                        value={form.name}
+                        placeholder="Name"
+                        className="w-full border p-2 rounded mb-3"
+                        onChange={handleChange}
+                    />
+
+                    <input
+                        type="text"
+                        name="contactNumber"
+                        value={form.contactNumber}
+                        placeholder="Contact Number"
+                        className="w-full border p-2 rounded mb-3"
+                        onChange={handleChange}
+                    />
+
+                    <p className="font-semibold mb-1">Expertise</p>
+                    <div className="flex flex-wrap gap-3 mb-3">
+                        {expertiseOptions.map((exp) => (
+                            <label key={exp} className="flex items-center gap-2">
+                                <input
+                                    type="checkbox"
+                                    value={exp}
+                                    checked={form.expertise.includes(exp)}
+                                    onChange={handleExpertiseChange}
+                                />
+                                {exp}
+                            </label>
+                        ))}
+                    </div>
+
+                    <input
+                        type="number"
+                        name="experienceYears"
+                        value={form.experienceYears}
+                        placeholder="Experience Years"
+                        className="w-full border p-2 rounded mb-3"
+                        onChange={handleChange}
+                    />
+
+                    <input
+                        type="text"
+                        name="image"
+                        value={form.image}
+                        placeholder="Image URL"
+                        className="w-full border p-2 rounded mb-3"
+                        onChange={handleChange}
+                    />
+
+                    <p className="font-semibold mb-1">Certifications</p>
+                    {form.certifications.map((c, index) => (
+                        <input
+                            key={index}
+                            type="text"
+                            value={c}
+                            onChange={(e) => handleCertificationChange(index, e.target.value)}
+                            className="w-full border p-2 rounded mb-2"
+                        />
+                    ))}
+
+                    <button type="button" className="px-3 py-1 text-white rounded mb-3" onClick={addCertification}
+                        style={{ background: "var(--primary-gradient)" }}>
+                        + Add Certification
+                    </button>
+
+                    <p className="font-semibold mb-2">Availability</p>
+                    {form.availability.map((a, index) => (
+                        <div key={index} className="grid grid-cols-3 gap-2 mb-2">
+                            <select
+                                value={a.day}
+                                onChange={(e) => handleAvailabilityChange(index, "day", e.target.value)}
+                                className="border p-2 rounded"
+                            >
+                                {days.map((d) => <option key={d}>{d}</option>)}
+                            </select>
+
+                            <input
+                                type="time"
+                                value={a.start}
+                                onChange={(e) => handleAvailabilityChange(index, "start", e.target.value)}
+                                className="border p-2 rounded"
+                            />
+
+                            <input
+                                type="time"
+                                value={a.end}
+                                onChange={(e) => handleAvailabilityChange(index, "end", e.target.value)}
+                                className="border p-2 rounded"
+                            />
+                        </div>
+                    ))}
+
+                    <button
+                        type="button"
+                        onClick={addAvailability}
+                        className="px-3 py-1 text-white rounded mb-4"
+                        style={{ background: "var(--primary-gradient)" }}
+                    >
+                        + Add Availability
+                    </button>
+
+                    <button
+                        type="submit"
+                        className="w-full text-white p-2 rounded font-medium text-lg cursor-pointer"
+                        style={{ background: "var(--primary-gradient)" }}
+                    >
+                        Update
+                    </button>
+                </form>
+            )}
+
 
 
         </div>
