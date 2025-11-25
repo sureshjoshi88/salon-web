@@ -1,6 +1,6 @@
 import React from 'react'
 
-const AdminSalesMember = () => {
+const SuperAdminSalesMember = () => {
     const tableData = [
         {
            Referral:"SP-2025-001",
@@ -93,4 +93,4 @@ const AdminSalesMember = () => {
   )
 }
 
-export default AdminSalesMember
+export default SuperAdminSalesMember

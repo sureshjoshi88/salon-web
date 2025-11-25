@@ -11,7 +11,7 @@ const AdminService = () => {
   const [loading, setLoading] = useState(false);
 
 
-const token = localStorage.getItem("authtoken");
+  const token = localStorage.getItem("authtoken");
 
 
   const [form, setForm] = useState({
@@ -120,15 +120,15 @@ const token = localStorage.getItem("authtoken");
 
   const handleUpdateChange = (e) => {
     setUpdateForm({
-        ...updateForm,
-        [e.target.name]: e.target.value
+      ...updateForm,
+      [e.target.name]: e.target.value
     });
-};
+  };
 
 
   const handleUpdates = (e) => {
     e.preventDefault();
-   
+
     try {
       const myHeaders = new Headers();
       myHeaders.append("Content-Type", "application/json");
@@ -156,31 +156,31 @@ const token = localStorage.getItem("authtoken");
   }
 
 
-  const handleDelete  = (Id) => {
+  const handleDelete = (Id) => {
 
     try {
       const myHeaders = new Headers();
-myHeaders.append("Authorization", `Bearer ${token}`);
+      myHeaders.append("Authorization", `Bearer ${token}`);
 
-const raw = "";
+      const raw = "";
 
-const requestOptions = {
-  method: "DELETE",
-  headers: myHeaders,
-  body: raw,
-  redirect: "follow"
-};
+      const requestOptions = {
+        method: "DELETE",
+        headers: myHeaders,
+        body: raw,
+        redirect: "follow"
+      };
 
-fetch(`${import.meta.env.VITE_API_URL}salon-admin/delete-service-item/${Id}`, requestOptions)
-  .then((response) => response.json())
-  .then((result) =>{
-    if(result.success){
-      alert(result.message);
-    }else{
-      alert("Error: " + result.message);
-    }
-  })
-  .catch((error) => console.error(error));
+      fetch(`${import.meta.env.VITE_API_URL}salon-admin/delete-service-item/${Id}`, requestOptions)
+        .then((response) => response.json())
+        .then((result) => {
+          if (result.success) {
+            alert(result.message);
+          } else {
+            alert("Error: " + result.message);
+          }
+        })
+        .catch((error) => console.error(error));
     } catch (error) {
       console.log(error)
     }
@@ -221,13 +221,13 @@ fetch(`${import.meta.env.VITE_API_URL}salon-admin/delete-service-item/${Id}`, re
 
           {/* Header */}
           <div className="flex flex-wrap justify-between items-center mb-6">
-            <h2 className="md:text-2xl text-xl font-semibold">Services Management</h2>
+            <h2 className="md:text-2xl text-xl font-semibold text-[var(--primary)]">Services Management</h2>
             <button onClick={() => setFormOpen(!formOpen)} className="flex items-center gap-2 bg-gradient-to-r from-purple-600 to-pink-500 text-white px-4 py-2 rounded-lg cursor-pointer">
               <span className="text-xl">＋</span> Add Service
             </button>
           </div>
 
-                    {loading && <div className="flex justify-center items-center h-64"><BeatLoader size={20} /></div>}
+          {loading && <div className="flex justify-center items-center h-64"><BeatLoader size={20} /></div>}
 
 
           {/* Service Cards */}
@@ -245,7 +245,7 @@ fetch(`${import.meta.env.VITE_API_URL}salon-admin/delete-service-item/${Id}`, re
                   </div>
 
                   <div className="flex gap-3 text-gray-600">
-                    <FiEdit2 className="cursor-pointer" onClick={()=>{setId(service._id),setUpdateFormOpen(true)}} size={18} />
+                    <FiEdit2 className="cursor-pointer" onClick={() => { setId(service._id), setUpdateFormOpen(true) }} size={18} />
                     <FiTrash2 className="cursor-pointer" onClick={() => handleDelete(service._id)} size={18} />
                   </div>
                 </div>
@@ -298,7 +298,7 @@ fetch(`${import.meta.env.VITE_API_URL}salon-admin/delete-service-item/${Id}`, re
                 className="w-full border p-2 rounded"
                 value={form.name}
                 onChange={handleChange}
-                
+
               />
             </div>
 
@@ -434,7 +434,7 @@ fetch(`${import.meta.env.VITE_API_URL}salon-admin/delete-service-item/${Id}`, re
 
 
 
-       {updateFormOpen && <form
+      {updateFormOpen && <form
         onSubmit={handleUpdates}
         className="max-w-xl mx-auto absolute top-5 right-45 bg-white p-6 rounded-xl shadow-lg"
       >
@@ -455,7 +455,7 @@ fetch(`${import.meta.env.VITE_API_URL}salon-admin/delete-service-item/${Id}`, re
                 className="w-full border p-2 rounded"
                 value={updateForm.name}
                 onChange={handleUpdateChange}
-                
+
               />
             </div>
 
@@ -468,7 +468,7 @@ fetch(`${import.meta.env.VITE_API_URL}salon-admin/delete-service-item/${Id}`, re
                 className="w-full border p-2 rounded"
                 value={updateForm.category}
                 onChange={handleUpdateChange}
-                
+
               />
             </div>
 
@@ -481,7 +481,7 @@ fetch(`${import.meta.env.VITE_API_URL}salon-admin/delete-service-item/${Id}`, re
                 className="w-full border p-2 rounded"
                 value={updateForm.price}
                 onChange={handleUpdateChange}
-                
+
               />
             </div>
 
@@ -522,7 +522,7 @@ fetch(`${import.meta.env.VITE_API_URL}salon-admin/delete-service-item/${Id}`, re
                 className="w-full border p-2 rounded"
                 value={updateForm.providerId}
                 onChange={handleUpdateChange}
-                
+
               />
             </div>
 

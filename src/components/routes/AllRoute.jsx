@@ -29,6 +29,7 @@ import AdminSpecialist from '../page/adminPanel/AdminSpecialist'
 import UserProtectRoute from '../page/authenction/UserProtectRoute'
 import NotAuthorized from '../page/authenction/NotAuthorized'
 import AdminProtectRoute from '../page/authenction/AdminProtectRoute'
+import SuperAdminLayout from '../layout/superAdminLayout/SuperAdminLayout'
 
 const AllRoute = () => {
   return (
@@ -73,6 +74,11 @@ const AllRoute = () => {
               <Route path='/admin/booking' element={<AdminProtectRoute><AdminBooking /></AdminProtectRoute>} />
               <Route path='/admin/ai-poster' element={<AdminProtectRoute><AdminAiPoster /></AdminProtectRoute>} />
               <Route path='/admin/ai-hairstyle' element={<AdminProtectRoute><AdminAiHairStyle /></AdminProtectRoute>} />
+        </Route>
+
+
+        <Route path='/superadmin' element={<SuperAdminLayout />}>
+            <Route index element={<AdminProtectRoute><AdminDasboard /></AdminProtectRoute>} />
         </Route>
 
 

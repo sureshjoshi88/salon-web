@@ -33,7 +33,7 @@ const pieData = [
 
 const PIE_COLORS = ["#8b5cf6", "#ff2d7a", "#2b82ff", "#00d084", "#ffa500"];
 
-const AdminGraph = () => {
+const SuperAdminGraph = () => {
   return (
     <div className="p-6 min-h-screen bg-gray-50">
       <div className="max-w-6xl mx-auto grid gap-6 md:grid-cols-2">
@@ -91,4 +91,4 @@ const AdminGraph = () => {
   );
 }
 
-export default AdminGraph;
+export default SuperAdminGraph;

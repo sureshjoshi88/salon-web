@@ -8,7 +8,7 @@ import { IoIosTrendingUp } from "react-icons/io";
 
 
 
-const AdminHeader = () => {
+const SuperAdminHeader = () => {
     const salesData = [
         {
             text: 'Total Sales Persons',
@@ -57,4 +57,4 @@ const AdminHeader = () => {
   )
 }
 
-export default AdminHeader
+export default SuperAdminHeader

@@ -195,7 +195,7 @@ const AdminSpecialist = () => {
         <div className='relative'>
 
             <div className="flex flex-wrap justify-between items-center mb-6 p-3">
-                <h2 className="md:text-2xl text-xlfont-semibold">Specialists Management</h2>
+                <h2 className="md:text-2xl text-xl font-semibold text-[var(--primary)]">Specialists Management</h2>
                 <button onClick={() => setspecialForm(!specialForm)} className="flex items-center gap-2 bg-gradient-to-r from-purple-600 to-pink-500 text-white px-4 py-2 rounded-lg cursor-pointer font-semibold">
                     <span className="text-xl">＋</span> Add Specialists
                 </button>
