@@ -11,7 +11,8 @@ const AdminSpecialist = () => {
     const [updateForm, setUpdateForm] = useState(false)
     const [updateId, setUpdateId] = useState('')
     const token = localStorage.getItem("authtoken");
-    console.log(updateId)
+
+
     const handleGetData = async () => {
         try {
             const myHeaders = new Headers();
@@ -55,7 +56,6 @@ const AdminSpecialist = () => {
         ],
     });
 
-    console.log(form)
     const expertiseOptions = ["Hair", "Skin", "Makeup", "Massage", "Nails", "Other"];
     const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 
@@ -202,6 +202,7 @@ const AdminSpecialist = () => {
             </div>
 
             {loading && <div className="flex justify-center items-center h-64"><BeatLoader size={20} /></div>}
+
             <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
                 {specialists &&
                     specialists.specialists.map((item) => (
@@ -210,8 +211,8 @@ const AdminSpecialist = () => {
                             className="bg-white shadow-md hover:shadow-lg transition-all duration-300 rounded-xl overflow-hidden border border-gray-200"
                         >
                             <img
-                                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT3dSEtDvpd9KAn4SdFJVoL0K1lj4Xfc-wVWQ&s"
-                                alt=""
+                                src={item.image ? item.image : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT3dSEtDvpd9KAn4SdFJVoL0K1lj4Xfc-wVWQ&s"}
+                                alt={item.name}
                                 className="w-full h-44 object-cover"
                             />
 
@@ -296,7 +297,7 @@ const AdminSpecialist = () => {
 
             {specialForm && <form onSubmit={handleSubmit} className="max-w-2xl mx-auto p-6 bg-white shadow-md rounded-lg mt-5 absolute z-10 top-20 right-0 left-0 border border-gray-300">
                 <div className='flex justify-between items-center p-3 mb-4'>
-                    <h2 className="text-2xl font-bold mb-4">Add Specialist</h2>
+                    <h2 className="text-2xl font-bold mb-4 text-[var(--primary)]">Add Specialist</h2>
                     <p>  <CiCircleRemove className="cursor-pointer text-3xl text-red-700 font-medium" onClick={() => setspecialForm(false)} /></p>
                 </div>
                 {/* SALON ID */}
@@ -304,7 +305,8 @@ const AdminSpecialist = () => {
                     type="text"
                     name="salon"
                     placeholder="Salon ID"
-                    className="w-full border p-2 rounded mb-3"
+                    autoFocus
+                    className="w-full outline-0 p-2 rounded mb-3 bg-[var(--secondary)]"
                     onChange={handleChange}
                 />
 
@@ -313,7 +315,7 @@ const AdminSpecialist = () => {
                     type="text"
                     name="name"
                     placeholder="Name"
-                    className="w-full border p-2 rounded mb-3"
+                    className="w-full outline-0 bg-[var(--secondary)]  p-2 rounded mb-3"
                     onChange={handleChange}
                 />
 
@@ -322,16 +324,17 @@ const AdminSpecialist = () => {
                     type="text"
                     name="contactNumber"
                     placeholder="Contact Number"
-                    className="w-full border p-2 rounded mb-3"
+                    className="w-full outline-0 bg-[var(--secondary)] p-2 rounded mb-3"
                     onChange={handleChange}
                 />
 
                 {/* EXPERTISE */}
-                <p className="font-semibold mb-1">Expertise</p>
+                <p className="font-semibold mb-1 text-[var(--primary)]">Expertise</p>
                 <div className="flex flex-wrap gap-3 mb-3">
                     {expertiseOptions.map((exp) => (
                         <label key={exp} className="flex items-center gap-2">
                             <input
+
                                 type="checkbox"
                                 value={exp}
                                 onChange={handleExpertiseChange}
@@ -346,7 +349,7 @@ const AdminSpecialist = () => {
                     type="number"
                     name="experienceYears"
                     placeholder="Experience Years"
-                    className="w-full border p-2 rounded mb-3"
+                    className="w-full outline-0 bg-[var(--secondary)] p-2 rounded mb-3"
                     onChange={handleChange}
                 />
 
@@ -355,12 +358,12 @@ const AdminSpecialist = () => {
                     type="text"
                     name="image"
                     placeholder="Image URL"
-                    className="w-full border p-2 rounded mb-3"
+                    className="w-full outline-0 bg-[var(--secondary)] p-2 rounded mb-3"
                     onChange={handleChange}
                 />
 
                 {/* CERTIFICATIONS */}
-                <p className="font-semibold mb-1">Certifications</p>
+                <p className="font-semibold mb-1 text-[var(--primary)]">Certifications</p>
                 {form.certifications.map((c, index) => (
                     <input
                         key={index}
@@ -368,7 +371,7 @@ const AdminSpecialist = () => {
                         value={c}
                         onChange={(e) => handleCertificationChange(index, e.target.value)}
                         placeholder={`Certification ${index + 1}`}
-                        className="w-full border p-2 rounded mb-2"
+                        className="w-full outline-0 bg-[var(--secondary)] p-2 rounded mb-2"
                     />
                 ))}
                 <button
@@ -381,13 +384,13 @@ const AdminSpecialist = () => {
                 </button>
 
                 {/* AVAILABILITY */}
-                <p className="font-semibold mb-2">Availability</p>
+                <p className="font-semibold mb-2 text-[var(--primary)]">Availability</p>
                 {form.availability.map((a, index) => (
                     <div key={index} className="grid grid-cols-3 gap-2 mb-2">
                         <select
                             value={a.day}
                             onChange={(e) => handleAvailabilityChange(index, "day", e.target.value)}
-                            className="border p-2 rounded"
+                            className="outline-0 bg-[var(--secondary)] p-2 rounded"
                         >
                             {days.map((d) => (
                                 <option key={d}>{d}</option>
@@ -398,14 +401,14 @@ const AdminSpecialist = () => {
                             type="time"
                             value={a.start}
                             onChange={(e) => handleAvailabilityChange(index, "start", e.target.value)}
-                            className="border p-2 rounded"
+                            className="outline-0 bg-[var(--secondary)] p-2 rounded"
                         />
 
                         <input
                             type="time"
                             value={a.end}
                             onChange={(e) => handleAvailabilityChange(index, "end", e.target.value)}
-                            className="border p-2 rounded"
+                            className="outline-0 bg-[var(--secondary)] p-2 rounded"
                         />
                     </div>
                 ))}
@@ -436,7 +439,7 @@ const AdminSpecialist = () => {
                         name="salon"
                         value={form.salon}
                         placeholder="Salon ID"
-                        className="w-full border p-2 rounded mb-3"
+                        className="w-full outline-0 bg-[var(--secondary)] p-2 rounded mb-3"
                         onChange={handleChange}
                     />
 
@@ -445,7 +448,7 @@ const AdminSpecialist = () => {
                         name="name"
                         value={form.name}
                         placeholder="Name"
-                        className="w-full border p-2 rounded mb-3"
+                        className="w-full outline-0 bg-[var(--secondary)] p-2 rounded mb-3"
                         onChange={handleChange}
                     />
 
@@ -454,7 +457,7 @@ const AdminSpecialist = () => {
                         name="contactNumber"
                         value={form.contactNumber}
                         placeholder="Contact Number"
-                        className="w-full border p-2 rounded mb-3"
+                        className="w-full outline-0 bg-[var(--secondary)] p-2 rounded mb-3"
                         onChange={handleChange}
                     />
 
@@ -478,7 +481,7 @@ const AdminSpecialist = () => {
                         name="experienceYears"
                         value={form.experienceYears}
                         placeholder="Experience Years"
-                        className="w-full border p-2 rounded mb-3"
+                        className="w-full outline-0 bg-[var(--secondary)] p-2 rounded mb-3"
                         onChange={handleChange}
                     />
 
@@ -487,7 +490,7 @@ const AdminSpecialist = () => {
                         name="image"
                         value={form.image}
                         placeholder="Image URL"
-                        className="w-full border p-2 rounded mb-3"
+                        className="w-full outline-0 bg-[var(--secondary)] p-2 rounded mb-3"
                         onChange={handleChange}
                     />
 
@@ -498,7 +501,7 @@ const AdminSpecialist = () => {
                             type="text"
                             value={c}
                             onChange={(e) => handleCertificationChange(index, e.target.value)}
-                            className="w-full border p-2 rounded mb-2"
+                            className="w-full outline-0 bg-[var(--secondary)] p-2 rounded mb-2"
                         />
                     ))}
 
@@ -513,7 +516,7 @@ const AdminSpecialist = () => {
                             <select
                                 value={a.day}
                                 onChange={(e) => handleAvailabilityChange(index, "day", e.target.value)}
-                                className="border p-2 rounded"
+                                className="outline-0 bg-[var(--secondary)] p-2 rounded"
                             >
                                 {days.map((d) => <option key={d}>{d}</option>)}
                             </select>
@@ -522,14 +525,14 @@ const AdminSpecialist = () => {
                                 type="time"
                                 value={a.start}
                                 onChange={(e) => handleAvailabilityChange(index, "start", e.target.value)}
-                                className="border p-2 rounded"
+                                className="outline-0 bg-[var(--secondary)] p-2 rounded"
                             />
 
                             <input
                                 type="time"
                                 value={a.end}
                                 onChange={(e) => handleAvailabilityChange(index, "end", e.target.value)}
-                                className="border p-2 rounded"
+                                className="outline-0 bg-[var(--secondary)] p-2 rounded"
                             />
                         </div>
                     ))}
@@ -552,8 +555,6 @@ const AdminSpecialist = () => {
                     </button>
                 </form>
             )}
-
-
 
         </div>
     )
