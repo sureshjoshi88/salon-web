@@ -220,8 +220,8 @@ fetch(`${import.meta.env.VITE_API_URL}salon-admin/delete-service-item/${Id}`, re
         <div className="max-w-5xl mx-auto border border-gray-500 rounded-xl p-6 bg-white">
 
           {/* Header */}
-          <div className="flex justify-between items-center mb-6">
-            <h2 className="text-2xl font-semibold">Services Management</h2>
+          <div className="flex flex-wrap justify-between items-center mb-6">
+            <h2 className="md:text-2xl text-xl font-semibold">Services Management</h2>
             <button onClick={() => setFormOpen(!formOpen)} className="flex items-center gap-2 bg-gradient-to-r from-purple-600 to-pink-500 text-white px-4 py-2 rounded-lg cursor-pointer">
               <span className="text-xl">＋</span> Add Service
             </button>

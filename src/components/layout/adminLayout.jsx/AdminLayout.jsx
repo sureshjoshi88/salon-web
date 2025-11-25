@@ -38,7 +38,7 @@ const AdminLayout = () => {
       
               <div className='flex gap-3 w-full'>
                 <AdminSideBar />
-                <div className='w-full h-135 overflow-y-scroll'>
+                <div className='w-full h-135 overflow-y-scroll mt-5 md:mt-2'>
                  <Outlet />
                 </div>
               </div>

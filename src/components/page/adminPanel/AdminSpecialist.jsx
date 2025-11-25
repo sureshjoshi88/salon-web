@@ -182,7 +182,7 @@ const AdminSpecialist = () => {
             .then((result) => {
                 if (result.success === false) {
                     alert(result.message);
-                   
+
                     return;
                 }
                 console.log(result)
@@ -194,8 +194,8 @@ const AdminSpecialist = () => {
     return (
         <div className='relative'>
 
-            <div className="flex justify-between items-center mb-6 p-3">
-                <h2 className="text-2xl font-semibold">Specialists Management</h2>
+            <div className="flex flex-wrap justify-between items-center mb-6 p-3">
+                <h2 className="md:text-2xl text-xlfont-semibold">Specialists Management</h2>
                 <button onClick={() => setspecialForm(!specialForm)} className="flex items-center gap-2 bg-gradient-to-r from-purple-600 to-pink-500 text-white px-4 py-2 rounded-lg cursor-pointer font-semibold">
                     <span className="text-xl">＋</span> Add Specialists
                 </button>
@@ -295,10 +295,10 @@ const AdminSpecialist = () => {
 
 
             {specialForm && <form onSubmit={handleSubmit} className="max-w-2xl mx-auto p-6 bg-white shadow-md rounded-lg mt-5 absolute z-10 top-20 right-0 left-0 border border-gray-300">
-<div className='flex justify-between items-center p-3 mb-4'>
+                <div className='flex justify-between items-center p-3 mb-4'>
                     <h2 className="text-2xl font-bold mb-4">Add Specialist</h2>
                     <p>  <CiCircleRemove className="cursor-pointer text-3xl text-red-700 font-medium" onClick={() => setspecialForm(false)} /></p>
-</div>
+                </div>
                 {/* SALON ID */}
                 <input
                     type="text"
@@ -427,10 +427,10 @@ const AdminSpecialist = () => {
 
             {updateForm && (
                 <form onSubmit={handleUpdates} className="max-w-2xl mx-auto p-6 bg-white shadow-md rounded-lg mt-5 absolute z-10 top-20 right-0 left-0 border border-gray-300">
-                  <div className='flex justify-between items-center p-3 mb-4'>
-                      <h2 className="text-2xl font-bold ">Update Specialist</h2>
+                    <div className='flex justify-between items-center p-3 mb-4'>
+                        <h2 className="text-2xl font-bold ">Update Specialist</h2>
                         <CiCircleRemove className="cursor-pointer text-3xl text-red-700 font-medium" onClick={() => setUpdateForm(false)} />
-                  </div>
+                    </div>
                     <input
                         type="text"
                         name="salon"
