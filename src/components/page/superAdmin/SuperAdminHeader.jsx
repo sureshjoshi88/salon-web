@@ -37,10 +37,10 @@ const SuperAdminHeader = () => {
     ]
   return (
     <div>
-      <div className='grid md:grid-cols-4 gap-3'>
+      <div className='grid md:grid-cols-4 gap-3 '>
         {
             salesData.map((item,index)=>
-                <div key={index} className='shadow-emerald-100 shadow-md p-4 m-2 bg-[#F5FFFE] rounded-lg'>
+                <div key={index} className='shadow-emerald-100 shadow-md p-4 m-2 bg-[#F5FFFE] rounded-lg mt-2'>
                  <div className='flex items-center justify-between'>
                        <div>
                         <p className='text-sm text-gray-600'>{item.text}</p>

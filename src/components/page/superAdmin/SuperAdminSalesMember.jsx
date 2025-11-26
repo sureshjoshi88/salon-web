@@ -55,7 +55,7 @@ const SuperAdminSalesMember = () => {
        <div>
          <div className='flex items-center justify-between p-3'>
             <p className='font-medium text-2xl'>Sales Team Management</p>
-            <button onClick={()=>setOpen(true)} className='px-4 p-2 font-medium text-white bg-[#8E59F6] rounded-lg cursor-pointer'>+ Register New Sales Person</button>
+            <button style={{background:"var(--primary-gradient)"}} onClick={()=>setOpen(true)} className='px-4 p-2 font-medium text-white  rounded-lg cursor-pointer'>+ Register New Sales Person</button>
         </div>
         <div>
             <table>
