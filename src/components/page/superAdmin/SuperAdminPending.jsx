@@ -2,30 +2,39 @@ import React from 'react'
 
 const SuperAdminPending = () => {
     return (
-        <div className='bg-[#FFF7D6] p-2 rounded mt-4'>
-            <div>
-                <p>Pending Commission</p>
-                <p>Awaiting approval</p>
+      <div className="bg-[#FFF7D6] p-4 rounded-xl mt-4 shadow-sm max-w-sm w-full mx-auto">
+  <p className="text-yellow-800 font-semibold text-lg">Pending Commission</p>
+  <p className="text-gray-600 text-sm">Awaiting approval</p>
 
-                <div>
-                    <div className='flex justify-between items-center mt-2'>
-                        <p>Rahul Sharma
-                            SP- 2025-001</p>
-                        <p>₹ 45,000</p>
-                    </div>
-                    <div className='flex justify-between items-center mt-2'>
-                        <p>Priya Verma
-                            SP -2025-002</p>
-                        <p>₹ 82,500</p>
-                    </div>
-                    <div className='flex justify-between items-center mt-2'>
-                        <p>Amit Patel
-                            SP- 2025-003</p>
-                        <p>₹ 38,500</p>
-                    </div>
-                </div>
-            </div>
-        </div>
+  <div className="mt-4 space-y-3">
+
+    <div className="flex justify-between items-start">
+      <p className="text-gray-800 font-medium leading-tight">
+        Rahul Sharma <br />
+        <span className="text-xs text-gray-600">SP-2025-001</span>
+      </p>
+      <p className="font-semibold text-gray-900">₹ 45,000</p>
+    </div>
+
+    <div className="flex justify-between items-start">
+      <p className="text-gray-800 font-medium leading-tight">
+        Priya Verma <br />
+        <span className="text-xs text-gray-600">SP-2025-002</span>
+      </p>
+      <p className="font-semibold text-gray-900">₹ 82,500</p>
+    </div>
+
+    <div className="flex justify-between items-start">
+      <p className="text-gray-800 font-medium leading-tight">
+        Amit Patel <br />
+        <span className="text-xs text-gray-600">SP-2025-003</span>
+      </p>
+      <p className="font-semibold text-gray-900">₹ 38,500</p>
+    </div>
+
+  </div>
+</div>
+
     )
 }
 

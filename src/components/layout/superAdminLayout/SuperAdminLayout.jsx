@@ -5,23 +5,25 @@ import SuperAdminGraph from '../../page/superAdmin/SuperAdminGraph'
 import SuperAdminPerformance from '../../page/superAdmin/SuperAdminPerformance'
 import SuperAdminLowPerformance from '../../page/superAdmin/SuperAdminLowPerformance'
 import SuperAdminPending from '../../page/superAdmin/SuperAdminPending'
+import SuperAdminNavbar from '../../page/superAdmin/SuperAdminNavbar'
 
 const SuperAdminLayout = () => {
   return (
     <div>
+      <SuperAdminNavbar />
       <SuperAdminHeader />
-          <div className='flex gap-2'>
-            <div>
-                  <SuperAdminSalesMember />
-            <SuperAdminGraph />
-            </div>
-            <div className='mt-3'>
-                <SuperAdminPerformance/>
-                <SuperAdminLowPerformance/>
-                <SuperAdminPending/>
-            </div>
-           
-          </div>
+      <div className='flex gap-2'>
+        <div>
+          <SuperAdminSalesMember />
+          <SuperAdminGraph />
+        </div>
+        <div className='mt-3'>
+          <SuperAdminPerformance />
+          <SuperAdminLowPerformance />
+          <SuperAdminPending />
+        </div>
+
+      </div>
     </div>
   )
 }
