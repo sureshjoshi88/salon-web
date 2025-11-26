@@ -1,8 +1,10 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { FiGlobe, FiClock } from "react-icons/fi";
 import { BsFillCameraFill } from "react-icons/bs";
 
 const AdminProfile = () => {
+    const userdata = JSON.parse(localStorage.getItem("userdata"));
+console.log(userdata)
   return (
     <div>
     <div className="bg-gray-50 p-6">
@@ -18,8 +20,8 @@ const AdminProfile = () => {
            <input className='hidden' type="file" id='camera' />
          </div>
           <div>
-            <h2 className="text-xl font-semibold">Elegant Salon & Spa</h2>
-            <p className="text-sm text-gray-500">Owner: John Smith</p>
+            <h2 className="text-xl font-semibold">{userdata.name || "Elegant Salon & Spa"}</h2>
+            <p className="text-sm text-gray-500">{userdata.salon.owner || "Owner: John Smith"}</p>
             <button className="flex items-center gap-1 text-blue-600 text-sm mt-1">
               <FiGlobe size={14} /> View Public Profile
             </button>
@@ -30,33 +32,36 @@ const AdminProfile = () => {
         <div className="grid grid-cols-2 gap-6 mt-8 text-sm">
           <div>
             <p className="text-gray-500">Business Name</p>
-            <p className="font-medium">Elegant Salon & Spa</p>
+            <p className="font-medium">{userdata.name || "Elegant Salon & Spa"}</p>
           </div>
 
           <div>
             <p className="text-gray-500">Owner Name</p>
-            <p className="font-medium">John Smith</p>
+            <p className="font-medium">{userdata.salon.owner || "Owner: John Smith"}</p>
           </div>
 
           <div>
             <p className="text-gray-500">Email</p>
-            <p className="font-medium">contact@elegantsalon.com</p>
+            <p className="font-medium">{userdata.email || "contact@elegantsalon.com"}</p>
           </div>
 
           <div>
             <p className="text-gray-500">Phone</p>
-            <p className="font-medium">+1 (555) 123-4567</p>
+            <p className="font-medium">{userdata.phone || "+1 (555) 123-4567"}</p>
           </div>
 
           <div className="col-span-2">
             <p className="text-gray-500">Address</p>
-            <p className="font-medium">123 Main Street, New York, NY 10001</p>
+            <p className="font-medium">{userdata.salon.location.address || "123 Main Street, New York, NY 10001"}</p>
+            <p className="font-medium">{userdata.salon.location.city   || "123 Main Street, New York, NY 10001"}</p>
+            <p className="font-medium">{userdata.salon.location.state  || "123 Main Street, New York, NY 10001"}</p>
+            <p className="font-medium">{userdata.salon.location.pincode || "123 Main Street, New York, NY 10001"}</p>
           </div>
 
           <div className="col-span-2">
             <p className="text-gray-500">Description</p>
             <p className="font-medium">
-              Premium salon offering haircuts, styling, coloring, and spa services.
+             {userdata.salon.about || "Premium salon offering haircuts, styling, coloring, and spa services."}
             </p>
           </div>
         </div>
@@ -70,7 +75,7 @@ const AdminProfile = () => {
 
           <div className="grid grid-cols-2 text-sm gap-y-3">
             <p className="text-gray-600">monday</p>
-            <p className="font-medium">9:00 AM - 7:00 PM</p>
+            <p className="font-medium">{userdata.salon.openingHours.open || "9:00 AM"} - {userdata.salon.openingHours.close || "7:00 PM"}</p>
 
             <p className="text-gray-600">tuesday</p>
             <p className="font-medium">9:00 AM - 7:00 PM</p>

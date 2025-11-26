@@ -44,6 +44,7 @@ const Login = () => {
           navigate("/")
           setForm({ email: "", password: "" });
         } else if (result.user.role === "salon_owner") {
+          localStorage.setItem("userdata",JSON.stringify(result.user));
           navigate('/admin')
            setForm({ email: "", password: "" });
         } else {
