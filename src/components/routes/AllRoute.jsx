@@ -35,50 +35,51 @@ const AllRoute = () => {
   return (
     <div>
       <Routes>
-          {/* user routes */}
+        {/* user routes */}
 
         <Route path='/' element={<UserLayout />}>
           <Route index element={<UserProtectRoute><HomeLayout /></UserProtectRoute>} />
 
-            {/* details page and next route */}
-        <Route path='/home/product/:id/' element={<HomeProductDetails />}>
-          <Route  path="services" element={<ServiceDetails />} />
-          <Route index element={<ServiceDetails />} />
-          <Route path="gallery" element={<GalleryDetails />} />
-          <Route path="map" element={<MapAndLocation />} />
-          <Route path="reviews" element={<ReviewDetails />} />
-        </Route>
+          {/* details page and next route */}
+          <Route path='/home/product/:id/' element={<HomeProductDetails />}>
+            <Route path="services" element={<ServiceDetails />} />
+            <Route index element={<ServiceDetails />} />
+            <Route path="gallery" element={<GalleryDetails />} />
+            <Route path="map" element={<MapAndLocation />} />
+            <Route path="reviews" element={<ReviewDetails />} />
+          </Route>
 
 
-        <Route path='/bookappoitment' element={<BookAppoitment />} />
-        <Route path='/review' element={<BokingSuccessfull />} />
-        
-        <Route path='/not-authorized' element={<NotAuthorized />} />
-        <Route path='/sign-up' element={<SignUp />} />
-        <Route path='/login' element={<Login />} />
-        <Route path='/profile' element={<ProfileAdmin />} />
-        <Route path='/profile/edit' element={<CreateAccount />} />
-        <Route path='/earn-with-us' element={<EarnWith />} />
+          <Route path='/bookappoitment' element={<BookAppoitment />} />
+          <Route path='/review' element={<BokingSuccessfull />} />
+
+          <Route path='/not-authorized' element={<NotAuthorized />} />
+          <Route path='/sign-up' element={<SignUp />} />
+          <Route path='/login' element={<Login />} />
+          <Route path='/profile' element={<ProfileAdmin />} />
+          <Route path='/profile/edit' element={<CreateAccount />} />
+          <Route path='/earn-with-us' element={<EarnWith />} />
         </Route>
 
 
         {/* admin routes */}
 
         <Route path='/admin' element={<AdminLayout />}>
-           <Route index element={<AdminProtectRoute><AdminDasboard /></AdminProtectRoute>} />
-           
-              <Route path='/admin/dashboard' element={<AdminProtectRoute> <AdminDasboard /> </AdminProtectRoute>} />
-              <Route path='/admin/profile' element={<AdminProtectRoute><AdminProfile /></AdminProtectRoute>} />
-              <Route path='/admin/service' element={<AdminProtectRoute><AdminService /></AdminProtectRoute>} />
-              <Route path='/admin/specialists' element={<AdminProtectRoute><AdminSpecialist /></AdminProtectRoute>} />
-              <Route path='/admin/booking' element={<AdminProtectRoute><AdminBooking /></AdminProtectRoute>} />
-              <Route path='/admin/ai-poster' element={<AdminProtectRoute><AdminAiPoster /></AdminProtectRoute>} />
-              <Route path='/admin/ai-hairstyle' element={<AdminProtectRoute><AdminAiHairStyle /></AdminProtectRoute>} />
+          <Route index element={<AdminProtectRoute><AdminDasboard /></AdminProtectRoute>} />
+
+          <Route path='/admin/dashboard' element={<AdminProtectRoute> <AdminDasboard /> </AdminProtectRoute>} />
+          <Route path='/admin/profile' element={<AdminProtectRoute><AdminProfile /></AdminProtectRoute>} />
+          <Route path='/admin/service' element={<AdminProtectRoute><AdminService /></AdminProtectRoute>} />
+          <Route path='/admin/specialists' element={<AdminProtectRoute><AdminSpecialist /></AdminProtectRoute>} />
+          <Route path='/admin/booking' element={<AdminProtectRoute><AdminBooking /></AdminProtectRoute>} />
+          <Route path='/admin/ai-poster' element={<AdminProtectRoute><AdminAiPoster /></AdminProtectRoute>} />
+          <Route path='/admin/ai-hairstyle' element={<AdminProtectRoute><AdminAiHairStyle /></AdminProtectRoute>} />
         </Route>
 
 
+        {/* SuperAdminRoute */}
         <Route path='/superadmin' element={<SuperAdminLayout />}>
-            <Route index element={<AdminProtectRoute><AdminDasboard /></AdminProtectRoute>} />
+          <Route index element={<AdminProtectRoute><AdminDasboard /></AdminProtectRoute>} />
         </Route>
 
 

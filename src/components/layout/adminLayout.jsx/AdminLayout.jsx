@@ -3,13 +3,13 @@ import { Outlet } from 'react-router-dom'
 import { FaBell } from "react-icons/fa";
 import { FaUser } from "react-icons/fa";
 import AdminSideBar from '../../page/adminPanel/AdminSideBar';
-import {useNavigate} from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const AdminLayout = () => {
   const navigate = useNavigate()
   const userdata = JSON.parse(localStorage.getItem("userdata"));
   const role = localStorage.getItem("userrole");
-  const handleLogout = ()=>{
+  const handleLogout = () => {
     localStorage.removeItem("authtoken");
     localStorage.removeItem("userrole");
     localStorage.removeItem("userdata");
@@ -42,7 +42,7 @@ const AdminLayout = () => {
                   <FaUser className="w-5 h-5 text-pink-600" />
                 </div>
               </div>
-            { role&& <button onClick={handleLogout} className='bg-white/20 p-2 px-5 rounded-lg font-medium cursor-pointer'>Logout</button>}
+              {role && <button onClick={handleLogout} className='bg-white/20 p-2 px-5 rounded-lg font-medium cursor-pointer'>Logout</button>}
 
             </div>
           </div>
