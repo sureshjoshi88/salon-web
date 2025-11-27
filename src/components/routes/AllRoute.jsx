@@ -84,6 +84,7 @@ const AllRoute = () => {
         {/* SuperAdminRoute */}
         <Route path='/superadmin' element={<SuperAdminLayout />}>
           <Route index element={<SuperAdminHomeLayout />} />
+          <Route path='/superadmin/dashboard' element={<SuperAdminHomeLayout />} />
           <Route path='/superadmin/managesalon' element={<SuperAdminManageSalon/>}/>
           <Route path='/superadmin/manageuser' element={<SuperAdminManageUser/>}/>
           <Route path='/superadmin/managecategory' element={<SuperAdminManageCategory/>}/>

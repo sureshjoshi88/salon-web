@@ -1,7 +1,6 @@
 import React from 'react'
 import SuperAdminNavbar from '../../page/superAdmin/SuperAdminNavbar'
 import SuperAdminSideBar from '../../page/superAdmin/SuperAdminSideBar'
-import SuperAdminHomeLayout from '../../page/superAdmin/superadminhome/SuperAdminHomeLayout'
 import { Outlet } from 'react-router-dom'
 
 const SuperAdminLayout = () => {
@@ -13,8 +12,7 @@ const SuperAdminLayout = () => {
           <div>
             <SuperAdminSideBar/>
           </div>
-          <div className='w-full'>
-           {/* <SuperAdminHomeLayout/> */}
+          <div className='w-full h-135 overflow-y-scroll scrollbar-hideen'>
            <Outlet/>
           </div>
         </div>
