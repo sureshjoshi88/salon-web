@@ -1,6 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import homeSalonReducer from "../userSlice/homeSalon";
-import supperadmin from '../userSlice/SuperAdmin'
+import supperadmin from '../superAdmin/SuperAdmin'
 
 export const store = configureStore({
     reducer:{

@@ -1,29 +1,101 @@
 import React, { useEffect, useState } from 'react'
 import { FiEdit2, FiTrash2 } from "react-icons/fi";
 import { useSelector, useDispatch } from "react-redux"
-import { getdata } from '../../../redux/userSlice/SuperAdmin';
+import { getdata } from '../../../redux/superAdmin/SuperAdmin';
 import CardLoader from '../homePage/CardLoader';
 
 const SuperAdminManageCategory = () => {
+  const [addform, setAddform] = useState(false)
+  const [name, setName] = useState('')
+  const [icon, setIcon] = useState('')
+  const [id, setId] = useState('')
+  const [addbutton, setAddbutton] = useState(false)
 
-  const [categories, setCategories] = useState('');
   const dispatch = useDispatch()
-  const {data,loading,error} = useSelector((state)=>state.salons)
-  console.log(error)
+  const { data, loading, error } = useSelector((state) => state.salons)
+  console.log(data)
 
   const handlegetData = () => {
-    dispatch(getdata({ url: 'https://saloonbackend-mumt.onrender.com/api/user/get-all-categories', key: "saloncategory", token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MDA5ZGRhYjVkZWZkY2YzMjUyNzUxNiIsInJvbGUiOiJzdXBlcl9hZG1pbiIsImlhdCI6MTc2NDI1NjIzNiwiZXhwIjoxNzY0ODYxMDM2fQ.YoRAhLqpPp4eY6kNzKdX1BWBdR7h2LGPyREjti61CRE' }))
+    dispatch(getdata({ url: `${import.meta.env.VITE_API_URL}super-admin/getAllCategories`, key: "saloncategory", token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MDA5ZGRhYjVkZWZkY2YzMjUyNzUxNiIsInJvbGUiOiJzdXBlcl9hZG1pbiIsImlhdCI6MTc2NDI1NjIzNiwiZXhwIjoxNzY0ODYxMDM2fQ.YoRAhLqpPp4eY6kNzKdX1BWBdR7h2LGPyREjti61CRE' }))
+  }
+
+  const handleAddData = (e) => {
+    e.preventDefault()
+    try {
+      const myHeaders = new Headers();
+      myHeaders.append("Content-Type", "application/json");
+      myHeaders.append("Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MDA5ZGRhYjVkZWZkY2YzMjUyNzUxNiIsInJvbGUiOiJzdXBlcl9hZG1pbiIsImlhdCI6MTc2NDI0MjcyMCwiZXhwIjoxNzY0ODQ3NTIwfQ.uXYRhZFT9y8e9okWRMy6BadZtf9zl0y4WabmFEjhD_w");
+
+      const raw = JSON.stringify({
+        "name": name,
+        "icon": icon
+      });
+
+      const requestOptions = {
+        method: "POST",
+        headers: myHeaders,
+        body: raw,
+        redirect: "follow"
+      };
+
+      fetch(`${import.meta.env.VITE_API_URL}super-admin/create-category`, requestOptions)
+        .then((response) => response.json())
+        .then((result) => {
+          console.log(result)
+          handlegetData()
+
+        })
+    } catch (error) {
+      console.log(error);
+
+    }
+  }
+
+  const handleUpdate = (e) => {
+    e.preventDefault()
+    try {
+      const myHeaders = new Headers();
+      myHeaders.append("Content-Type", "application/json");
+      myHeaders.append("Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MDA5ZGRhYjVkZWZkY2YzMjUyNzUxNiIsInJvbGUiOiJzdXBlcl9hZG1pbiIsImlhdCI6MTc2NDI0MjcyMCwiZXhwIjoxNzY0ODQ3NTIwfQ.uXYRhZFT9y8e9okWRMy6BadZtf9zl0y4WabmFEjhD_w");
+
+      const raw = {};
+      if (name) {
+        raw.name = name
+      }
+      if (icon) {
+        raw.icon = icon
+      }
+
+      const requestOptions = {
+        method: "PATCH",
+        headers: myHeaders,
+        body: JSON.stringify(raw),
+        redirect: "follow"
+      };
+
+      fetch(`${import.meta.env.VITE_API_URL}super-admin/update-category/${id}`, requestOptions)
+        .then((response) => response.json())
+        .then((result) => {
+          console.log(result)
+          handlegetData()
+        })
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   useEffect(() => {
     handlegetData()
   }, [dispatch])
   return (
-    <div>
+    <div className='p-2 mt-2'>
+      <div className='flex justify-end p-2'>
+        <button style={{ background: "var(--primary-gradient)" }} className='px-4 p-2 font-medium text-white  rounded-lg cursor-pointer' onClick={() => { setAddbutton(true), setAddform(true) }}>+ Add Category</button>
+      </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 mt-4">
-        {loading&&Array.from({ length: data.saloncategory?.categories.length}).map((_,item)=>
-        <CardLoader/>)}
-        {error&&<p>{error}</p>}
+        {loading && Array.from({ length: data.saloncategory?.categories.length }).map((_, item) =>
+          <CardLoader />)}
+        {error && <p>{error}</p>}
         {data.saloncategory?.categories?.map((service) => (
           <div
             key={service._id}
@@ -35,13 +107,13 @@ const SuperAdminManageCategory = () => {
                 {service.name}
               </p>
               <div className="flex gap-3 text-gray-600 mt-3">
-                <FiEdit2 className="cursor-pointer" size={18} />
+                <FiEdit2 onClick={() => { setAddform(true, setId(service._id)) }} className="cursor-pointer" size={18} />
                 <FiTrash2 className="cursor-pointer" size={18} />
               </div>      </div>
 
             <img
               className="w-14 h-14 rounded-full object-cover border"
-              src={service.icon}
+              src={service.icon || 'https://cdn-icons-png.flaticon.com/512/1005/1005661.png'}
               alt={service.name}
             />
           </div>
@@ -49,12 +121,11 @@ const SuperAdminManageCategory = () => {
       </div>
 
 
-      <div className="max-w-md mx-auto p-5 bg-white shadow-lg rounded-xl mt-10">
+      {/* <div className="max-w-md mx-auto p-5 bg-white shadow-lg rounded-xl mt-10">
         <h2 className="text-2xl font-semibold text-center mb-6">Edit Category</h2>
 
         <form className="space-y-5">
 
-          {/* Category Name */}
           <div>
             <label className="block mb-1 font-medium">Category Name</label>
             <input
@@ -65,7 +136,6 @@ const SuperAdminManageCategory = () => {
             />
           </div>
 
-          {/* Icon Upload */}
           <div>
             <label className="block mb-1 font-medium">Category Icon</label>
             <input
@@ -84,10 +154,12 @@ const SuperAdminManageCategory = () => {
           </button>
 
         </form>
-      </div>
 
-      <div className="max-w-md mx-auto p-5 bg-white shadow-lg rounded-xl mt-10">
-        <h2 className="text-2xl font-semibold text-center mb-6">Add Category</h2>
+
+      </div> */}
+
+      {addform && <div className="max-w-md mx-auto p-5 bg-white shadow-lg rounded-xl mt-10">
+        <h2 className="text-2xl font-semibold text-center mb-6">{addbutton ? 'Add Category' : 'Edit Category'}</h2>
 
         <form className="space-y-5">
 
@@ -96,6 +168,9 @@ const SuperAdminManageCategory = () => {
             <label className="block mb-1 font-medium">Category Name</label>
             <input
               type="text"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              autoFocus
               placeholder="Enter category name"
               className="w-full bg-[var(--secondary)] p-2 outline-0 rounded-lg outline-none focus:border-blue-500"
               required
@@ -107,21 +182,35 @@ const SuperAdminManageCategory = () => {
             <label className="block mb-1 font-medium">Category Icon</label>
             <input
               type="text"
+              value={icon}
+              onChange={(e) => setIcon(e.target.value)}
               placeholder='Category Icon'
               className="w-full bg-[var(--secondary)] outline-0 p-2 rounded-lg cursor-pointer"
               required
             />
           </div>
-          <button
-            type="button"
+          {addbutton ? <button
+            type="submit"
+            onClick={handleAddData}
+
             style={{ background: 'var(--primary-gradient)' }}
             className="w-full font-medium text-lg  text-white py-2 rounded-lg cursor-pointer transition "
           >
             Submit
           </button>
+            :
+            <button
+              type="submit"
+              onClick={handleUpdate}
+
+              style={{ background: 'var(--primary-gradient)' }}
+              className="w-full font-medium text-lg  text-white py-2 rounded-lg cursor-pointer transition "
+            >
+              Save
+            </button>}
 
         </form>
-      </div>
+      </div>}
     </div>
   )
 }
