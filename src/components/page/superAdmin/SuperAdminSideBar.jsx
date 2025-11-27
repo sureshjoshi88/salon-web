@@ -11,17 +11,17 @@ const SuperAdminSideBar = () => {
             isActive
               ? "bg-pink-50 text-[var(--primary)] px-4 py-2 rounded-lg font-medium flex items-center gap-2"
               : "font-medium flex items-center gap-2 px-4 py-2"
-          }> Mange</NavLink>
+          }> Manage Salon</NavLink>
           <NavLink to="/admin/service" className={({ isActive }) =>
             isActive
               ? "bg-pink-50 text-[var(--primary)] px-4 py-2 rounded-lg font-medium flex items-center gap-2"
               : "font-medium flex items-center gap-2 px-4 py-2"
-          }>Services</NavLink>
+          }>Manage Category</NavLink>
           <NavLink to="/admin/specialists" className={({ isActive }) =>
             isActive
               ? "bg-pink-50 text-[var(--primary)] px-4 py-2 rounded-lg font-medium flex items-center gap-2"
               : "font-medium flex items-center gap-2 px-4 py-2"
-          }> Specialists </NavLink>
+          }> Manage User </NavLink>
           
 
         </nav>
