@@ -1,30 +1,39 @@
 import React, { useEffect, useState } from "react";
 import { FaMapMarkerAlt } from "react-icons/fa";
 import CardLoader from "./CardLoader";
-
+import {useDispatch,useSelector} from "react-redux"
 const HomeSection3 = () => {
   const [category, setCategory] = useState("men");
   const [data, setData] = useState([]);
-  const [loading, setLoading] = useState(true);
+  // const [loading, setLoading] = useState(true);
+
+  const dispatch = useDispatch();
+  const homeSalonData = useSelector((state) => state.homeSalon.homeSalonData);
+  const loading = useSelector((state) => state.homeSalon.loading);
+  const error = useSelector((state) => state.homeSalon.error);
 
   const getData = async () => {
-    setLoading(true);
+    // setLoading(true);
+    dispatch({type:'homeSalon/setLoading',payload:true});
     try {
       const response = await fetch(
         `${import.meta.env.VITE_API_URL}user/get-home-salons?category=${category}`
       );
       const result = await response.json();
-      setData(result?.data || []);
-      setLoading(false);
+      // setData(result?.data || []);
+      // setLoading(false);
+      dispatch({type:'homeSalon/setHomeSalonData',payload:result?.data || []});
+      dispatch({type:'homeSalon/setLoading',payload:false});
     } catch (error) {
       console.log(error);
-      setLoading(false);
+      dispatch({type:'homeSalon/setLoading',payload:false});
+      dispatch({type:'homeSalon/setError',payload:'Failed to fetch data'});
     }
   };
 
   useEffect(() => {
     getData();
-  }, [category]);
+  }, [dispatch,category]);
 
   // const dataLength = data.length;
   const ButtonStyle = (btnCat) => ({
@@ -35,8 +44,12 @@ const HomeSection3 = () => {
   });
 
   return (
-    <div>
-      <div className="flex gap-3 items-center font-medium p-2">
+    <div className="p-2">
+        <div className='flex justify-between p-2 '>
+        <div><p className="text-2xl font-medium ">Salon at Home Services</p></div>
+        <div><p className="text-lg text-gray-600 font-medium text-sm">View All </p></div>
+      </div>
+      <div className="flex gap-3 items-center font-medium p-2 mt-3">
         <button
           onClick={() => setCategory("men")}
           className="px-4 p-2 rounded"
@@ -57,18 +70,20 @@ const HomeSection3 = () => {
       <div className="grid md:grid-cols-3 gap-4 lg:grid-cols-4">
         
         {loading &&
-          Array.from({ length: data.length }).map((_, i) => (
+          Array.from({ length: homeSalonData.length }).map((_, i) => (
            <CardLoader  />
           ))}
 
         {/* ---- Actual Data Cards ---- */}
         {!loading &&
-          data.map((item) => (
+          homeSalonData.map((item) => (
             <div
               key={item.id}
               className="bg-white rounded-2xl shadow-sm hover:shadow-md p-4 cursor-pointer transition-all"
             >
-              <div className="h-36 bg-gray-200 rounded-lg mb-3"></div>
+              <div className="h-36 bg-gray-200 rounded-lg mb-3">
+                <img className="rounded w-full h-full object-cover" src="https://img.freepik.com/premium-photo/hairdressers-makeup-artist-working-beauty-salon_10069-11140.jpg?semt=ais_hybrid&w=740&q=80" alt="" />
+              </div>
 
               <h3 className="font-semibold">{item.shopName}</h3>
 

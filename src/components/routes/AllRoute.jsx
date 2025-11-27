@@ -30,6 +30,10 @@ import UserProtectRoute from '../page/authenction/UserProtectRoute'
 import NotAuthorized from '../page/authenction/NotAuthorized'
 import AdminProtectRoute from '../page/authenction/AdminProtectRoute'
 import SuperAdminLayout from '../layout/superAdminLayout/SuperAdminLayout'
+import SuperAdminHomeLayout from '../page/superAdmin/superadminhome/SuperAdminHomeLayout'
+import SuperAdminManageSalon from '../page/superAdmin/SuperAdminManageSalon'
+import SuperAdminManageUser from '../page/superAdmin/SuperAdminManageUser'
+import SuperAdminManageCategory from '../page/superAdmin/SuperAdminManageCategory'
 
 const AllRoute = () => {
   return (
@@ -79,7 +83,10 @@ const AllRoute = () => {
 
         {/* SuperAdminRoute */}
         <Route path='/superadmin' element={<SuperAdminLayout />}>
-          <Route index element={<AdminProtectRoute><AdminDasboard /></AdminProtectRoute>} />
+          <Route index element={<SuperAdminHomeLayout />} />
+          <Route path='/superadmin/managesalon' element={<SuperAdminManageSalon/>}/>
+          <Route path='/superadmin/manageuser' element={<SuperAdminManageUser/>}/>
+          <Route path='/superadmin/managecategory' element={<SuperAdminManageCategory/>}/>
         </Route>
 
 

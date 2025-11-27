@@ -1,6 +1,6 @@
 import React from 'react'
 import SuperAdminHeader from './SuperAdminHeader'
-import SuperAdminPerformance from './SuperAdminPerformance'
+import SuperAdminPerformance from '../SuperAdminPerformance'
 import SuperAdminLowPerformance from './SuperAdminLowPerformance'
 import SuperAdminPending from './SuperAdminPending'
 import SuperAdminSalesMember from './SuperAdminSalesMember'
