@@ -36,6 +36,8 @@ import SuperAdminManageUser from '../page/superAdmin/SuperAdminManageUser'
 import SuperAdminManageCategory from '../page/superAdmin/SuperAdminManageCategory'
 import Default from '../page/homePage/Default'
 import ServiceSection1 from '../page/user/service/ServiceSection1'
+import AboutSection1 from '../page/user/about/AboutSection1'
+import ContactSection1 from '../page/user/contact/ContactSection1'
 
 const AllRoute = () => {
   return (
@@ -56,7 +58,9 @@ const AllRoute = () => {
             <Route path="map" element={<MapAndLocation />} />
             <Route path="reviews" element={<ReviewDetails />} />
           </Route>
-          <Route path='' element={<ServiceSection1/>}/>
+          <Route path='/service' element={<ServiceSection1/>}/>
+          <Route path='/about' element={<AboutSection1/>}/>
+          <Route path='/contact' element={<ContactSection1/>}/>
 
 
           <Route path='/bookappoitment' element={<BookAppoitment />} />
