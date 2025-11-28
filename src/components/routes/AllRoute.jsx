@@ -38,6 +38,7 @@ import Default from '../page/homePage/Default'
 import ServiceSection1 from '../page/user/service/ServiceSection1'
 import AboutSection1 from '../page/user/about/AboutSection1'
 import ContactSection1 from '../page/user/contact/ContactSection1'
+import SuperAdminDetails from '../page/superAdmin/SuperAdminDetails'
 
 const AllRoute = () => {
   return (
@@ -97,6 +98,7 @@ const AllRoute = () => {
           <Route path='/superadmin/managesalon' element={<SuperAdminManageSalon/>}/>
           <Route path='/superadmin/manageuser' element={<SuperAdminManageUser/>}/>
           <Route path='/superadmin/managecategory' element={<SuperAdminManageCategory/>}/>
+          <Route path='/superadmin/:id' element={<SuperAdminDetails/>}/>
         </Route>
 
 

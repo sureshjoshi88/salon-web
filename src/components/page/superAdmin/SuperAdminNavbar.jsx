@@ -21,6 +21,7 @@ const SuperAdminNavbar = () => {
           <p><IoMdNotifications className='text-2xl cursor-pointer' /></p>
           <img className='w-8 rounded-full' src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="profile" />
           <p>Admin</p>
+           <button  className='bg-white/20 p-2 px-5 rounded-lg font-medium cursor-pointer'>Logout</button>
         </div>
       </div>
     </div>

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import CardLoader from '../homePage/CardLoader';
 import { getdata } from '../../../redux/superAdmin/SuperAdmin';
+import {Link} from "react-router-dom"
 
 const SuperAdminManageSalon = () => {
   const [pageNumber, setPageNumber] = useState(1)
@@ -30,6 +31,9 @@ const SuperAdminManageSalon = () => {
           <CardLoader />)}
 
         {data.allSalon?.saloons.map((item) => (
+            <Link to={`/superadmin/${item._id}`}  state={{ salon: item }} 
+  key={item._id} >
+
           <div key={item._id} className="p-4 shadow rounded bg-white">
             <p className="font-bold text-lg">{item.shopName}</p>
 
@@ -49,6 +53,7 @@ const SuperAdminManageSalon = () => {
               {item?.location?.address || "No Address"}
             </p>
           </div>
+           </Link>
         ))}
 
       </div>
