@@ -11,6 +11,7 @@ const SuperAdminManageCategory = () => {
   const [icon, setIcon] = useState('')
   const [id, setId] = useState('')
   const [addbutton, setAddbutton] = useState(false)
+  const [gender,setGender] = useState('')
 
   const dispatch = useDispatch()
   const { data, loading, error } = useSelector((state) => state.salons)
@@ -29,7 +30,8 @@ const SuperAdminManageCategory = () => {
 
       const raw = JSON.stringify({
         "name": name,
-        "icon": icon
+        "icon": icon,
+        "gender":gender
       });
 
       const requestOptions = {
@@ -66,6 +68,9 @@ const SuperAdminManageCategory = () => {
       if (icon) {
         raw.icon = icon
       }
+      if(gender){
+        raw.gender = gender
+      }
 
       const requestOptions = {
         method: "PATCH",
@@ -94,30 +99,50 @@ const SuperAdminManageCategory = () => {
         <button style={{ background: "var(--primary-gradient)" }} className='px-4 p-2 font-medium text-white  rounded-lg cursor-pointer' onClick={() => { setAddbutton(true), setAddform(true) }}>+ Add Category</button>
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 mt-4">
-        {loading && Array.from({length:6}).map((_, item) =>
+        {loading && Array.from({ length: 6 }).map((_, item) =>
           <CardLoader />)}
         {error && <p>{error}</p>}
         {data.saloncategory?.categories?.map((service) => (
-          <div
-            key={service._id}
-            className="flex items-center justify-between p-4 bg-white shadow-lg rounded-xl 
-                 hover:shadow-2xl transition-shadow duration-300"
-          >
-            <div>
-              <p className="text-lg font-semibold text-gray-700">
-                {service.name}
-              </p>
-              <div className="flex gap-3 text-gray-600 mt-3">
-                <FiEdit2 onClick={() => { setAddform(true, setId(service._id)) }} className="cursor-pointer" size={18} />
-                <FiTrash2 className="cursor-pointer" size={18} />
-              </div>      </div>
+         <div
+  key={service._id}
+  className="flex items-center justify-between p-4 bg-white shadow-md rounded-xl
+             hover:shadow-xl transition-all duration-300 border border-gray-100"
+>
+  {/* Left Section */}
+  <div className="flex flex-col justify-between">
+    <p className="text-lg font-semibold text-gray-800">{service.name}</p>
+    <p className="text-sm text-gray-500 mt-1 capitalize">
+      Gender: <span className="font-medium text-gray-700">{service.gender}</span>
+    </p>
 
-            <img
-              className="w-14 h-14 rounded-full object-cover border"
-              src={service.icon || 'https://cdn-icons-png.flaticon.com/512/1005/1005661.png'}
-              alt={service.name}
-            />
-          </div>
+    {/* Actions */}
+    <div className="flex gap-4 text-gray-600 mt-3">
+      <FiEdit2
+        onClick={() => {
+          setId(service._id);
+          setAddform(true);
+        }}
+        className="cursor-pointer hover:text-blue-500 transition"
+        size={20}
+      />
+      <FiTrash2
+        className="cursor-pointer hover:text-red-500 transition"
+        size={20}
+      />
+    </div>
+  </div>
+
+  {/* Right Section (Image) */}
+  <img
+    className="w-16 h-16 rounded-xl object-cover border border-gray-200 shadow-sm"
+    src={
+      service.icon ||
+      "https://cdn-icons-png.flaticon.com/512/1005/1005661.png"
+    }
+    alt={service.name}
+  />
+</div>
+
         ))}
       </div>
 
@@ -157,6 +182,23 @@ const SuperAdminManageCategory = () => {
               required
             />
           </div>
+
+          {/* add gender */}
+
+          <div>
+            <label className="block mb-1 font-medium">Gender</label>
+            <select
+              value={gender}
+              onChange={(e) => setGender(e.target.value)}
+              className="w-full bg-[var(--secondary)] p-2 outline-0 rounded-lg cursor-pointer focus:border-blue-500"
+              required
+            >
+              <option value="men">Men</option>
+              <option value="women">Women</option>
+              <option value="unisex">Unisex</option>
+            </select>
+          </div>
+
           {addbutton ? <button
             type="submit"
             onClick={handleAddData}

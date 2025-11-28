@@ -83,17 +83,19 @@ const HomeSection3 = () => {
       <div className="flex gap-3 items-center font-medium p-2 mt-3">
         <button
           onClick={() => setCategory("men")}
-          className="px-4 p-2 rounded"
+          className="px-4 p-2 rounded flex items-center gap-3"
           style={ButtonStyle("men")}
         >
+          <img className="w-7" src="https://cdn-icons-png.flaticon.com/128/3667/3667832.png" alt="" />
           Men Salon
         </button>
 
         <button
           onClick={() => setCategory("women")}
-          className="px-4 p-2 rounded"
+          className="px-4 p-2 rounded flex items-center gap-3"
           style={ButtonStyle("women")}
         >
+          <img className="w-7" src="https://cdn-icons-png.flaticon.com/128/5498/5498588.png" alt="" />
           Women Salon
         </button>
       </div>
@@ -121,14 +123,11 @@ const HomeSection3 = () => {
                 <h3 className="font-semibold">{item.shopName}</h3>
                 <p>{item.salonCategory}</p>
               </div>
-              <div className="flex items-center text-sm text-gray-500 mb-2">
-                <FaMapMarkerAlt className="mr-1" />
-                {item.location.address}
-              </div>
+              
 
               <div className="flex flex-wrap gap-2 mb-3">
                 <span className="font-medium">Categories:</span>
-                {item.categories.map((srv, i) => (
+                {item?.categories.map((srv, i) => (
                   <span
                     key={i}
                     className="bg-green-100 text-sm rounded-2xl px-2 py-0.5"
@@ -139,7 +138,7 @@ const HomeSection3 = () => {
               </div>
               <div>
 
-                <p>Distance: {getDistance(currentlatitude, currentlongitude, item.location.coordinates[0], item.location.coordinates[1])} km</p>
+                <p className="flex items-center text-sm text-gray-500 mb-2"> <span > <FaMapMarkerAlt className="mr-1" /> </span>{getDistance(currentlatitude, currentlongitude, item.location.coordinates[0], item.location.coordinates[1])} km</p>
 
               </div>
 

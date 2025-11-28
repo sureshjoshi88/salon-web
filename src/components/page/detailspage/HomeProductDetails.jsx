@@ -24,7 +24,7 @@ const HomeProductDetails = () => {
       token: token
     }))
   }
-  const { data, loading, error } = useSelector((state) => state.salons);
+  const { data, loading, error } = useSelector((state) => state.homeSalon);
 console.log(data)
 
   useEffect(() => {
