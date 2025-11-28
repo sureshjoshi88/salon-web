@@ -2,16 +2,23 @@ import React, { useEffect, useState } from "react";
 import { FaMapMarkerAlt } from "react-icons/fa";
 import CardLoader from "./CardLoader";
 import {useDispatch,useSelector} from "react-redux"
+import { useNavigate } from "react-router-dom";
 const HomeSection3 = () => {
   const [category, setCategory] = useState("men");
-  // const [loading, setLoading] = useState(true);
 
   const dispatch = useDispatch();
   const homeSalonData = useSelector((state) => state.homeSalon.homeSalonData);
   const loading = useSelector((state) => state.homeSalon.loading);
   const error = useSelector((state) => state.homeSalon.error);
 
-  console.log(homeSalonData)
+
+ const navigate = useNavigate()
+  const handledetails = (id) => {
+    navigate(`/home/product/${id}`)
+  }
+
+
+
   const getData = async () => {
     // setLoading(true);
     dispatch({type:'homeSalon/setLoading',payload:true});
@@ -58,7 +65,6 @@ const [currentlatitude, setCurrentlatitude] = useState(null);
     }
 
   },[])
-  console.log(currentlatitude,currentlongitude)
 
   const getDistance = (lat1, lon1, lat2, lon2) => {
   const R = 6371; // Earth radius in KM
@@ -144,7 +150,7 @@ const [currentlatitude, setCurrentlatitude] = useState(null);
               </div>
 
               <div className="flex justify-end text-sm">
-                <button className="text-indigo-600 font-medium hover:underline">
+                <button onClick={()=>handledetails(item._id)} className="text-indigo-600 font-medium hover:underline">
                   See More
                 </button>
               </div>

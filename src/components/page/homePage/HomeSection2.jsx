@@ -4,10 +4,10 @@ import popularNearMe from '../../data';
 import { useNavigate } from 'react-router-dom';
 const HomeSection2 = () => {
 
-  const navigate = useNavigate()
-  const handledetails = (id) => {
-    navigate(`/home/product/${id}`)
-  }
+  // const navigate = useNavigate()
+  // const handledetails = (id) => {
+  //   navigate(`/home/product/${id}`)
+  // }
 
   // const [latitude, setLatitude] = useState(null);
   // const [longitude, setLongitude] = useState(null);
@@ -41,7 +41,6 @@ const HomeSection2 = () => {
       <div className="grid md:grid-cols-3 gap-6">
         {popularNearMe.map((item) => (
           <div
-            onClick={() => handledetails(item.id)}
             key={item.id}
             className="bg-white rounded-2xl shadow-sm hover:shadow-md transition-all p-4 border border-gray-100"
           >
