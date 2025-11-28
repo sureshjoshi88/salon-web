@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from "react-redux"
 import { getdata } from '../../../redux/superAdmin/SuperAdmin';
 import { FaUser, FaPhone, FaEnvelope, FaCheckCircle, FaTimesCircle } from "react-icons/fa";
+import CardLoader from '../homePage/CardLoader';
 
 
 const SuperAdminManageUser = () => {
@@ -19,6 +20,8 @@ const [PageNumber,setPageNumber] = useState(1)
   return (
     <div className='p-2 mt-2'>
  <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+   {loading && Array.from({length:8}).map((_, item) =>
+          <CardLoader />)}
   {data.user?.users?.map((item) => (
     <div
       key={item._id}

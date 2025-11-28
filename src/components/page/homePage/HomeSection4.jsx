@@ -106,7 +106,7 @@ const HomeSection3 = () => {
       </div> */}
       <div className="flex bg-gray-50 md:h-190 p-6">
         {/* Left Sidebar */}
-        <div className="w-1/4 bg-white rounded-2xl p-5 shadow-sm hidden md:block">
+        <div className="w-1/4 bg-white rounded-2xl p-5 shadow-sm hidden md:block md:overflow-y-scroll scoll scrollbar-hideen">
           <div className="flex justify-between items-center mb-4">
             <h2 className="text-lg font-semibold">Filters</h2>
             <button className="text-sm text-gray-500 hover:text-indigo-600">

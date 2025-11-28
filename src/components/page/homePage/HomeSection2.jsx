@@ -3,68 +3,6 @@ import { FaMapMarkerAlt, FaStar, FaRupeeSign, FaClock } from "react-icons/fa";
 import popularNearMe from '../../data';
 import { useNavigate } from 'react-router-dom';
 const HomeSection2 = () => {
-  //  const popularNearMe = [
-  //   {
-  //     id: 1,
-  //     imgage: "https://img.freepik.com/premium-photo/hairdressers-makeup-artist-working-beauty-salon_10069-11140.jpg?semt=ais_hybrid&w=740&q=80",
-  //     name: "Elegance Beauty Lounge",
-  //     rating: 4.8,
-  //     distance: "1.4 km",
-  //     category1: {
-  //       service: 'Womens Haircut',
-  //       price: '₹299'
-  //     },
-  //     category2: {
-  //       service: 'Balayage',
-  //       price: '₹499'
-  //     },
-  //     category3: {
-  //       service: 'Balayage',
-  //       price: '₹499'
-  //     },
-  //     duration: "30-60 mins"
-  //   },
-  //   {
-  //     id: 2,
-  //     imgage: "https://img.freepik.com/premium-photo/hairdressers-makeup-artist-working-beauty-salon_10069-11140.jpg?semt=ais_hybrid&w=740&q=80",
-  //     name: "Elegance Beauty Lounge",
-  //     rating: 4.8,
-  //     distance: "1.4 km",
-  //     category1: {
-  //       service: 'Womens Haircut',
-  //       price: '₹299'
-  //     },
-  //     category2: {
-  //       service: 'Balayage',
-  //       price: '₹499'
-  //     },
-  //     category3: {
-  //       service: 'Balayage',
-  //       price: '₹499'
-  //     },
-  //     duration: "30-60 mins"
-  //   },
-  //   {
-  //     id: 3,
-  //     imgage: "https://img.freepik.com/premium-photo/hairdressers-makeup-artist-working-beauty-salon_10069-11140.jpg?semt=ais_hybrid&w=740&q=80",
-  //     name: "Elegance Beauty Lounge",
-  //     rating: 4.8,
-  //     distance: "1.4 km",
-  //     category1: {
-  //       service: 'Womens Haircut',
-  //       price: '₹299'
-  //     },
-  //     category2: {
-  //       service: 'Balayage',
-  //       price: '₹499'
-  //     },
-  //     category3: {
-  //       service: 'Balayage',
-  //       price: '₹499'
-  //     },
-  //     duration: "30-60 mins"
-  //   }
-  // ]
 
   const navigate = useNavigate()
   const handledetails = (id) => {

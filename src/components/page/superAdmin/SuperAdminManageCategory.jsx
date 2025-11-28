@@ -3,6 +3,7 @@ import { FiEdit2, FiTrash2 } from "react-icons/fi";
 import { useSelector, useDispatch } from "react-redux"
 import { getdata } from '../../../redux/superAdmin/SuperAdmin';
 import CardLoader from '../homePage/CardLoader';
+import { CiCircleRemove } from "react-icons/ci";
 
 const SuperAdminManageCategory = () => {
   const [addform, setAddform] = useState(false)
@@ -93,7 +94,7 @@ const SuperAdminManageCategory = () => {
         <button style={{ background: "var(--primary-gradient)" }} className='px-4 p-2 font-medium text-white  rounded-lg cursor-pointer' onClick={() => { setAddbutton(true), setAddform(true) }}>+ Add Category</button>
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 mt-4">
-        {loading && Array.from({ length: data.saloncategory?.categories.length }).map((_, item) =>
+        {loading && Array.from({length:6}).map((_, item) =>
           <CardLoader />)}
         {error && <p>{error}</p>}
         {data.saloncategory?.categories?.map((service) => (
@@ -121,45 +122,12 @@ const SuperAdminManageCategory = () => {
       </div>
 
 
-      {/* <div className="max-w-md mx-auto p-5 bg-white shadow-lg rounded-xl mt-10">
-        <h2 className="text-2xl font-semibold text-center mb-6">Edit Category</h2>
-
-        <form className="space-y-5">
-
-          <div>
-            <label className="block mb-1 font-medium">Category Name</label>
-            <input
-              type="text"
-              placeholder="Enter category name"
-              className="w-full bg-[var(--secondary)] p-2 outline-0 rounded-lg outline-none focus:border-blue-500"
-              required
-            />
-          </div>
-
-          <div>
-            <label className="block mb-1 font-medium">Category Icon</label>
-            <input
-              type="text"
-              placeholder='Category Icon'
-              className="w-full bg-[var(--secondary)] outline-0 p-2 rounded-lg cursor-pointer"
-              required
-            />
-          </div>
-          <button
-            type="button"
-            style={{ background: 'var(--primary-gradient)' }}
-            className="w-full font-medium text-lg  text-white py-2 rounded-lg cursor-pointer transition "
-          >
-            Save
-          </button>
-
-        </form>
-
-
-      </div> */}
-
       {addform && <div className="max-w-md mx-auto p-5 bg-white shadow-lg rounded-xl mt-10">
         <h2 className="text-2xl font-semibold text-center mb-6">{addbutton ? 'Add Category' : 'Edit Category'}</h2>
+
+        <div className='flex justify-end -2'>
+          <p onClick={() => setAddform(false)} className='text-2xl font-bold text-red-500 cursor-pointer'><CiCircleRemove /></p>
+        </div>
 
         <form className="space-y-5">
 
