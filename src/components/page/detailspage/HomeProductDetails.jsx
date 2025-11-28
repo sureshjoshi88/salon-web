@@ -4,7 +4,7 @@ import React, { useEffect } from 'react'
 import { Link, NavLink, Outlet, useParams } from 'react-router-dom';
 // import popularNearMe from '../../data';
 import { useSelector, useDispatch } from 'react-redux';
-import { getdata } from '../../../redux/superAdmin/SuperAdmin';
+import { getSalondata } from '../../../redux/userSlice/homeSalon';
 
 const HomeProductDetails = () => {
   const { id } = useParams();
@@ -18,7 +18,7 @@ const HomeProductDetails = () => {
   const dispatch = useDispatch()
 
   const handlegetData = () => {
-    dispatch(getdata({
+    dispatch(getSalondata({
       url: `${import.meta.env.VITE_API_URL}user/get-salon/${id}`,
       key: 'productDetails',
       token: token

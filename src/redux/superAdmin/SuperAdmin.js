@@ -1,4 +1,4 @@
-import { createSlice, asyncThunkCreator, createAsyncThunk } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 export const getdata = createAsyncThunk('homesalon/getapidata', async ({ url, key,token }) => {
     const res = await fetch(url, {
