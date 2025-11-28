@@ -4,7 +4,6 @@ import CardLoader from "./CardLoader";
 import {useDispatch,useSelector} from "react-redux"
 const HomeSection3 = () => {
   const [category, setCategory] = useState("men");
-  const [data, setData] = useState([]);
   // const [loading, setLoading] = useState(true);
 
   const dispatch = useDispatch();
@@ -12,6 +11,7 @@ const HomeSection3 = () => {
   const loading = useSelector((state) => state.homeSalon.loading);
   const error = useSelector((state) => state.homeSalon.error);
 
+  console.log(homeSalonData)
   const getData = async () => {
     // setLoading(true);
     dispatch({type:'homeSalon/setLoading',payload:true});
@@ -31,6 +31,7 @@ const HomeSection3 = () => {
     }
   };
 
+
   useEffect(() => {
     getData();
   }, [dispatch,category]);
@@ -43,6 +44,38 @@ const HomeSection3 = () => {
     transition: "0.3s",
   });
 
+const [currentlatitude, setCurrentlatitude] = useState(null);
+  const [currentlongitude, setCurrentlongitude] = useState(null);
+
+  useEffect(() => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position => { 
+        setCurrentlatitude(position.coords.latitude);
+        setCurrentlongitude(position.coords.longitude);
+      }));
+    } else{
+      console.log("geolocation not supported")
+    }
+
+  },[])
+  console.log(currentlatitude,currentlongitude)
+
+  const getDistance = (lat1, lon1, lat2, lon2) => {
+  const R = 6371; // Earth radius in KM
+  const dLat = (lat2 - lat1) * (Math.PI / 180);
+  const dLon = (lon2 - lon1) * (Math.PI / 180);
+
+  const a =
+    Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+    Math.cos(lat1 * (Math.PI / 180)) *
+      Math.cos(lat2 * (Math.PI / 180)) *
+      Math.sin(dLon / 2) * Math.sin(dLon / 2);
+
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+  const distance = R * c; // Distance in KM
+  return distance.toFixed(2); // round karke return
+};
   return (
     <div className="p-2">
         <div className='flex justify-between p-2 '>
@@ -67,6 +100,7 @@ const HomeSection3 = () => {
         </button>
       </div>
 
+      {error&&<p>{error}</p>}
       <div className="grid md:grid-cols-3 gap-4 lg:grid-cols-4">
         
         {loading &&
@@ -102,6 +136,11 @@ const HomeSection3 = () => {
                     {srv.name}
                   </span>
                 ))}
+              </div>
+              <div>
+                
+                <p>Distance: {getDistance(currentlatitude,currentlongitude,item.location.coordinates[0],item.location.coordinates[1])} km</p>
+                
               </div>
 
               <div className="flex justify-end text-sm">

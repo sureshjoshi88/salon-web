@@ -34,12 +34,15 @@ import SuperAdminHomeLayout from '../page/superAdmin/superadminhome/SuperAdminHo
 import SuperAdminManageSalon from '../page/superAdmin/SuperAdminManageSalon'
 import SuperAdminManageUser from '../page/superAdmin/SuperAdminManageUser'
 import SuperAdminManageCategory from '../page/superAdmin/SuperAdminManageCategory'
+import Default from '../page/homePage/Default'
 
 const AllRoute = () => {
   return (
     <div>
       <Routes>
         {/* user routes */}
+
+        <Route path='*' element={<Default/>}/>
 
         <Route path='/' element={<UserLayout />}>
           <Route index element={<UserProtectRoute><HomeLayout /></UserProtectRoute>} />
