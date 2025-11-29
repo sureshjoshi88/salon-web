@@ -2,45 +2,32 @@ import React, { useEffect, useState } from 'react'
 import { FiEdit2, FiTrash2 } from 'react-icons/fi';
 import { BeatLoader } from "react-spinners";
 import { CiCircleRemove } from "react-icons/ci";
+import { useDispatch, useSelector } from 'react-redux';
+import { getDataAdmin } from '../../../redux/adminSlice/adminSlice';
 
 
 const AdminSpecialist = () => {
     const [specialists, setSpecialists] = useState('')
     const [specialForm, setspecialForm] = useState(false)
-    const [loading, setLoading] = useState(false)
+    // const [loading, setLoading] = useState(false)
     const [updateForm, setUpdateForm] = useState(false)
     const [updateId, setUpdateId] = useState('')
     const token = localStorage.getItem("authtoken");
 
 
-    const handleGetData = async () => {
-        try {
-            const myHeaders = new Headers();
-            myHeaders.append("Authorization", `Bearer ${token}`);
+    const dispatch = useDispatch()
 
-
-            const requestOptions = {
-                method: "GET",
-                headers: myHeaders,
-                redirect: "follow"
-            };
-
-            setLoading(true)
-            await fetch("https://saloonbackend-mumt.onrender.com/api/salon-admin/get-specialists", requestOptions)
-                .then((response) => response.json())
-                .then((result) => {
-                    console.log(result)
-                    setSpecialists(result)
-                    setLoading(false)
-                })
-        } catch (error) {
-            console.log(error)
-            setLoading(false)
-        }
+    // get data for redux
+    const handleGetData = () => {
+        dispatch(getDataAdmin({ url: `${import.meta.env.VITE_API_URL}salon-admin/get-specialists`, key: 'speciallist', token: token }))
     }
+
     useEffect(() => {
         handleGetData()
     }, [])
+    const { data, loading, error } = useSelector((state) => state.admin)
+
+
 
 
     const [form, setForm] = useState({
@@ -203,9 +190,9 @@ const AdminSpecialist = () => {
 
             {loading && <div className="flex justify-center items-center h-64"><BeatLoader size={20} /></div>}
 
-            <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
-                {specialists &&
-                    specialists.specialists.map((item) => (
+            <div className="grid sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {data &&
+                    data?.speciallist?.specialists?.map((item) => (
                         <div
                             key={item._id}
                             className="bg-white shadow-md hover:shadow-lg transition-all duration-300 rounded-xl overflow-hidden border border-gray-200"

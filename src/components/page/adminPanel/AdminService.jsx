@@ -1,19 +1,34 @@
 import React, { useEffect, useState } from 'react'
 import { FiEdit2, FiTrash2, FiClock } from "react-icons/fi";
 import { BeatLoader } from 'react-spinners';
+import { getDataAdmin } from '../../../redux/adminSlice/adminSlice';
+import { useDispatch, useSelector } from "react-redux"
 
 const AdminService = () => {
   const [serviceItems, setServiceItems] = useState('');
-
   const [formOpen, setFormOpen] = useState(false);
   const [updateFormOpen, setUpdateFormOpen] = useState(false);
   const [id, setId] = useState('');
-  const [loading, setLoading] = useState(false);
+  const [updateForm, setUpdateForm] = useState({});
 
 
+
+  const dispatch = useDispatch()
   const token = localStorage.getItem("authtoken");
 
 
+  // get data for redux
+  const handleGetData = () => {
+    dispatch(getDataAdmin({ url: `${import.meta.env.VITE_API_URL}salon-admin/get-service-items`, key: 'service', token: token }))
+  }
+
+  useEffect(() => {
+    handleGetData()
+  }, [])
+
+
+   const { data, loading, error } = useSelector((state) => state.admin)
+  
   const [form, setForm] = useState({
     name: "",
     category: "",
@@ -116,7 +131,6 @@ const AdminService = () => {
   };
 
 
-  const [updateForm, setUpdateForm] = useState({});
 
   const handleUpdateChange = (e) => {
     setUpdateForm({
@@ -149,6 +163,7 @@ const AdminService = () => {
           console.log(result)
           setUpdateFormOpen(false);
           alert("Service Item Updated Successfully!");
+          handleGetData()
         })
     } catch (error) {
       console.log(error)
@@ -176,6 +191,8 @@ const AdminService = () => {
         .then((result) => {
           if (result.success) {
             alert(result.message);
+            handleGetData()
+
           } else {
             alert("Error: " + result.message);
           }
@@ -185,33 +202,6 @@ const AdminService = () => {
       console.log(error)
     }
   }
-
-
-
-
-  useEffect(() => {
-    const myHeaders = new Headers();
-    myHeaders.append("Authorization", `Bearer ${token}`);
-
-    const requestOptions = {
-      method: "GET",
-      headers: myHeaders,
-      redirect: "follow"
-    };
-
-    setLoading(true);
-    fetch(`${import.meta.env.VITE_API_URL}salon-admin/get-service-items`, requestOptions)
-      .then((response) => response.json())
-      .then((result) => {
-        console.log(result)
-        setServiceItems(result);
-        setLoading(false);
-      })
-      .catch((error) => {
-        console.error(error);
-        setLoading(false);
-      });
-  }, [])
 
 
   return (
@@ -232,7 +222,7 @@ const AdminService = () => {
 
           {/* Service Cards */}
           <div className="grid md:grid-cols-2 gap-6 bg-gray-50">
-            {serviceItems.services?.map((service, index) => (
+            {data?.service?.services?.map((service, index) => (
               <div
                 key={index}
                 className="bg-white shadow-xl rounded-xl p-5 shadow-sm relative"
@@ -259,7 +249,7 @@ const AdminService = () => {
                     <FiClock size={16} /> {service.durationMins} min
                   </p>
                 </div>
-                <div className="flex justify-between items-center mt-4 text-sm">
+                <div className="flex flex-wrap justify-between items-center mt-4 text-sm">
                   <p className="font-medium flex gap-1">
                     <span>Discount</span> {service.discountPercent} %
                   </p>
