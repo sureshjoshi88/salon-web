@@ -124,11 +124,11 @@ console.log(data)
               ? " font-medium border-b p-2"
               : ""
           }>Reviews</NavLink>
-          <NavLink to="policies" className={({ isActive }) =>
+          <NavLink to="specialists" className={({ isActive }) =>
             isActive
               ? " font-medium border-b p-2"
               : ""
-          }>Policies</NavLink>
+          }>specialists</NavLink>
         </div>
         <div>
           <Outlet />

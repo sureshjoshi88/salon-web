@@ -34,7 +34,14 @@ const ProfileAdmin = () => {
                             alt="Profile"
                         />
                      </Link>
-                        <div className="text-center">
+                       {token?<div className="text-center">
+                            <h2 className="text-xl font-semibold">Welcome</h2>
+                            <p className="text-lg font-medium  mt-1">{user.name}</p>
+                            <p className="text-sm opacity-90 mt-1">{user.email}</p>
+                            <p className="text-sm opacity-90 mt-1">{user.phone}</p>
+                            <p className="text-sm opacity-90 mt-1">{user.role}</p>
+                        </div>: <div>
+                            <div className="text-center">
                             <h2 className="text-xl font-semibold">Welcome</h2>
                             <p className="text-sm opacity-90 mt-1">Sign in to view your complete profile</p>
                         </div>
@@ -50,7 +57,7 @@ const ProfileAdmin = () => {
                                     Sign Up
                                 </button>
                             </Link>
-                        </div>
+                        </div></div>}
 
                         <p className="text-xs opacity-85 text-center mt-4">Join our community — coins, offers and partner programs await.</p>
                     </aside>

@@ -39,6 +39,7 @@ import ServiceSection1 from '../page/user/service/ServiceSection1'
 import AboutSection1 from '../page/user/about/AboutSection1'
 import ContactSection1 from '../page/user/contact/ContactSection1'
 import SuperAdminDetails from '../page/superAdmin/SuperAdminDetails'
+import Specialists from '../page/detailspage/DeatilsLayout/specialists'
 
 const AllRoute = () => {
   return (
@@ -58,6 +59,7 @@ const AllRoute = () => {
             <Route path="gallery" element={<GalleryDetails />} />
             <Route path="map" element={<MapAndLocation />} />
             <Route path="reviews" element={<ReviewDetails />} />
+            <Route path="specialists" element={<Specialists />} />
           </Route>
           <Route path='/service' element={<ServiceSection1/>}/>
           <Route path='/about' element={<AboutSection1/>}/>

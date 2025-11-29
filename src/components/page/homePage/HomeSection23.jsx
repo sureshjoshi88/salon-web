@@ -5,7 +5,6 @@ import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
 import "swiper/css";
 import "swiper/css/navigation";
-import "swiper/css/pagination";
 
 const HomeSection23 = () => {
     const [categories, setCategories] = useState('');
@@ -22,7 +21,7 @@ const HomeSection23 = () => {
         <div className="w-full relative p-5">
            <div>
              <Swiper
-                modules={[Navigation, Pagination, Autoplay]}
+                modules={[Navigation, Autoplay]}
                 navigation={{
                     nextEl: ".cat-next-btn",
                     prevEl: ".cat-prev-btn",
@@ -47,7 +46,7 @@ const HomeSection23 = () => {
 
                 { categories&&categories?.categories?.map((item, i) => (
                     <SwiperSlide key={i}>
-                        <div className="flex flex-col items-center p-4 pb-11  hover:scale-105 transition-all duration-300">
+                        <div className="flex flex-col items-center p-4   hover:scale-105 transition-all duration-300">
 
                             <div className="w-24 h-24 rounded-full overflow-hidden shadow-md p-2 bg-white">
                                 <img
@@ -68,11 +67,11 @@ const HomeSection23 = () => {
            </div>
 
             {/* ⭐ CUSTOM UNIQUE NAV BUTTONS (NO CONFLICT EVER) */}
-            <button  style={{background:'var(--primary-gradient)'}} className="cat-prev-btn absolute top-1/2 left-2 -translate-y-1/2 cursor-pointer text-white p-3 rounded-full shadow-lg hidden md:flex z-50">
+            <button  style={{background:'var(--primary-gradient)'}} className="cat-prev-btn absolute top-1/2 left-2 -translate-y-1/2 cursor-pointer text-white p-3 rounded-full shadow-lg hidden md:flex z-30">
                 <FaChevronLeft size={18} />
             </button>
 
-            <button style={{background:'var(--primary-gradient)'}} className="cat-next-btn absolute top-1/2 right-2 -translate-y-1/2 cursor-pointer text-white p-3 rounded-full shadow-lg hidden md:flex z-50">
+            <button style={{background:'var(--primary-gradient)'}} className="cat-next-btn absolute top-1/2 right-2 -translate-y-1/2 cursor-pointer text-white p-3 rounded-full shadow-lg hidden md:flex z-30">
                 <FaChevronRight size={18} />
             </button>
 

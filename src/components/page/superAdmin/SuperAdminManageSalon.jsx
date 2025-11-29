@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import CardLoader from '../homePage/CardLoader';
 import { getdata } from '../../../redux/superAdmin/SuperAdmin';
-import {Link} from "react-router-dom"
+import { Link } from "react-router-dom"
 
 const SuperAdminManageSalon = () => {
   const [pageNumber, setPageNumber] = useState(1)
@@ -31,29 +31,29 @@ const SuperAdminManageSalon = () => {
           <CardLoader />)}
 
         {data.allSalon?.saloons.map((item) => (
-            <Link to={`/superadmin/${item._id}`}  state={{ salon: item }} 
-  key={item._id} >
+          <Link to={`/superadmin/${item._id}`} state={{ salon: item }}
+            key={item._id} >
 
-          <div key={item._id} className="p-4 shadow rounded bg-white">
-            <p className="font-bold text-lg">{item.shopName}</p>
+            <div key={item._id} className="p-4 shadow rounded bg-white">
+              <p className="font-bold text-lg">{item.shopName}</p>
 
-            <p className="text-sm text-gray-600">
-              Owner: {item?.owner?.name}
-            </p>
+              <p className="text-sm text-gray-600">
+                Owner: {item?.owner?.name}
+              </p>
 
-            <p className="text-sm">
-              Contact: {item.contactNumber}
-            </p>
+              <p className="text-sm">
+                Contact: {item.contactNumber}
+              </p>
 
-            <p className="text-sm">
-              Staff: {item.numberOfStaff}
-            </p>
+              <p className="text-sm">
+                Staff: {item.numberOfStaff}
+              </p>
 
-            <p className="text-sm text-blue-600 mt-2">
-              {item?.location?.address || "No Address"}
-            </p>
-          </div>
-           </Link>
+              <p className="text-sm text-blue-600 mt-2">
+                {item?.location?.address || "No Address"}
+              </p>
+            </div>
+          </Link>
         ))}
 
       </div>
