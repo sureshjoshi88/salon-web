@@ -11,8 +11,9 @@ const SuperAdminManageCategory = () => {
   const [icon, setIcon] = useState('')
   const [id, setId] = useState('')
   const [addbutton, setAddbutton] = useState(false)
-  const [gender,setGender] = useState('')
+  const [gender, setGender] = useState('men')
 
+  console.log(gender)
   const dispatch = useDispatch()
   const { data, loading, error } = useSelector((state) => state.salons)
   console.log(data)
@@ -31,7 +32,7 @@ const SuperAdminManageCategory = () => {
       const raw = JSON.stringify({
         "name": name,
         "icon": icon,
-        "gender":gender
+        "gender": gender
       });
 
       const requestOptions = {
@@ -46,6 +47,8 @@ const SuperAdminManageCategory = () => {
         .then((result) => {
           console.log(result)
           handlegetData()
+          alert(result.message)
+
 
         })
     } catch (error) {
@@ -68,7 +71,7 @@ const SuperAdminManageCategory = () => {
       if (icon) {
         raw.icon = icon
       }
-      if(gender){
+      if (gender) {
         raw.gender = gender
       }
 
@@ -84,6 +87,7 @@ const SuperAdminManageCategory = () => {
         .then((result) => {
           console.log(result)
           handlegetData()
+          alert(result.message)
         })
     } catch (error) {
       console.log(error)
@@ -103,45 +107,45 @@ const SuperAdminManageCategory = () => {
           <CardLoader />)}
         {error && <p>{error}</p>}
         {data.saloncategory?.categories?.map((service) => (
-         <div
-  key={service._id}
-  className="flex items-center justify-between p-4 bg-white shadow-md rounded-xl
+          <div
+            key={service._id}
+            className="flex items-center justify-between p-4 bg-white shadow-md rounded-xl
              hover:shadow-xl transition-all duration-300 border border-gray-100"
->
-  {/* Left Section */}
-  <div className="flex flex-col justify-between">
-    <p className="text-lg font-semibold text-gray-800">{service.name}</p>
-    <p className="text-sm text-gray-500 mt-1 capitalize">
-      Gender: <span className="font-medium text-gray-700">{service.gender}</span>
-    </p>
+          >
+            {/* Left Section */}
+            <div className="flex flex-col justify-between">
+              <p className="text-lg font-semibold text-gray-800">{service.name}</p>
+              <p className="text-sm text-gray-500 mt-1 capitalize">
+                Gender: <span className="font-medium text-gray-700">{service.gender}</span>
+              </p>
 
-    {/* Actions */}
-    <div className="flex gap-4 text-gray-600 mt-3">
-      <FiEdit2
-        onClick={() => {
-          setId(service._id);
-          setAddform(true);
-        }}
-        className="cursor-pointer hover:text-blue-500 transition"
-        size={20}
-      />
-      <FiTrash2
-        className="cursor-pointer hover:text-red-500 transition"
-        size={20}
-      />
-    </div>
-  </div>
+              {/* Actions */}
+              <div className="flex gap-4 text-gray-600 mt-3">
+                <FiEdit2
+                  onClick={() => {
+                    setId(service._id);
+                    setAddform(true);
+                  }}
+                  className="cursor-pointer hover:text-blue-500 transition"
+                  size={20}
+                />
+                <FiTrash2
+                  className="cursor-pointer hover:text-red-500 transition"
+                  size={20}
+                />
+              </div>
+            </div>
 
-  {/* Right Section (Image) */}
-  <img
-    className="w-16 h-16 rounded-xl object-cover border border-gray-200 shadow-sm"
-    src={
-      service.icon ||
-      "https://cdn-icons-png.flaticon.com/512/1005/1005661.png"
-    }
-    alt={service.name}
-  />
-</div>
+            {/* Right Section (Image) */}
+            <img
+              className="w-16 h-16 rounded-xl object-cover border border-gray-200 shadow-sm"
+              src={
+                service.icon ||
+                "https://cdn-icons-png.flaticon.com/512/1005/1005661.png"
+              }
+              alt={service.name}
+            />
+          </div>
 
         ))}
       </div>
@@ -193,7 +197,7 @@ const SuperAdminManageCategory = () => {
               className="w-full bg-[var(--secondary)] p-2 outline-0 rounded-lg cursor-pointer focus:border-blue-500"
               required
             >
-              <option value="men">Men</option>
+              <option  value="men">Men</option>
               <option value="women">Women</option>
               <option value="unisex">Unisex</option>
             </select>
@@ -211,7 +215,7 @@ const SuperAdminManageCategory = () => {
             :
             <button
               type="submit"
-              onClick={handleUpdate}
+              onClick={() => handleUpdate()}
 
               style={{ background: 'var(--primary-gradient)' }}
               className="w-full font-medium text-lg  text-white py-2 rounded-lg cursor-pointer transition "

@@ -10,9 +10,6 @@ const AdminService = () => {
   const [updateFormOpen, setUpdateFormOpen] = useState(false);
   const [id, setId] = useState('');
   const [updateForm, setUpdateForm] = useState({});
-
-
-
   const dispatch = useDispatch()
   const token = localStorage.getItem("authtoken");
 
@@ -40,6 +37,7 @@ const AdminService = () => {
     status: "active",
     providerType: "salon",
     providerId: "",
+    gender : 'men'
   });
 
   const handleChange = (e) => {
@@ -70,7 +68,8 @@ const AdminService = () => {
         "image": form.image,
         "status": form.status,
         "providerType": form.providerType,
-        "providerId": form.providerId
+        "providerId": form.providerId,
+        'gender' : form.gender
       });
 
       const requestOptions = {
@@ -95,6 +94,7 @@ const AdminService = () => {
             form.status = "active";
             form.providerType = "salon";
             form.providerId = "";
+            form.gender = ''
             setFormOpen(false);
             return;
           }
@@ -108,6 +108,8 @@ const AdminService = () => {
           form.status = "active";
           form.providerType = "salon";
           form.providerId = "";
+                      form.gender = ''
+
           setFormOpen(false);
           console.log(result)
           alert("Service Item Added Successfully!");
@@ -412,6 +414,19 @@ const AdminService = () => {
             </div>
 
           </div>
+        </div>
+        <div className='pb-3'>
+            <label className="block mb-1 font-medium">Gender</label>
+            <select
+              value={form.gender}
+              onChange={handleChange}
+              className="w-full border p-2 rounded cursor-pointer "
+              required
+            >
+              <option  value="men">Men</option>
+              <option value="women">Women</option>
+              <option value="unisex">Unisex</option>
+            </select>
         </div>
         <button
           type="submit"

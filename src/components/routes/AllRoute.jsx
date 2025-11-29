@@ -41,6 +41,7 @@ import ContactSection1 from '../page/user/contact/ContactSection1'
 import SuperAdminDetails from '../page/superAdmin/SuperAdminDetails'
 import Specialists from '../page/detailspage/DeatilsLayout/specialists'
 import SuperAdminProfile from '../page/superAdmin/SuperAdminProfile'
+import SuperAdminProtectRoute from '../page/authenction/SuperAdminProtectRoute'
 
 const AllRoute = () => {
   return (
@@ -96,7 +97,7 @@ const AllRoute = () => {
 
         {/* SuperAdminRoute */}
         <Route path='/superadmin' element={<SuperAdminLayout />}>
-          <Route index element={<SuperAdminHomeLayout />} />
+          <Route index element={<SuperAdminProtectRoute><SuperAdminHomeLayout /></SuperAdminProtectRoute>} />
           <Route path='/superadmin/dashboard' element={<SuperAdminHomeLayout />} />
           <Route path='/superadmin/managesalon' element={<SuperAdminManageSalon/>}/>
           <Route path='/superadmin/manageuser' element={<SuperAdminManageUser/>}/>
