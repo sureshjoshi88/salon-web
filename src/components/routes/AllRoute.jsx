@@ -40,6 +40,7 @@ import AboutSection1 from '../page/user/about/AboutSection1'
 import ContactSection1 from '../page/user/contact/ContactSection1'
 import SuperAdminDetails from '../page/superAdmin/SuperAdminDetails'
 import Specialists from '../page/detailspage/DeatilsLayout/specialists'
+import SuperAdminProfile from '../page/superAdmin/SuperAdminProfile'
 
 const AllRoute = () => {
   return (
@@ -101,6 +102,7 @@ const AllRoute = () => {
           <Route path='/superadmin/manageuser' element={<SuperAdminManageUser/>}/>
           <Route path='/superadmin/managecategory' element={<SuperAdminManageCategory/>}/>
           <Route path='/superadmin/:id' element={<SuperAdminDetails/>}/>
+          <Route path='/superadmin/profile' element={<SuperAdminProfile/>}/>
         </Route>
 
 
