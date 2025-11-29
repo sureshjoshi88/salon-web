@@ -19,6 +19,8 @@ const Icon = ({ className = 'w-8 h-8 text-indigo-500' }) => (
     </svg>
 )
 
+const user  = JSON.parse(localStorage.getItem('userdata'))||{}
+const token = localStorage.getItem("authtoken")
 const ProfileAdmin = () => {
     return (
         <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">

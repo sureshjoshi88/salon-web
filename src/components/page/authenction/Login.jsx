@@ -41,19 +41,21 @@ const Login = () => {
         localStorage.setItem("authtoken", result.token);
         localStorage.setItem("userrole", result.user.role);
         if (result.user?.role === "customer") {
+          localStorage.setItem("userdata", JSON.stringify(result.user));
           navigate("/")
           setForm({ email: "", password: "" });
         } else if (result.user.role === "salon_owner") {
-          localStorage.setItem("userdata",JSON.stringify(result.user));
+          localStorage.setItem("admindata", JSON.stringify(result.user));
           navigate('/admin')
-           setForm({ email: "", password: "" });
+          setForm({ email: "", password: "" });
         } else {
+          localStorage.setItem("superadmindata", JSON.stringify(result.user));
           navigate("/superadmin")
-           setForm({ email: "", password: "" });
+          setForm({ email: "", password: "" });
         }
       })
       .catch((error) => console.error(error));
-       setForm({ email: "", password: "" });
+    setForm({ email: "", password: "" });
   }
 
 
