@@ -5,7 +5,7 @@ const Specialists = () => {
 
     return (
         <div>
-            speclist
+            hello
         </div>
     )
 }

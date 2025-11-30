@@ -39,9 +39,9 @@ import ServiceSection1 from '../page/user/service/ServiceSection1'
 import AboutSection1 from '../page/user/about/AboutSection1'
 import ContactSection1 from '../page/user/contact/ContactSection1'
 import SuperAdminDetails from '../page/superAdmin/SuperAdminDetails'
-import Specialists from '../page/detailspage/detailsLayout/specialists'
 import SuperAdminProfile from '../page/superAdmin/SuperAdminProfile'
 import SuperAdminProtectRoute from '../page/authenction/SuperAdminProtectRoute'
+import Specialists from '../page/detailspage/detailsLayout/Specialists'
 
 const AllRoute = () => {
   return (
