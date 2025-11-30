@@ -104,7 +104,7 @@ const HomeSection3 = () => {
       <div className="grid md:grid-cols-3 gap-4 lg:grid-cols-4">
 
         {loading &&
-          Array.from({ length: data?.salons?.data.length }).map((_, i) => (
+          Array.from({ length: 4 }).map((_, i) => (
             <CardLoader />
           ))}
 
