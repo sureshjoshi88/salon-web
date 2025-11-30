@@ -13,7 +13,7 @@ const ServiceDetails = () => {
                         <option value="">Combo Packages</option>
                         <option value="">Combo Packages</option>
                     </select>
-                    <select name="" id="" className='w-full border p-2 rounded-xl outline-0 shadow mt-2' mt-2>
+                    <select name="" id="" className='w-full border p-2 rounded-xl outline-0 shadow mt-2'>
                         <option value="">Home Services</option>
                         <option value="">Home Services</option>
                     </select>
