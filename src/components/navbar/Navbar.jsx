@@ -3,24 +3,23 @@ import { HiOutlineMenu, HiOutlineX } from "react-icons/hi";
 import { NavLink } from "react-router-dom";
 import { TbXboxX } from "react-icons/tb";
 import { FaUserCircle } from "react-icons/fa";
-import { FaShoppingCart } from "react-icons/fa";
 import { IoSearch } from "react-icons/io5";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
 
   return (
-    <div style={{ background:'var(--primary-gradient)' }} className='sticky top-0 z-50'>
+    <div style={{ background:'var(--primary-gradient)' }} className='sticky top-0 z-50  text-gray-900  font-medium'>
 
       {/* Main Navbar */}
-      <nav className="shadow-md px-6 py-3 flex justify-between items-center   text-white">
+      <nav className="shadow-md px-6 py-3 flex justify-between items-center">
         {/* Logo */}
         <div >
           <img className="w-15 rounded-full" src="/logo.jpeg" alt="Logo" />
         </div>
 
         {/* Desktop Links */}
-        <ul className="hidden-mobile md:flex lg:space-x-8 md:space-x-5 font-medium text-lg">
+        <ul className="hidden-mobile md:flex lg:space-x-8 md:space-x-5 text-lg">
           <NavLink
             to="/"
             className={({ isActive }) =>
@@ -39,8 +38,8 @@ const Navbar = () => {
           >
             Services
           </NavLink>
-       
-          
+
+
           <NavLink
             to="/about"
             className={({ isActive }) =>
@@ -50,7 +49,7 @@ const Navbar = () => {
           >
             About us
           </NavLink>
-          <NavLink
+          {/* <NavLink
             to="/contact"
             className={({ isActive }) =>
               `cursor-pointer hover:text-[var(--primary)] transition ${isActive ? "text-[#B58152] font-semibold" : ""
@@ -58,27 +57,26 @@ const Navbar = () => {
             }
           >
             Contact us
-          </NavLink>
-          <div className='border-2 rounded-2xl px-2 p-0.5 flex gap-2 items-center '>
+          </NavLink> */}
+          {/* <div className='border rounded-2xl px-2 p-0.5 flex gap-2 items-center '>
             <IoSearch />
             <input className='outline-0 w-full' type="text" name="" id="search" placeholder='Search salons, services, or areas...' />
-          </div>
+          </div> */}
         </ul>
 
- <div className='border-2 rounded-2xl px-2 p-0.5 flex gap-2 sm:w-100 md:120 items-center desltop-hidden me-2'>
-            <IoSearch />
-            <input className='outline-0 w-full' type="text" name="" id="" placeholder='Search salons, services, or areas...' />
-          </div>
+        <div className='border rounded-2xl px-2 p-0.5 flex gap-2 sm:w-100 md:w-70 items-center  me-2'>
+          <IoSearch />
+          <input className='outline-0 w-full' type="text" name="" id="" placeholder='Search salons, services, or areas...' />
+        </div>
         {/* Desktop button */}
         <div className="hidden-mobile md:flex">
-          <button className=" font-medium text-2xl px-4 p-1.5  cursor-pointer">
-            <FaShoppingCart />
-          </button>
+
           <NavLink to="/profile">
             <button className=" px-5 py-2 rounded-xl font-medium cursor-pointer ">
-              <FaUserCircle className="text-2xl" />
+              <FaUserCircle className="text-3xl" />
             </button>
           </NavLink>
+          <button style={{ background : 'linear-gradient(90deg, #ffe1e8, #f5d0d8, #eed9f7)' }} className=' rounded-lg shadow-md  px-3 cursor-pointer'>Get App</button>
         </div>
 
         {/* Mobile Menu Button */}
@@ -115,7 +113,7 @@ const Navbar = () => {
               }
             >
               Services
-            </NavLink>  
+            </NavLink>
             <NavLink
               to="/about"
               onClick={() => setOpen(false)}
@@ -126,7 +124,7 @@ const Navbar = () => {
             >
               About Us
             </NavLink>
-            <NavLink
+            {/* <NavLink
               to="/contact"
               onClick={() => setOpen(false)}
               className={({ isActive }) =>
@@ -135,11 +133,8 @@ const Navbar = () => {
               }
             >
               Contact Us
-            </NavLink>
+            </NavLink> */}
             <div className="flex justify-evenly">
-              <button className=" font-medium text-2xl px-4 p-1.5  cursor-pointer">
-                <FaShoppingCart />
-              </button>
               <NavLink to="/profile">
                 <button className=" px-5 py-2 rounded-xl font-medium cursor-pointer ">
                   <FaUserCircle className="text-2xl" />

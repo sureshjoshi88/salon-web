@@ -1,11 +1,15 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Navigation, Pagination, Autoplay } from 'swiper/modules'
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
-
+import AOS from "aos";
+import "aos/dist/aos.css";
 // Swiper styles
 import 'swiper/css'
 const HomeSection1 = () => {
+    useEffect(() => {
+  AOS.init({ duration: 2000, once: true });
+}, []);
 
       const data   = [
         {
@@ -26,7 +30,7 @@ const HomeSection1 = () => {
       
       ]
   return (
-    <div>
+    <div data-aos="fade-down">
        <div>
         <div className="w-full relative ">
               
@@ -53,7 +57,7 @@ const HomeSection1 = () => {
                           className='w-full h-120 object-cover'
                         />
                        <div className='absolute z-20 lg:top-50 md:top-30 sm:top-22 top-5 text-white flex md:justify-between justify-center p-4 w-full'>
-                          <button className=" hidden md:flex custom-prev cursor-pointer justify-center items-center h-15 w-15 text-2xl bg-[var(--primary)] text-white  rounded-full ">
+                          <button style={{ background:'var(--primary-gradient)' }}  className=" hidden md:flex custom-prev cursor-pointer justify-center items-center h-15 w-15 text-2xl text-black  rounded-full ">
                   <FaChevronLeft />
                 </button>
                         <div className='text-center '>
@@ -61,7 +65,7 @@ const HomeSection1 = () => {
                         <p className='font-semibold md:text-2xl md:pt-3 pt-2 sm:text-xl'>{item.text}</p>
                         <p className='md:pt-3 sm:pt-2 pt-1 md:text-xl'>{item.time}</p>
                         </div>
-                             <button className="custom-next hidden md:flex cursor-pointer  bg-[var(--primary)] text-white justify-center items-center h-15 w-15 text-2xl rounded-full  ">
+                             <button style={{ background:'var(--primary-gradient)' }} className="custom-next hidden md:flex cursor-pointer   text-black justify-center items-center h-15 w-15 text-2xl rounded-full  ">
                   <FaChevronRight />
                 </button>
                        </div>

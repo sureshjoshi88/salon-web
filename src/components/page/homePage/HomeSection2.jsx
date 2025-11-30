@@ -1,9 +1,14 @@
 import React, { use, useEffect, useState } from 'react'
 import { FaMapMarkerAlt, FaStar, FaRupeeSign, FaClock } from "react-icons/fa";
 import popularNearMe from '../../data';
+import AOS from "aos";
+import "aos/dist/aos.css";
 import { useNavigate } from 'react-router-dom';
 const HomeSection2 = () => {
 
+  useEffect(() => {
+  AOS.init({ duration: 2000, once: true });
+}, []);
   // const navigate = useNavigate()
   // const handledetails = (id) => {
   //   navigate(`/home/product/${id}`)
@@ -33,7 +38,7 @@ const HomeSection2 = () => {
   //     }).catch(err=>console.log(err))
   //   },[])
   return (
-    <div className='p-3'>
+    <div data-aos="fade-down" className='p-3'>
       <div className='flex justify-between p-2'>
         <div><p>Popular Near Me</p></div>
         <div><p>View All </p></div>
