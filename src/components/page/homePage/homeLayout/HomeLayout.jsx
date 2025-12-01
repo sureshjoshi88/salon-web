@@ -13,12 +13,12 @@ const HomeLayout = () => {
   return (
     <div>
       <HomeSection1/>
-      <HomeSection22/>
+      {/* <HomeSection22/> */}
       <HomeSection24/>
       <HomeSection25/>
+      <HomeSection3/>
       <HomeSection23/>
       <HomeSection2/>
-      <HomeSection3/>
       <HomeSection4/>
       <HomeSection5/>
     </div>

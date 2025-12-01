@@ -41,13 +41,13 @@ const Navbar = () => {
 
 
           <NavLink
-            to="/about"
+            to="/earn-with-us"
             className={({ isActive }) =>
               `cursor-pointer hover:text-[var(--primary)] transition ${isActive ? "text-[#B58152] font-semibold" : ""
               }`
             }
           >
-            About us
+            <button className='px-3 rounded  cursor-pointer'>Partner With Register</button>
           </NavLink>
           {/* <NavLink
             to="/contact"
@@ -64,9 +64,16 @@ const Navbar = () => {
           </div> */}
         </ul>
 
-        <div className='border rounded-2xl px-2 p-0.5 flex gap-2 sm:w-100 md:w-70 items-center  me-2'>
+        <div className='flex gap-2 items-center'>
+          <div className='border rounded-2xl px-2 p-0.5 flex gap-2 sm:w-100 md:w-50 items-center  me-2'>
           <IoSearch />
-          <input className='outline-0 w-full' type="text" name="" id="" placeholder='Search salons, services, or areas...' />
+          <input className='outline-0 w-full' type="search" name="" id="" placeholder='Search location' />
+        </div>
+
+        <div className='border rounded-2xl px-2 p-0.5 flex gap-2 sm:w-100 md:w-50 items-center  me-2'>
+          <IoSearch />
+          <input className='outline-0 w-full' type="search" name="" id="" placeholder='Search salons, services' />
+        </div>
         </div>
         {/* Desktop button */}
         <div className="hidden-mobile md:flex">
@@ -115,15 +122,14 @@ const Navbar = () => {
               Services
             </NavLink>
             <NavLink
-              to="/about"
-              onClick={() => setOpen(false)}
-              className={({ isActive }) =>
-                `w-full text-center py-2 hover:text-[#B58152] transition ${isActive ? "bg-[#B58152] text-white rounded-md" : ""
-                }`
-              }
-            >
-              About Us
-            </NavLink>
+            to="/earn-with-us"
+            className={({ isActive }) =>
+              `cursor-pointer hover:text-[var(--primary)] transition ${isActive ? "text-[#B58152] font-semibold" : ""
+              }`
+            }
+          >
+            <button className='px-3 rounded  cursor-pointer'>Partner With Register</button>
+          </NavLink>
             {/* <NavLink
               to="/contact"
               onClick={() => setOpen(false)}

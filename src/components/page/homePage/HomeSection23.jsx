@@ -18,7 +18,11 @@ const HomeSection23 = () => {
 
         if (!categories) return <p>Loading...</p>;  
     return (
-        <div className="w-full relative p-5">
+        <div className="w-full relative p-5 mt-3">
+              <div className='flex justify-between p-2'>
+        <div><p className="text-2xl font-medium ">Salon categories</p></div>
+        <div><p className="text-lg text-gray-600 font-medium text-sm">View All </p></div>
+      </div>
            <div>
              <Swiper
                 modules={[Navigation, Autoplay]}

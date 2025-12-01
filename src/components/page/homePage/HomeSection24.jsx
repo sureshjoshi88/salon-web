@@ -71,7 +71,7 @@ const HomeSection24 = () => {
       </div>
 
       {/* Free Offer Banner */}
-      <div className="bg-gradient-to-r from-[#FFD9B7] to-[#FFBC86] p-5 rounded-2xl mt-10 flex items-center gap-4">
+      {/* <div className="bg-gradient-to-r from-[#FFD9B7] to-[#FFBC86] p-5 rounded-2xl mt-10 flex items-center gap-4">
         <HiOutlineGift size={42} className="text-[#6F3F1F]" />
         <div>
           <h4 className="font-semibold text-xl text-[#5A2C1E]">
@@ -81,7 +81,7 @@ const HomeSection24 = () => {
             Experience Glowify with a free service this month.
           </p>
         </div>
-      </div>
+      </div> */}
 
    
     </div>
