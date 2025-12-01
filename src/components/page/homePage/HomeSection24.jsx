@@ -5,36 +5,43 @@ import { PiMaskHappyLight } from "react-icons/pi";
 import { RiScissors2Line } from "react-icons/ri";
 import { IoBrushOutline } from "react-icons/io5";
 import { HiOutlineGift } from "react-icons/hi";
+import img1 from "../../../assets/salon.png"
+import img2 from "../../../assets/salon_service.png"
+import img3 from "../../../assets/haircut.png"
+import img4 from "../../../assets/facial.png"
+import img5 from "../../../assets/waxing.png"
+import img6 from "../../../assets/makeup.png"
+
 
 const HomeSection24 = () => {
   const services = [
     {
-      icon: <FaRegCalendarCheck size={40} />,
+      icon: img1,
       title: "Book Salon Appointment",
       desc: "Find nearby men's & women's salons and book instantly",
     },
     {
-      icon: <LuChrome size={40} />,
+      icon:img2,
       title: "Salon Services at Home",
       desc: "Get grooming services at home by professional beauticians",
     },
     {
-      icon: <BsScissors size={40} />,
+      icon: img3,
       title: "Haircut & Grooming",
       desc: "Professional haircut & styling for men, women & kids",
     },
     {
-      icon: <PiMaskHappyLight size={40} />,
+      icon: img4,
       title: "Facial & Skincare",
       desc: "Glow-boosting facials & skincare for everyone",
     },
     {
-      icon: <RiScissors2Line size={40} />,
+      icon: img5,
       title: "Waxing & Threading",
       desc: "Hygienic waxing & threading services for men & women",
     },
     {
-      icon: <IoBrushOutline size={40} />,
+      icon: img6,
       title: "Makeup & Styling",
       desc: "Party & bridal makeup by professionals",
     },
@@ -60,7 +67,8 @@ const HomeSection24 = () => {
             className="bg-white rounded-2xl shadow-sm p-6 text-center hover:shadow-md transition-all"
           >
             <div className="text-[#F7A97E] flex justify-center mb-3">
-              {item.icon}
+              {/* {item.icon} */}
+              <img className="w-30 rounded-full" src={item.icon} alt="" />
             </div>
             <h3 className="text-lg font-semibold text-[#5A2C1E]">
               {item.title}
@@ -70,18 +78,7 @@ const HomeSection24 = () => {
         ))}
       </div>
 
-      {/* Free Offer Banner */}
-      {/* <div className="bg-gradient-to-r from-[#FFD9B7] to-[#FFBC86] p-5 rounded-2xl mt-10 flex items-center gap-4">
-        <HiOutlineGift size={42} className="text-[#6F3F1F]" />
-        <div>
-          <h4 className="font-semibold text-xl text-[#5A2C1E]">
-            Your 1st Salon or Home Service is FREE!
-          </h4>
-          <p className="text-[#6F4F44]">
-            Experience Glowify with a free service this month.
-          </p>
-        </div>
-      </div> */}
+     
 
    
     </div>

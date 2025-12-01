@@ -2,6 +2,7 @@ import React from 'react'
 import { FaInstagram } from "react-icons/fa";
 import { FaFacebookF } from "react-icons/fa";
 import { FaWhatsapp } from "react-icons/fa";
+import {Link} from "react-router-dom"
 
 const Foter = () => {
   return (
@@ -16,7 +17,9 @@ const Foter = () => {
         </div>
         <div className='space-y-1.5'>
           <p className='font-semibold text-2xl '>Quick Links</p>
+          <Link to='/about'>
           <p className='pt-2'>About Us</p>
+          </Link>
           <p>Contact</p>
           <p>Careers</p>
           <p>Blog</p>
