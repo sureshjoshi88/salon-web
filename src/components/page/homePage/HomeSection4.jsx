@@ -5,6 +5,8 @@ const HomeSection3 = () => {
   const [priceRange, setPriceRange] = useState(2000);
   const [products, setProducts] = useState('');
   const [categories, setCategories] = useState('');
+  const [selectedGender, setSelectedGender] = useState("men");
+
 
   const salon = [
     {
@@ -70,7 +72,7 @@ const HomeSection3 = () => {
   ];
 
   useEffect(() => {
-    fetch('https://saloonbackend-mumt.onrender.com/api/user/get-featured-salons')
+    fetch('https://saloonbackend-mumt.onrender.com/api/user/get-featured-salons/${}')
       .then(res => res.json())
       .then((data) => {
         setProducts(data)
@@ -78,13 +80,13 @@ const HomeSection3 = () => {
       .catch((err) => console.log(err))
   }, [])
   useEffect(() => {
-    fetch('https://saloonbackend-mumt.onrender.com/api/user/get-all-categories')
+    fetch(`https://saloonbackend-mumt.onrender.com/api/user/get-all-categories?gender=${selectedGender}`)
       .then(res => res.json())
       .then((data) => {
         setCategories(data)
       })
       .catch((err) => console.log(err))
-  }, [])
+  }, [selectedGender])
   return (
     <div className="p-4">
       <div>
@@ -127,6 +129,28 @@ const HomeSection3 = () => {
           {/* Services */}
           <div className="mb-6">
             <h3 className="font-medium mb-2">Services</h3>
+          <div className="flex gap-4 items-center mb-2">
+  <label className="flex gap-1.5 items-center font-medium p-2">
+    <input
+      type="radio"
+      name="gender"
+      checked={selectedGender === "men"}
+      onChange={() => setSelectedGender("men")}
+    />
+
+    Men
+  </label>
+
+  <label className="flex gap-1.5 items-center font-medium p-2">
+    <input
+      type="radio"
+      name="gender"
+      checked={selectedGender === "women"}
+      onChange={() => setSelectedGender("women")}
+    />
+    Women
+  </label>
+</div>
             {categories&& categories.categories.map(
               (service) => (
                 <div key={service._id} className="flex items-center gap-2 mb-2">

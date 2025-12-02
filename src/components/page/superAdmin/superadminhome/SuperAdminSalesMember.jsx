@@ -62,7 +62,7 @@ const SuperAdminSalesMember = () => {
 
 
   const handleGetSalesMember = () => {
-      dispatch(getdata({ url: `${import.meta.env.VITE_API_URL}salesman/get-all-salesmen`, key: "salesmember", token: token }))
+    dispatch(getdata({ url: `${import.meta.env.VITE_API_URL}salesman/get-all-salesmen`, key: "salesmember", token: token }))
   }
   const { data, loading, error } = useSelector((state) => state.salons)
   // console.log(data.salesmember.salesmen)
@@ -103,9 +103,9 @@ const SuperAdminSalesMember = () => {
         setOpen(false)
       });
   }
-  useEffect(()=>{
+  useEffect(() => {
     handleGetSalesMember()
-  },[])
+  }, [])
   return (
     <div className='shadow-md p-2'>
       <div>
@@ -174,6 +174,7 @@ const SuperAdminSalesMember = () => {
                 <label className="text-sm font-medium">Full Name</label>
                 <input
                   className="w-full bg-[#F3F3F3] mt-1 p-3 rounded-lg outline-none"
+                  type='text'
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   placeholder="Enter full name"
@@ -186,6 +187,7 @@ const SuperAdminSalesMember = () => {
                 <label className="text-sm font-medium">Email</label>
                 <input
                   className="w-full bg-[#F3F3F3] mt-1 p-3 rounded-lg outline-none"
+                  type='email'
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="Enter email"
@@ -197,6 +199,7 @@ const SuperAdminSalesMember = () => {
                 <label className="text-sm font-medium">Phone</label>
                 <input
                   className="w-full bg-[#F3F3F3] mt-1 p-3 rounded-lg outline-none"
+                  type='number'
                   value={mobile}
                   onChange={(e) => setMobile(e.target.value)}
                   placeholder="Enter phone number"

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { FiGift } from "react-icons/fi";
 import { LiaCoinsSolid } from "react-icons/lia";
@@ -21,6 +21,13 @@ const Icon = ({ className = 'w-8 h-8 text-indigo-500' }) => (
 
 const user  = JSON.parse(localStorage.getItem('userdata'))||{}
 const token = localStorage.getItem("authtoken")
+
+const handleLogout = ()=>{
+    localStorage.removeItem('userdata')
+    localStorage.removeItem('authtoken')
+    localStorage.removeItem("userrole")
+}
+
 const ProfileAdmin = () => {
     return (
         <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
@@ -60,6 +67,9 @@ const ProfileAdmin = () => {
                         </div></div>}
 
                         <p className="text-xs opacity-85 text-center mt-4">Join our community — coins, offers and partner programs await.</p>
+                       {token && <div className='flex justify-center items-center p-2  md:mt-6'>
+                            <button onClick={handleLogout} className='rounded-2xl border px-6 p-1.5 font-medium cursor-pointer'>Logout</button>
+                        </div>}
                     </aside>
 
                     {/* Right column: options list */}
