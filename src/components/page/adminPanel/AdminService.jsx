@@ -12,6 +12,7 @@ const AdminService = () => {
   const [updateForm, setUpdateForm] = useState({});
   const dispatch = useDispatch()
   const token = localStorage.getItem("authtoken");
+  const [category,setCategory] = useState('')
 
 
   // get data for redux
@@ -19,9 +20,27 @@ const AdminService = () => {
     dispatch(getDataAdmin({ url: `${import.meta.env.VITE_API_URL}salon-admin/get-service-items`, key: 'service', token: token }))
   }
 
+//    const handlegetcategory = () => {
+
+    
+//      fetch(`${import.meta.env.VITE_API_URL}super-admin/getAllCategories`,)
+//      .then((res)=>res.json())
+//      .then((data)=>{
+//       setCategory(data)
+//       console.log(data)
+//    })
+//      .then((err)=>{
+// console.log(err)
+//      })
+//     }
+
+
   useEffect(() => {
     handleGetData()
+    // handlegetcategory()
+
   }, [])
+  
 
 
    const { data, loading, error } = useSelector((state) => state.admin)
@@ -36,7 +55,7 @@ const AdminService = () => {
     image: "",
     status: "active",
     providerType: "salon",
-    providerId: "",
+    // providerId: "",
     gender : 'men'
   });
 
@@ -49,7 +68,7 @@ const AdminService = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (form.name === "" || form.category === "" || form.price === "" || form.providerId === "" || form.description === "" || form.providerType === "" || form.image === "") {
+    if (form.name === "" || form.category === "" || form.price === "" || form.providerId === "" || form.description === ""  || form.image === "") {
       alert("Please fill all  fields!");
       return;
     }
@@ -68,7 +87,7 @@ const AdminService = () => {
         "image": form.image,
         "status": form.status,
         "providerType": form.providerType,
-        "providerId": form.providerId,
+        // "providerId": form.providerId,
         'gender' : form.gender
       });
 
@@ -93,7 +112,7 @@ const AdminService = () => {
             form.image = "";
             form.status = "active";
             form.providerType = "salon";
-            form.providerId = "";
+            // form.providerId = "";
             form.gender = ''
             setFormOpen(false);
             return;
@@ -127,7 +146,7 @@ const AdminService = () => {
       form.image = "";
       form.status = "active";
       form.providerType = "salon";
-      form.providerId = "";
+      // form.providerId = "";
       setFormOpen(false);
     }
   };
@@ -348,18 +367,20 @@ const AdminService = () => {
           <div>
 
 
-            {/* Provider ID */}
-            <div className="mb-4">
-              <label className="font-semibold">Provider ID</label>
-              <input
-                type="text"
-                name="providerId"
-                className="w-full border p-2 rounded"
-                value={form.providerId}
-                onChange={handleChange}
-                required
-              />
-            </div>
+             <div className='mb-4'>
+            <label className="block mb-1 font-medium">Gender</label>
+            <select
+              value={form.gender}
+              onChange={handleChange}
+              className="w-full border p-2 rounded cursor-pointer "
+              required
+            >
+              <option  value="men">Men</option>
+              <option value="women">Women</option>
+              <option value="unisex">Unisex</option>
+            </select>
+        </div>
+          
 
             {/* Image URL */}
             <div className="mb-4">
@@ -415,19 +436,7 @@ const AdminService = () => {
 
           </div>
         </div>
-        <div className='pb-3'>
-            <label className="block mb-1 font-medium">Gender</label>
-            <select
-              value={form.gender}
-              onChange={handleChange}
-              className="w-full border p-2 rounded cursor-pointer "
-              required
-            >
-              <option  value="men">Men</option>
-              <option value="women">Women</option>
-              <option value="unisex">Unisex</option>
-            </select>
-        </div>
+       
         <button
           type="submit"
           className="w-full bg-blue-600 text-white p-2 rounded hover:bg-blue-700"

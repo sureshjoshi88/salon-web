@@ -28,7 +28,7 @@ const SuperAdminSideBar = () => {
               : "font-medium flex items-center gap-2 px-4 py-2 hover:bg-pink-50"
           }> Manage User </NavLink>
 
-          <NavLink to="/admin/booking" className={({ isActive }) =>
+          <NavLink to="/superadmin/booking" className={({ isActive }) =>
             isActive
               ? "bg-pink-50 text-[var(--primary)] px-4 py-2 rounded-lg font-medium flex items-center gap-2"
               : "font-medium flex items-center gap-2 px-4 py-2"

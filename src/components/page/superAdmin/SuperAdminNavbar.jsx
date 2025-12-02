@@ -17,7 +17,7 @@ const SuperAdminNavbar = () => {
   }
   return (
     <div>
-      <div style={{ background: 'var(--primary-gradient)' }} className="text-white font-medium w-full">
+      <div style={{ background: 'var(--primary-gradient)' }} className=" font-medium w-full">
         {/* TOP BAR */}
         <div className="shadow-md p-3">
           <div className="flex justify-between items-center">
@@ -58,7 +58,7 @@ const SuperAdminNavbar = () => {
 
               <p>{superadminData?.name || 'superAdmin'}</p>
 
-              <button onClick={handleLogout} className="bg-white/20 p-2 px-5 rounded-lg font-medium cursor-pointer">
+              <button onClick={handleLogout} className="bg-[#dcb7b8] p-2 px-5 rounded-lg font-medium cursor-pointer">
                 Logout
               </button>
 

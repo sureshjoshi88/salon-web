@@ -6,11 +6,12 @@ import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import "swiper/css";
 import "swiper/css/navigation";
 
-const HomeSection23 = () => {
+const HomeSection23 = (props) => {
     const [categories, setCategories] = useState('');
 
+
     useEffect(() => {
-        fetch('https://saloonbackend-mumt.onrender.com/api/user/get-all-categories')
+        fetch(`https://saloonbackend-mumt.onrender.com/api/user/get-all-categories?gender=${props.category}`)
             .then(res => res.json())
             .then((data) => setCategories(data))
             .catch((err) => console.log(err))
@@ -23,7 +24,7 @@ const HomeSection23 = () => {
         <div><p className="text-2xl font-medium ">Salon categories</p></div>
         <div><p className="text-lg text-gray-600 font-medium text-sm">View All </p></div>
       </div>
-           <div>
+           <div className='p-4'>
              <Swiper
                 modules={[Navigation, Autoplay]}
                 navigation={{
@@ -42,7 +43,7 @@ const HomeSection23 = () => {
                 breakpoints={{
                     320: { slidesPerView: 2 },
                     640: { slidesPerView: 3 },
-                    1024: { slidesPerView: 6 },
+                    1024: { slidesPerView: 4 },
                 }}
 
                 className="rounded-2xl"
@@ -52,7 +53,7 @@ const HomeSection23 = () => {
                     <SwiperSlide key={i}>
                         <div className="flex flex-col items-center p-4   hover:scale-105 transition-all duration-300">
 
-                            <div className="w-24 h-24 rounded-full overflow-hidden shadow-md p-2 bg-white">
+                            <div className="w-30 h-30 rounded-full overflow-hidden shadow-md p-2 bg-white">
                                 <img
                                     src={item.icon}
                                     alt={item.name}

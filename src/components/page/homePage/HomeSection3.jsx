@@ -4,6 +4,7 @@ import CardLoader from "./CardLoader";
 import { useDispatch, useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom";
 import { getSalondata } from "../../../redux/userSlice/homeSalon";
+import HomeSection23 from "./HomeSection23";
 const HomeSection3 = () => {
   const [category, setCategory] = useState("men");
 
@@ -77,7 +78,8 @@ const HomeSection3 = () => {
   };
   return (
     <div className="p-2 mt-3">
-      <div className='flex justify-between p-2'>
+     <div>
+       <div className='flex justify-between p-2'>
         <div><p className="text-2xl font-medium ">Salon at Home Services</p></div>
         <div><p className="text-lg text-gray-600 font-medium text-sm">View All </p></div>
       </div>
@@ -151,6 +153,10 @@ const HomeSection3 = () => {
             </div>
           ))}
       </div>
+     </div>
+     <div>
+      <HomeSection23 category={category} />
+     </div>
     </div>
   );
 };

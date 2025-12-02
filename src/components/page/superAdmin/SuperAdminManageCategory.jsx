@@ -12,14 +12,15 @@ const SuperAdminManageCategory = () => {
   const [id, setId] = useState('')
   const [addbutton, setAddbutton] = useState(false)
   const [gender, setGender] = useState('men')
+  
 
-  console.log(gender)
+  const token = localStorage.getItem('authtoken')
+
   const dispatch = useDispatch()
   const { data, loading, error } = useSelector((state) => state.salons)
-  console.log(data)
 
   const handlegetData = () => {
-    dispatch(getdata({ url: `${import.meta.env.VITE_API_URL}super-admin/getAllCategories`, key: "saloncategory", token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MDA5ZGRhYjVkZWZkY2YzMjUyNzUxNiIsInJvbGUiOiJzdXBlcl9hZG1pbiIsImlhdCI6MTc2NDI1NjIzNiwiZXhwIjoxNzY0ODYxMDM2fQ.YoRAhLqpPp4eY6kNzKdX1BWBdR7h2LGPyREjti61CRE' }))
+    dispatch(getdata({ url: `${import.meta.env.VITE_API_URL}super-admin/getAllCategories`, key: "saloncategory", token: token }))
   }
 
   const handleAddData = (e) => {
@@ -27,7 +28,7 @@ const SuperAdminManageCategory = () => {
     try {
       const myHeaders = new Headers();
       myHeaders.append("Content-Type", "application/json");
-      myHeaders.append("Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MDA5ZGRhYjVkZWZkY2YzMjUyNzUxNiIsInJvbGUiOiJzdXBlcl9hZG1pbiIsImlhdCI6MTc2NDI0MjcyMCwiZXhwIjoxNzY0ODQ3NTIwfQ.uXYRhZFT9y8e9okWRMy6BadZtf9zl0y4WabmFEjhD_w");
+      myHeaders.append("Authorization", `Bearer ${token}`);
 
       const raw = JSON.stringify({
         "name": name,
@@ -62,7 +63,7 @@ const SuperAdminManageCategory = () => {
     try {
       const myHeaders = new Headers();
       myHeaders.append("Content-Type", "application/json");
-      myHeaders.append("Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MDA5ZGRhYjVkZWZkY2YzMjUyNzUxNiIsInJvbGUiOiJzdXBlcl9hZG1pbiIsImlhdCI6MTc2NDI0MjcyMCwiZXhwIjoxNzY0ODQ3NTIwfQ.uXYRhZFT9y8e9okWRMy6BadZtf9zl0y4WabmFEjhD_w");
+      myHeaders.append("Authorization", `Bearer ${token}`);
 
       const raw = {};
       if (name) {
@@ -98,7 +99,7 @@ const SuperAdminManageCategory = () => {
     handlegetData()
   }, [dispatch])
   return (
-    <div className='p-2 mt-2'>
+    <div className='p-2 mt-2 relative'>
       <div className='flex justify-end p-2'>
         <button style={{ background: "var(--primary-gradient)" }} className='px-4 p-2 font-medium text-white  rounded-lg cursor-pointer' onClick={() => { setAddbutton(true), setAddform(true) }}>+ Add Category</button>
       </div>
@@ -151,7 +152,8 @@ const SuperAdminManageCategory = () => {
       </div>
 
 
-      {addform && <div className="max-w-md mx-auto p-5 bg-white shadow-lg rounded-xl mt-10">
+      {addform &&<div className='w-full flex justify-center'>
+       <div className=" w-100  mx-auto  absolute top-7  bg-white p-6 rounded-xl shadow-lg">
         <h2 className="text-2xl font-semibold text-center mb-6">{addbutton ? 'Add Category' : 'Edit Category'}</h2>
 
         <div className='flex justify-end -2'>
@@ -224,6 +226,7 @@ const SuperAdminManageCategory = () => {
             </button>}
 
         </form>
+      </div>
       </div>}
     </div>
   )

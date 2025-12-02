@@ -31,7 +31,6 @@ const AdminSpecialist = () => {
 
 
     const [form, setForm] = useState({
-        salon: "",
         name: "",
         contactNumber: "",
         expertise: [],
@@ -90,7 +89,7 @@ const AdminSpecialist = () => {
     // SUBMIT FORM
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if (!form.salon || !form.name || !form.contactNumber) {
+        if ( !form.name || !form.contactNumber) {
             alert("Please fill all required fields: Salon ID, Name, Contact Number");
             setspecialForm(false);
             return;
@@ -287,15 +286,7 @@ const AdminSpecialist = () => {
                     <h2 className="text-2xl font-bold mb-4 text-[var(--primary)]">Add Specialist</h2>
                     <p>  <CiCircleRemove className="cursor-pointer text-3xl text-red-700 font-medium" onClick={() => setspecialForm(false)} /></p>
                 </div>
-                {/* SALON ID */}
-                <input
-                    type="text"
-                    name="salon"
-                    placeholder="Salon ID"
-                    autoFocus
-                    className="w-full outline-0 p-2 rounded mb-3 bg-[var(--secondary)]"
-                    onChange={handleChange}
-                />
+               
 
                 {/* NAME */}
                 <input
@@ -421,14 +412,7 @@ const AdminSpecialist = () => {
                         <h2 className="text-2xl font-bold ">Update Specialist</h2>
                         <CiCircleRemove className="cursor-pointer text-3xl text-red-700 font-medium" onClick={() => setUpdateForm(false)} />
                     </div>
-                    <input
-                        type="text"
-                        name="salon"
-                        value={form.salon}
-                        placeholder="Salon ID"
-                        className="w-full outline-0 bg-[var(--secondary)] p-2 rounded mb-3"
-                        onChange={handleChange}
-                    />
+                   
 
                     <input
                         type="text"

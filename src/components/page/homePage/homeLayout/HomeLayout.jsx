@@ -17,7 +17,7 @@ const HomeLayout = () => {
       <HomeSection24/>
       <HomeSection25/>
       <HomeSection3/>
-      <HomeSection23/>
+      {/* <HomeSection23/> */}
       <HomeSection2/>
       <HomeSection4/>
       <HomeSection5/>
