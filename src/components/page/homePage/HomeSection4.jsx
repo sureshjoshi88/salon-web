@@ -129,29 +129,29 @@ const HomeSection3 = () => {
           {/* Services */}
           <div className="mb-6">
             <h3 className="font-medium mb-2">Services</h3>
-          <div className="flex gap-4 items-center mb-2">
-  <label className="flex gap-1.5 items-center font-medium p-2">
-    <input
-      type="radio"
-      name="gender"
-      checked={selectedGender === "men"}
-      onChange={() => setSelectedGender("men")}
-    />
+            <div className="flex gap-4 items-center mb-2">
+              <label className="flex gap-1.5 items-center font-medium p-2">
+                <input
+                  type="radio"
+                  name="gender"
+                  checked={selectedGender === "men"}
+                  onChange={() => setSelectedGender("men")}
+                />
 
-    Men
-  </label>
+                Men
+              </label>
 
-  <label className="flex gap-1.5 items-center font-medium p-2">
-    <input
-      type="radio"
-      name="gender"
-      checked={selectedGender === "women"}
-      onChange={() => setSelectedGender("women")}
-    />
-    Women
-  </label>
-</div>
-            {categories&& categories.categories.map(
+              <label className="flex gap-1.5 items-center font-medium p-2">
+                <input
+                  type="radio"
+                  name="gender"
+                  checked={selectedGender === "women"}
+                  onChange={() => setSelectedGender("women")}
+                />
+                Women
+              </label>
+            </div>
+            {categories && categories.categories.map(
               (service) => (
                 <div key={service._id} className="flex items-center gap-2 mb-2">
                   <input type="checkbox" id={service._id} />

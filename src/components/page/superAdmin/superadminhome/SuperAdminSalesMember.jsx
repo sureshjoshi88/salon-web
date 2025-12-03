@@ -65,7 +65,6 @@ const SuperAdminSalesMember = () => {
     dispatch(getdata({ url: `${import.meta.env.VITE_API_URL}salesman/get-all-salesmen`, key: "salesmember", token: token }))
   }
   const { data, loading, error } = useSelector((state) => state.salons)
-  // console.log(data.salesmember.salesmen)
 
   const handleAddSalesMember = (e) => {
     e.preventDefault()
@@ -130,15 +129,22 @@ const SuperAdminSalesMember = () => {
 
               </thead>
               <tbody >
-                {tableData.map((item) =>
+                {loading && Array.from({ length: 5 }).map((item) =>
+                  <tr>
+                    <td colspan="8" class="p-4">
+                      <div class="h-6 w-full rounded bg-gradient-to-r from-gray-200 via-gray-300 to-gray-200 animate-pulse"></div>
+                    </td>
+                  </tr>
+                )}
+                {data?.salesmember?.salesmen?.map((item) =>
                   <tr className='border-b border-gray-400 '>
-                    <td className='md:p-4 p-2 text-[#9333EA] font-medium'>{item.Referral}</td>
-                    <td className='md:p-4 p-2 font-semibold'>{item.salesperson} </td>
-                    <td className='md:p-4 p-2 text-gray-700'>{item.number}</td>
-                    <td className='md:p-4 p-2 text-gray-700'>{item.address}</td>
-                    <td className='md:p-4 p-2 '><span className='bg-[#F3E8FF] p-1 px-3 text-[#9333EA] rounded-2xl'>{item.salon}</span></td>
-                    <td className='md:p-4 p-2'><span className='bg-[#DBEAFE] p-1 px-3 text-[#1D4ED8] rounded-2xl'>{item.subscriptions}</span></td>
-                    <td className='md:p-4 p-2 text-[#16A34A]'>{item.commission}</td>
+                    <td className='md:p-4 p-2 text-[#9333EA] font-medium'>{item.referralId}</td>
+                    <td className='md:p-4 p-2 font-semibold'>{item.user.name} </td>
+                    <td className='md:p-4 p-2 text-gray-700'>{item.user.phone}</td>
+                    <td className='md:p-4 p-2 text-gray-700'>null</td>
+                    <td className='md:p-4 p-2 '><span className='bg-[#F3E8FF] p-1 px-3 text-[#9333EA] rounded-2xl'>{item.salon || "null"}</span></td>
+                    <td className='md:p-4 p-2'><span className='bg-[#DBEAFE] p-1 px-3 text-[#1D4ED8] rounded-2xl'>{item.subscriptions || "null"}</span></td>
+                    <td className='md:p-4 p-2 text-[#16A34A]'>{item.commissionRate}</td>
                     <td className='md:p-4 p-2 text-[#9333EA]'>View</td>
                   </tr>
                 )}

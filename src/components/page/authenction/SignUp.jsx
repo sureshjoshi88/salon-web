@@ -1,29 +1,51 @@
 import React, { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 const SignUp = () => {
 
-    const [form, setForm] = useState({ name: '', number: '', email: '', password: '' })
+    const navigate  =  useNavigate()
+
+    const [form, setForm] = useState({ name: '', phone: '', email: '', password: '' })
     const handleChange = (e) => {
         const { name, value } = e.target
         setForm((prev) => ({ ...prev, [name]: value }))
     }
+    console.log(form)
     const handleSubmit = (e) => {
         e.preventDefault()
-        if (!form.name || !form.number || !form.email || !form.password) {
+        if (!form.name || !form.phone || !form.email || !form.password) {
             alert('Please fill all required fields')
             return
         }
 
-        // prepare form data (example: for API upload)
-        const fd = new FormData()
-        fd.append('name', form.name)
-        fd.append('number', form.number)
-        fd.append('email', form.email)
-        fd.append('password', form.password)
-        // Replace the following with actual submission logic (fetch/axios)
-        console.log('Submitting form:', { ...form })
-        alert('Form submitted (see console)')
+
+        const myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+
+        const raw = JSON.stringify(form);
+
+        const requestOptions = {
+            method: "POST",
+            headers: myHeaders,
+            body: raw,
+            redirect: "follow"
+        };
+
+        fetch("https://saloonbackend-mumt.onrender.com/api/auth/signup", requestOptions)
+            .then((response) => response.json())
+            .then((result) => {
+                console.log(result)
+
+                alert(result.message)
+                        localStorage.setItem("authtoken", result.token);
+                        navigate("/")
+                setForm({ name: "", email: "", phone: "", password: "" })
+            })
+            .catch((error) => {
+                console.error(error)
+                setForm({ name: "", email: "", phone: "", password: "" })
+
+            });
     }
     return (
         <div>
@@ -50,23 +72,6 @@ const SignUp = () => {
                             />
                         </div>
 
-                        {/* Username */}
-                        <div>
-                            <label htmlFor="number" className="block text-sm font-medium text-gray-700">
-                                Phone Number
-                            </label>
-                            <input
-                                style={{ background: "var(--secondary)" }}
-                                id="number"
-                                name="number"
-                                type="number"
-                                value={form.number}
-                                onChange={handleChange}
-                                placeholder="Enter your phone number"
-                                required
-                                className="mt-1 block w-full rounded-md outline-0 shadow-sm focus:border-indigo-500 p-3 focus:ring-indigo-500 sm:text-sm"
-                            />
-                        </div>
 
                         {/* Email */}
                         <div>
@@ -85,6 +90,26 @@ const SignUp = () => {
                                 className="mt-1 block w-full rounded-md outline-0 shadow-sm focus:border-indigo-500 p-3 focus:ring-indigo-500 sm:text-sm"
                             />
                         </div>
+
+                        {/* Username */}
+                        <div>
+                            <label htmlFor="number" className="block text-sm font-medium text-gray-700">
+                                Phone Number
+                            </label>
+                            <input
+                                style={{ background: "var(--secondary)" }}
+                                id="number"
+                                name="phone"
+                                type="number"
+                                value={form.phone}
+                                onChange={handleChange}
+                                placeholder="Enter your phone number"
+                                required
+                                className="mt-1 block w-full rounded-md outline-0 shadow-sm focus:border-indigo-500 p-3 focus:ring-indigo-500 sm:text-sm"
+                            />
+                        </div>
+
+
 
                         {/* Password */}
                         <div>
