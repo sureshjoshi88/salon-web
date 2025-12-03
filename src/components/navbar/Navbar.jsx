@@ -1,15 +1,43 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { HiOutlineMenu, HiOutlineX } from "react-icons/hi";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { TbXboxX } from "react-icons/tb";
 import { FaUserCircle } from "react-icons/fa";
 import { IoSearch } from "react-icons/io5";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
+  const [location, setLocation] = useState('location')
+  const [pincode,setPincode]  = useState('')
+
+  useEffect(() => {
+   navigator.geolocation.getCurrentPosition(async (pos) => {
+  const lat = pos.coords.latitude;
+  const lon = pos.coords.longitude;
+
+  const res = await fetch(
+    `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lon}&localityLanguage=en`
+  );
+
+  const data = await res.json();
+  setLocation(data.city || data.locality || data.principalSubdivision);
+ 
+});
+  }, [])
+
+   const navigate = useNavigate();
+
+  const goToServices = () => {
+    navigate("/#services"); // navigate to home with hash
+
+    setTimeout(() => {
+      const section = document.getElementById("services");
+      section?.scrollIntoView({ behavior: "smooth" });
+    }, 100); // little delay for page load
+  };
 
   return (
-    <div style={{ background:'var(--primary-gradient)' }} className='sticky top-0 z-50  text-gray-900  font-medium'>
+    <div style={{ background: 'var(--primary-gradient)' }} className='sticky top-0 z-50  text-gray-900  font-medium'>
 
       {/* Main Navbar */}
       <nav className="shadow-md px-6 py-3 flex justify-between items-center">
@@ -29,15 +57,15 @@ const Navbar = () => {
           >
             Home
           </NavLink>
-          <NavLink
-            to="/service"
+          
+            <li onClick={goToServices}
             className={({ isActive }) =>
               `cursor-pointer hover:text-[var(--primary)] transition ${isActive ? "text-[#B58152] font-semibold" : ""
               }`
             }
           >
             Services
-          </NavLink>
+          </li>
 
 
           <NavLink
@@ -49,15 +77,7 @@ const Navbar = () => {
           >
             <button className='px-3 rounded  cursor-pointer'>Partner With Register</button>
           </NavLink>
-          {/* <NavLink
-            to="/contact"
-            className={({ isActive }) =>
-              `cursor-pointer hover:text-[var(--primary)] transition ${isActive ? "text-[#B58152] font-semibold" : ""
-              }`
-            }
-          >
-            Contact us
-          </NavLink> */}
+         
           {/* <div className='border rounded-2xl px-2 p-0.5 flex gap-2 items-center '>
             <IoSearch />
             <input className='outline-0 w-full' type="text" name="" id="search" placeholder='Search salons, services, or areas...' />
@@ -66,14 +86,14 @@ const Navbar = () => {
 
         <div className='flex gap-2 items-center'>
           <div className='border rounded-2xl px-2 p-0.5 flex gap-2 sm:w-100 md:w-50 items-center  me-2'>
-          <IoSearch />
-          <input className='outline-0 w-full' type="search" name="" id="" placeholder='Search location' />
-        </div>
+            <IoSearch />
+            <input className='outline-0 w-full' type="search" name="" id="" placeholder={`${location}...${pincode}`} />
+          </div>
 
-        <div className='border rounded-2xl px-2 p-0.5 flex gap-2 sm:w-100 md:w-50 items-center  me-2'>
-          <IoSearch />
-          <input className='outline-0 w-full' type="search" name="" id="" placeholder='Search salons, services' />
-        </div>
+          <div className='border rounded-2xl px-2 p-0.5 flex gap-2 sm:w-100 md:w-50 items-center  me-2'>
+            <IoSearch />
+            <input className='outline-0 w-full' type="search" name="" id="" placeholder='Search salons, services' />
+          </div>
         </div>
         {/* Desktop button */}
         <div className="hidden-mobile md:flex">
@@ -83,7 +103,7 @@ const Navbar = () => {
               <FaUserCircle className="text-3xl" />
             </button>
           </NavLink>
-          <button style={{ background : 'linear-gradient(90deg, #ffe1e8, #f5d0d8, #eed9f7)' }} className=' rounded-lg shadow-md  px-3 cursor-pointer'>Get App</button>
+          <button style={{ background: 'linear-gradient(90deg, #ffe1e8, #f5d0d8, #eed9f7)' }} className=' rounded-lg shadow-md  px-3 cursor-pointer'>Get App</button>
         </div>
 
         {/* Mobile Menu Button */}
@@ -111,35 +131,21 @@ const Navbar = () => {
             >
               Home
             </NavLink>
-            <NavLink
-              to="/service"
-              onClick={() => setOpen(false)}
-              className={({ isActive }) =>
-                `w-full text-center py-2 hover:text-[#B58152] transition ${isActive ? "bg-[#B58152] text-white rounded-md" : ""
-                }`
-              }
-            >
-              Services
-            </NavLink>
-            <NavLink
-            to="/earn-with-us"
-            className={({ isActive }) =>
-              `cursor-pointer hover:text-[var(--primary)] transition ${isActive ? "text-[#B58152] font-semibold" : ""
-              }`
-            }
+            <li onClick={()=>{goToServices(),setOpen(false)}}
+            className="cursor-pointer list-none hover:text-[var(--primary)] transition"
           >
-            <button className='px-3 rounded  cursor-pointer'>Partner With Register</button>
-          </NavLink>
-            {/* <NavLink
-              to="/contact"
-              onClick={() => setOpen(false)}
+            Services
+          </li>
+            <NavLink
+              to="/earn-with-us"
               className={({ isActive }) =>
-                `w-full text-center py-2 hover:text-[#B58152] transition ${isActive ? "bg-[#B58152] text-white rounded-md" : ""
+                `cursor-pointer hover:text-[var(--primary)] transition ${isActive ? "text-[#B58152] font-semibold" : ""
                 }`
               }
             >
-              Contact Us
-            </NavLink> */}
+              <button className='px-3 rounded  cursor-pointer'>Partner With Register</button>
+            </NavLink>
+          
             <div className="flex justify-evenly">
               <NavLink to="/profile">
                 <button className=" px-5 py-2 rounded-xl font-medium cursor-pointer ">

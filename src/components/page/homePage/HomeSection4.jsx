@@ -3,7 +3,6 @@ import { FaStar, FaRupeeSign, FaMapMarkerAlt, FaClock } from "react-icons/fa";
 
 const HomeSection3 = () => {
   const [priceRange, setPriceRange] = useState(2000);
-  const [products, setProducts] = useState('');
   const [categories, setCategories] = useState('');
   const [selectedGender, setSelectedGender] = useState("men");
 
@@ -71,14 +70,7 @@ const HomeSection3 = () => {
     },
   ];
 
-  useEffect(() => {
-    fetch('https://saloonbackend-mumt.onrender.com/api/user/get-featured-salons/${}')
-      .then(res => res.json())
-      .then((data) => {
-        setProducts(data)
-      })
-      .catch((err) => console.log(err))
-  }, [])
+
   useEffect(() => {
     fetch(`https://saloonbackend-mumt.onrender.com/api/user/get-all-categories?gender=${selectedGender}`)
       .then(res => res.json())

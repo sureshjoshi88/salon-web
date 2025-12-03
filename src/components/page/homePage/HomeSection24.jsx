@@ -1,10 +1,4 @@
-import { BsScissors } from "react-icons/bs";
-import { FaRegCalendarCheck } from "react-icons/fa";
-import { LuChrome } from "react-icons/lu";
-import { PiMaskHappyLight } from "react-icons/pi";
-import { RiScissors2Line } from "react-icons/ri";
-import { IoBrushOutline } from "react-icons/io5";
-import { HiOutlineGift } from "react-icons/hi";
+
 import img1 from "../../../assets/salon.png"
 import img2 from "../../../assets/salon_service.png"
 import img3 from "../../../assets/haircut.png"
@@ -48,7 +42,7 @@ const HomeSection24 = () => {
   ];
 
   return (
-    <div className="w-full bg-[#FFF7F1] py-16 px-4 md:px-20">
+    <div id="services" className="w-full bg-[#FFF7F1] py-16 px-4 md:px-20">
       <h2 className="text-4xl font-bold text-center text-[#5A2C1E]">
         Our Services
       </h2>

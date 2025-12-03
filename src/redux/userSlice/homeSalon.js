@@ -40,7 +40,7 @@ const homeSalonSlice = createSlice({
             })
             .addCase(getSalondata.rejected, (state) => {
                 state.loading = false;
-                state.error = "api failed";
+                state.error = "something went wrong";
             })
 
     }
