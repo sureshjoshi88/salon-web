@@ -2,7 +2,7 @@ import React from 'react'
 
 const SuperAdminPending = () => {
     return (
-      <div className="bg-[#FFF7D6] p-4 rounded-xl mt-4 shadow-sm max-w-sm w-full mx-auto">
+      <div className="bg-[#FFF7D6] p-4 rounded-xl mt-4 shadow-sm w-full mx-auto">
   <p className="text-yellow-800 font-semibold  text-xl">Pending Commission</p>
   <p className="text-gray-600 text-lg">Awaiting approval</p>
 

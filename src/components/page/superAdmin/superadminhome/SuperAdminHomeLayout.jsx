@@ -11,7 +11,7 @@ const SuperAdminHomeLayout = () => {
     <div className='p-2'>
         <SuperAdminHeader />
      
-        <div className='mt-3 grid lg:grid-cols-3 md:grid-cols-3 gap-3'>
+        <div className='mt-3 grid lg:grid-cols-3 md:grid-cols-2 gap-3'>
           <SuperAdminPerformance />
           <SuperAdminLowPerformance />
           <SuperAdminPending />

@@ -36,7 +36,7 @@ const PIE_COLORS = ["#8b5cf6", "#ff2d7a", "#2b82ff", "#00d084", "#ffa500"];
 const SuperAdminGraph = () => {
   return (
     <div className="p-6 min-h-screen bg-gray-50">
-      <div className="max-w-6xl mx-auto grid gap-6 md:grid-cols-2">
+      <div className="max-w-6xl mx-auto grid gap-6 md:grid-cols-1 lg:grid-cols-2">
         {/* Card - Subscriptions Sold per Month */}
         <div className="bg-white rounded-2xl shadow-md p-6">
           <h3 className="text-lg font-semibold mb-4">Subscriptions Sold per Month</h3>

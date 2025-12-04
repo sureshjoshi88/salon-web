@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { FaStar, FaRupeeSign, FaMapMarkerAlt, FaClock } from "react-icons/fa";
+import { RiColorFilterAiLine } from "react-icons/ri";
 
 const HomeSection3 = () => {
   const [priceRange, setPriceRange] = useState(2000);
   const [categories, setCategories] = useState('');
   const [selectedGender, setSelectedGender] = useState("men");
+  const [open,setOpen] = useState(false);
 
 
   const salon = [
@@ -80,27 +82,103 @@ const HomeSection3 = () => {
       .catch((err) => console.log(err))
   }, [selectedGender])
   return (
-    <div className="p-4">
+    <div className="p-6">
       <div>
         <p className='font-bold text-2xl'>Top Rated Salons</p>
       </div>
 
-      {/* <div className="grid md:grid-cols-3 lg:grid-cols-4 gap-4 mt-2"> 
-        {
-        products&&  products.salons.map((salon, i) => (
-            <div key={i} className='shadow-lg rounded p-2 mb-4'>
-              <p> <span className="font-medium">Salon Name :- </span>{salon.shopName}</p>
-              <p> <span className="font-medium">Shop Type :- </span>{salon.shopType}</p>
-              <p> <span className="font-medium">Category :- </span>{salon.salonCategory?salon.salonCategory:"N/A"}</p>
-              <p> <span className="font-medium">Address :- </span>{salon.location?.address?salon.location?.address:"N/A"}</p>
-              <p> <span className="font-medium">About :- </span>{salon.about?salon.about:"N/A"}</p>
+    
+      <button onClick={()=>setOpen(true)} className="px-4 md:hidden mt-3 m-2 bg-gray-100 rounded font-medium flex items-center gap-2">Filter <RiColorFilterAiLine />
+</button>
+      <div className="flex bg-gray-50 md:h-190 ">
+
+        {open&& <div className={`w-1/3 bg-white absolute  rounded-2xl p-5 shadow-sm md:hidden md:overflow-y-scroll  scrollbar-hideen   transition-all ease-in  ${open ? "translate-x-0 opacity-100" : "translate-x-full opacity-0"}`}>
+                <div className='flex justify-end p-2'><p onClick={()=>setOpen(false)} className='text-red-500 text-xl'>X</p></div>
+
+          <div className="flex justify-between items-center mb-4">
+            <h2 className="text-lg font-semibold">Filters</h2>
+            <button className="text-sm text-gray-500 hover:text-indigo-600">
+              Reset All
+            </button>
+          </div>
+
+          {/* Location */}
+          <div className="mb-6">
+            <h3 className="font-medium mb-2">Location</h3>
+            <input
+              type="text"
+              placeholder="Enter your location"
+              className="w-full border border-gray-300 rounded-md p-2 focus:outline-indigo-500"
+            />
+          </div>
+
+          {/* Services */}
+          <div className="mb-6">
+            <h3 className="font-medium mb-2">Services</h3>
+            <div className="flex gap-4 items-center mb-2">
+              <label className="flex gap-1.5 items-center font-medium p-2">
+                <input
+                  type="radio"
+                  name="gender"
+                  checked={selectedGender === "men"}
+                  onChange={() => setSelectedGender("men")}
+                />
+
+                Men
+              </label>
+
+              <label className="flex gap-1.5 items-center font-medium p-2">
+                <input
+                  type="radio"
+                  name="gender"
+                  checked={selectedGender === "women"}
+                  onChange={() => setSelectedGender("women")}
+                />
+                Women
+              </label>
             </div>
-          ))
-        }
-      </div> */}
-      <div className="flex bg-gray-50 md:h-190 p-6">
+            {categories && categories.categories.map(
+              (service) => (
+                <div key={service._id} className="flex items-center gap-2 mb-2">
+                  <input type="checkbox" id={service._id} />
+                  <label htmlFor={service._id}>{service.name}</label>
+                </div>
+              )
+            )}
+          </div>
+
+          {/* Price Range */}
+          <div className="mb-6">
+            <h3 className="font-medium mb-2">Price Range</h3>
+            <input
+              type="range"
+              min="0"
+              max="2000"
+              value={priceRange}
+              onChange={(e) => setPriceRange(e.target.value)}
+              className="w-full accent-indigo-600"
+            />
+            <p className="text-sm text-gray-500 mt-1">
+              ₹{priceRange}
+            </p>
+          </div>
+
+          {/* Salon at Home */}
+          <div className="mb-6">
+            <h3 className="font-medium mb-2">Salon at Home</h3>
+            <div className="flex items-center gap-2">
+              <input type="checkbox" id="homeService" />
+              <label htmlFor="homeService">Available for Home Service</label>
+            </div>
+          </div>
+
+          {/* Apply Button */}
+          <button className="w-full bg-gray-700 hover:bg-gray-800 text-white py-2 rounded-md font-medium">
+            Apply Filters
+          </button>
+        </div>}
         {/* Left Sidebar */}
-        <div className="w-1/4 bg-white rounded-2xl p-5 shadow-sm hidden md:block md:overflow-y-scroll scoll scrollbar-hideen">
+        <div className="w-1/4 bg-white  rounded-2xl p-5 shadow-sm hidden md:block md:overflow-y-scroll  scrollbar-hideen">
           <div className="flex justify-between items-center mb-4">
             <h2 className="text-lg font-semibold">Filters</h2>
             <button className="text-sm text-gray-500 hover:text-indigo-600">

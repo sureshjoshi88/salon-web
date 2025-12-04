@@ -38,7 +38,7 @@ const HomeSection2 = () => {
   //     }).catch(err=>console.log(err))
   //   },[])
   return (
-    <div data-aos="fade-down" className='p-3'>
+    <div data-aos="fade-down" className='p-6'>
       <div className='flex justify-between p-2'>
         <div><p>Popular Near Me</p></div>
         <div><p>View All </p></div>
@@ -47,7 +47,7 @@ const HomeSection2 = () => {
         {popularNearMe.map((item) => (
           <div
             key={item.id}
-            className="bg-white rounded-2xl shadow-sm hover:shadow-md transition-all p-4 border border-gray-100"
+            className="bg-white rounded-2xl shadow-sm hover:shadow-md transition-all  border border-gray-100"
           >
             {/* Image */}
             <div className="h-40 rounded-xl overflow-hidden">
@@ -58,8 +58,11 @@ const HomeSection2 = () => {
               />
             </div>
 
+            <div className='p-2'>
+
+
             {/* Title + Rating */}
-            <div className="flex justify-between items-center mt-3">
+            <div className="flex justify-between items-center mt-1">
               <h3 className="font-semibold text-lg text-gray-800">{item.name}</h3>
               <div className="flex items-center gap-1 text-yellow-500 text-sm font-medium">
                 <FaStar /> {item.rating}
@@ -102,6 +105,9 @@ const HomeSection2 = () => {
                 See More
               </button>
             </div>
+
+            </div>
+
           </div>
         ))}
       </div>

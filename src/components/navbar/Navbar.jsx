@@ -5,10 +5,10 @@ import { TbXboxX } from "react-icons/tb";
 import { FaUserCircle } from "react-icons/fa";
 import { IoSearch } from "react-icons/io5";
 
+
 const Navbar = () => {
   const [open, setOpen] = useState(false);
   const [location, setLocation] = useState('location')
-  const [pincode,setPincode]  = useState('')
 
   useEffect(() => {
    navigator.geolocation.getCurrentPosition(async (pos) => {
@@ -40,14 +40,14 @@ const Navbar = () => {
     <div style={{ background: 'var(--primary-gradient)' }} className='sticky top-0 z-50  text-gray-900  font-medium'>
 
       {/* Main Navbar */}
-      <nav className="shadow-md px-6 py-3 flex justify-between items-center">
+      <nav className="shadow-md px-6 py-2 flex justify-between items-center">
         {/* Logo */}
         <div >
           <img className="w-15 rounded-full" src="/logo.jpeg" alt="Logo" />
         </div>
 
         {/* Desktop Links */}
-        <ul className="hidden-mobile md:flex lg:space-x-8 md:space-x-5 text-lg">
+        <ul className="hidden-mobile md:flex lg:space-x-8 md:space-x-5">
           <NavLink
             to="/"
             className={({ isActive }) =>
@@ -75,7 +75,7 @@ const Navbar = () => {
               }`
             }
           >
-            <button className='px-3 rounded  cursor-pointer'>Partner With Register</button>
+            <button className='px-3 rounded-2xl p-1  cursor-pointer bg-white'>Partner With Register</button>
           </NavLink>
          
           {/* <div className='border rounded-2xl px-2 p-0.5 flex gap-2 items-center '>
@@ -84,26 +84,26 @@ const Navbar = () => {
           </div> */}
         </ul>
 
-        <div className='flex gap-2 items-center'>
-          <div className='border rounded-2xl px-2 p-0.5 flex gap-2 sm:w-100 md:w-50 items-center  me-2'>
+        <div className='flex gap-2 items-center '>
+          <div className='border rounded-2xl px-2 p-0.5 flex gap-2  md:w-50 items-center  me-2'>
             <IoSearch />
-            <input className='outline-0 w-full' type="search" name="" id="" placeholder={`${location}...${pincode}`} />
+            <input className='outline-0 w-full' type="search" name="" id="" placeholder={location} />
           </div>
 
-          <div className='border rounded-2xl px-2 p-0.5 flex gap-2 sm:w-100 md:w-50 items-center  me-2'>
+          <div className='border rounded-2xl px-2 p-0.5 flex gap-2  md:w-50 items-center  me-2'>
             <IoSearch />
             <input className='outline-0 w-full' type="search" name="" id="" placeholder='Search salons, services' />
           </div>
         </div>
         {/* Desktop button */}
-        <div className="hidden-mobile md:flex">
+        <div className="hidden-mobile md:flex items-center ">
 
           <NavLink to="/profile">
-            <button className=" px-5 py-2 rounded-xl font-medium cursor-pointer ">
+            <button className=" px-5 rounded-xl font-medium cursor-pointer ">
               <FaUserCircle className="text-3xl" />
             </button>
           </NavLink>
-          <button style={{ background: 'linear-gradient(90deg, #ffe1e8, #f5d0d8, #eed9f7)' }} className=' rounded-lg shadow-md  px-3 cursor-pointer'>Get App</button>
+          <button style={{ background: 'linear-gradient(90deg, #ffe1e8, #f5d0d8, #eed9f7)' }} className=' rounded-lg shadow-md  px-5 cursor-pointer p-1.5 '>Get App</button>
         </div>
 
         {/* Mobile Menu Button */}

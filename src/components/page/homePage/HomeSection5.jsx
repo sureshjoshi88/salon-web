@@ -7,7 +7,8 @@ const HomeSection5 = () => {
   return (
 
 
- <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-3">
+ <div className='p-6'>
+  <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-3">
         {popularNearMe.map((item) => (
           <div
             key={item.id}
@@ -71,6 +72,7 @@ const HomeSection5 = () => {
         ))}
 
       </div>
+ </div>
 
 
    

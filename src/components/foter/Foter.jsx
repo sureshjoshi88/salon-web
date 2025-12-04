@@ -6,8 +6,8 @@ import {Link} from "react-router-dom"
 
 const Foter = () => {
   return (
-    <div style={{ background: "var(--primary-gradient)" }}>
-      <div className='grid lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-3 text-black p-6'>
+    <div className='mt-6 p-6' style={{ background: "var(--primary-gradient)" }}>
+      <div className='grid lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-3 text-black '>
         <div className='space-y-1.5'>
           <div>
             <img className="w-15 rounded-full" src="/logo.jpeg" alt="Logo" />
@@ -24,23 +24,24 @@ const Foter = () => {
           <p>Careers</p>
           <p>Blog</p>
         </div>
-        <div className='space-y-1.5'>
+        <div className='space-y-1.5 list-none'>
           <p className='font-semibold text-2xl '>Services</p>
           <li className='pt-2'>Haircut & Styling</li>
           <li>Nail Care</li>
           <li>Skin Care</li>
           <li>Massage</li>
         </div>
-        <div className='space-y-1.5'>
+        <div className='space-y-1.5 list-none'>
           <p className='font-semibold text-2xl '>Legal</p>
           <p className='pt-2'>Privacy Policy</p>
           <li>Terms of Service</li>
           <li>Cookie Policy</li>
         </div>
       </div>
-      <div className='text-center  mt-2'>
+      <hr className='mt-5' />
+      <div className='grid md:grid-cols-2   mt-2 p-4'>
         <p>© 2025 Glamour Studio. All rights reserved.</p>
-        <p className='pt-1.5'>Powered by VaishaliTech</p>
+        <p className='pt-1.5 md:text-end'>Powered by VaishaliTech</p>
       </div>
     </div>
   )

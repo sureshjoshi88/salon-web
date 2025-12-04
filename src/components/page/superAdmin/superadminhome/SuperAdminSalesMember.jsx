@@ -113,7 +113,7 @@ const SuperAdminSalesMember = () => {
             <p className='font-medium text-2xl'>Sales Team Management</p>
             <button style={{ background: "var(--primary-gradient)" }} onClick={() => setOpen(true)} className='px-4 p-2 font-medium text-white  rounded-lg cursor-pointer'>+ Register New Sales Person</button>
           </div>
-          <div>
+          <div className='w-full overflow-x-scroll'>
             <table>
               <thead>
                 <tr className='bg-gray-50 text-gray-700'>

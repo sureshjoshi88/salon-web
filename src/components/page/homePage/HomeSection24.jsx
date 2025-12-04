@@ -42,10 +42,10 @@ const HomeSection24 = () => {
   ];
 
   return (
-    <div id="services" className="w-full bg-[#FFF7F1] py-16 px-4 md:px-20">
-      <h2 className="text-4xl font-bold text-center text-[#5A2C1E]">
+    <div id="services" className="w-full bg-[#FFF7F1] py-16 px-4 md:px-6">
+      <p className="text-4xl font-bold text-center text-[#5A2C1E]">
         Our Services
-      </h2>
+      </p>
       <p className="text-center text-lg mt-2 text-[#6F4F44]">
         Salon & Home Services for Everyone.
       </p>
@@ -58,16 +58,18 @@ const HomeSection24 = () => {
         {services.map((item, i) => (
           <div
             key={i}
-            className="bg-white rounded-2xl shadow-sm p-6 text-center hover:shadow-md transition-all"
+            className="bg-white rounded-2xl shadow-sm  text-center hover:shadow-md transition-all"
           >
-            <div className="text-[#F7A97E] flex justify-center mb-3">
+            <div className="text-[#F7A97E]  mb-3">
               {/* {item.icon} */}
-              <img className="w-30 rounded-full" src={item.icon} alt="" />
+              <img className="h-60 w-full object-cover" src={item.icon} alt="service_img" />
             </div>
-            <h3 className="text-lg font-semibold text-[#5A2C1E]">
+            <div className="p-4">
+              <h3 className="text-lg font-semibold text-[#5A2C1E]">
               {item.title}
             </h3>
             <p className="text-sm text-gray-600 mt-1">{item.desc}</p>
+            </div>
           </div>
         ))}
       </div>

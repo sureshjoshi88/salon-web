@@ -75,12 +75,8 @@ const HomeSection3 = () => {
     return distance.toFixed(2); // round karke return
   };
   return (
-    <div className="p-2 mt-3">
+    <div className="p-6 mt-3">
       <div>
-        <div className='flex justify-between p-2'>
-          <div><p className="text-2xl font-medium ">Salon at Home Services</p></div>
-          <div><p className="text-lg text-gray-600 font-medium text-sm">View All </p></div>
-        </div>
         <div className="flex gap-3 items-center font-medium p-2 mt-3">
           <button
             onClick={() => setCategory("men")}
@@ -101,13 +97,22 @@ const HomeSection3 = () => {
           </button>
         </div>
 
+        <div>
+          <HomeSection23 category={category} />
+        </div>
+
+        <div className='flex justify-between p-2'>
+          <div><p className="text-2xl font-medium ">Salon at Home Services</p></div>
+          <div><p className="text-lg text-gray-600 font-medium text-sm">View All </p></div>
+        </div>
+
         {error && <p className="font-medium text-2xl text-red-500 text-center p-3">{error}</p>}
         <div className="grid md:grid-cols-3 gap-4 lg:grid-cols-4">
 
           {loading &&
             Array.from({ length: 4 }).map((_, i) => (
-             
-                <CardLoader />
+
+              <CardLoader />
             ))}
 
           {/* ---- Actual Data Cards ---- */}
@@ -115,51 +120,51 @@ const HomeSection3 = () => {
             data?.salons?.data.map((item) => (
               <div
                 key={item.id}
-                className="bg-white rounded-2xl shadow-sm hover:shadow-md p-4 cursor-pointer transition-all"
+                className="bg-white rounded-2xl shadow-sm hover:shadow-md  cursor-pointer transition-all"
               >
-                <div className="h-36 bg-gray-200 rounded-lg mb-3">
-                  {item.galleryImages.length>1?item.galleryImages.slice(0, 1).map((img, i) => (
+                <div className="h-36 bg-gray-200 rounded-lg">
+                  {item.galleryImages.length > 1 ? item.galleryImages.slice(0, 1).map((img, i) => (
                     <img className="rounded w-full h-full object-cover" key={i} src={img} alt={item.shopName} />
-                  )):
-                  <img src="https://img.freepik.com/premium-photo/hairdressers-makeup-artist-working-beauty-salon_10069-11140.jpg?semt=ais_hybrid&w=740&q=80" alt="" />
+                  )) :
+                    <img className="rounded w-full h-full object-cover" src="https://img.freepik.com/premium-photo/hairdressers-makeup-artist-working-beauty-salon_10069-11140.jpg?semt=ais_hybrid&w=740&q=80" alt="" />
                   }
                 </div>
 
-                <div className="flex justify-between items-center">
-                  <h3 className="font-semibold">{item.shopName}</h3>
-                  <p>{item.salonCategory}</p>
-                </div>
+                <div className="p-2">
+                  <div className="flex justify-between items-center">
+                    <h3 className="font-semibold">{item.shopName}</h3>
+                    <p>{item.salonCategory}</p>
+                  </div>
 
 
-                <div className="flex flex-wrap gap-2 mb-3">
-                  <span className="font-medium">Categories:</span>
-                  {item?.categories.map((srv, i) => (
-                    <span
-                      key={i}
-                      className="bg-green-100 text-sm rounded-2xl px-2 py-0.5"
-                    >
-                      {srv.name}
-                    </span>
-                  ))}
-                </div>
-                <div>
+                  <div className="flex flex-wrap gap-2 mb-3">
+                    <span className="font-medium">Categories:</span>
+                    {item?.categories.map((srv, i) => (
+                      <span
+                        key={i}
+                        className="bg-green-100 text-sm rounded-2xl px-2 py-0.5"
+                      >
+                        {srv.name}
+                      </span>
+                    ))}
+                  </div>
+                  <div>
 
-                  <p className="flex items-center text-sm text-gray-500 mb-2"> <span > <FaMapMarkerAlt className="mr-1" /> </span>{getDistance(currentlatitude, currentlongitude, item.location.coordinates[0], item.location.coordinates[1])} km</p>
+                    <p className="flex items-center text-sm text-gray-500 mb-2"> <span > <FaMapMarkerAlt className="mr-1" /> </span>{getDistance(currentlatitude, currentlongitude, item.location.coordinates[0], item.location.coordinates[1])} km</p>
 
-                </div>
+                  </div>
 
-                <div className="flex justify-end text-sm">
-                  <button onClick={() => handledetails(item._id)} className="text-indigo-600 font-medium hover:underline">
-                    See More
-                  </button>
+                  <div className="flex justify-end text-sm">
+                    <button onClick={() => handledetails(item._id)} className="text-indigo-600 font-medium hover:underline">
+                      See More
+                    </button>
+                  </div>
                 </div>
               </div>
             ))}
         </div>
       </div>
-      <div>
-        <HomeSection23 category={category} />
-      </div>
+
     </div>
   );
 };
