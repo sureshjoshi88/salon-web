@@ -117,11 +117,16 @@ const EarnWith = () => {
                   </div>
 
                   <div>
-                    <label htmlFor="whatsappNumber" className="block text-sm font-medium text-gray-700">WhatsApp Number</label>
+                    <label htmlFor="email1" className="block text-sm font-medium text-gray-700">Email</label>
                     <input style={{ background: "var(--secondary)" }}
-                      id="whatsappNumber" name="whatsappNumber" type="tel" placeholder="Enter WhatsApp number" className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm outline-none h-10 p-3" />
+                      id="email1" name="whatsappNumber" type="email" placeholder="Enter your email " className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm outline-none h-10 p-3" />
                   </div>
 
+                   <div>
+                    <label htmlFor="password1" className="block text-sm font-medium text-gray-700">Password</label>
+                    <input style={{ background: "var(--secondary)" }}
+                      id="password1" name="whatsappNumber" type="password" placeholder="Enter your password " className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm outline-none h-10 p-3" />
+                  </div>
                 </form>
               </section>
 

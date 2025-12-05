@@ -11,21 +11,22 @@ const Navbar = () => {
   const [location, setLocation] = useState('location')
 
   useEffect(() => {
-   navigator.geolocation.getCurrentPosition(async (pos) => {
-  const lat = pos.coords.latitude;
-  const lon = pos.coords.longitude;
+    
+    navigator.geolocation.getCurrentPosition(async (pos) => {
+      const lat = pos.coords.latitude;
+      const lon = pos.coords.longitude;
 
-  const res = await fetch(
-    `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lon}&localityLanguage=en`
-  );
+      const res = await fetch(
+        `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lon}&localityLanguage=en`
+      );
 
-  const data = await res.json();
-  setLocation(data.city || data.locality || data.principalSubdivision);
- 
-});
+      const data = await res.json();
+      setLocation(data.city || data.locality || data.principalSubdivision);
+
+    });
   }, [])
 
-   const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const goToServices = () => {
     navigate("/#services"); // navigate to home with hash
@@ -40,7 +41,7 @@ const Navbar = () => {
     <div style={{ background: 'var(--primary-gradient)' }} className='sticky top-0 z-50  text-gray-900  font-medium'>
 
       {/* Main Navbar */}
-      <nav className="shadow-md px-6 py-2 flex justify-between items-center">
+      <nav className="shadow-md md:px-6 px-3 py-2 flex justify-between items-center">
         {/* Logo */}
         <div >
           <img className="w-15 rounded-full" src="/logo.jpeg" alt="Logo" />
@@ -57,12 +58,9 @@ const Navbar = () => {
           >
             Home
           </NavLink>
-          
-            <li onClick={goToServices}
-            className={({ isActive }) =>
-              `cursor-pointer hover:text-[var(--primary)] transition ${isActive ? "text-[#B58152] font-semibold" : ""
-              }`
-            }
+
+          <li onClick={goToServices}
+            className=' cursor-pointer hover:text-[var(--primary)] transition'
           >
             Services
           </li>
@@ -77,7 +75,7 @@ const Navbar = () => {
           >
             <button className='px-3 rounded-2xl p-1  cursor-pointer bg-white'>Partner With Register</button>
           </NavLink>
-         
+
           {/* <div className='border rounded-2xl px-2 p-0.5 flex gap-2 items-center '>
             <IoSearch />
             <input className='outline-0 w-full' type="text" name="" id="search" placeholder='Search salons, services, or areas...' />
@@ -85,13 +83,13 @@ const Navbar = () => {
         </ul>
 
         <div className='flex gap-2 items-center '>
-          <div className='border rounded-2xl px-2 p-0.5 flex gap-2  md:w-50 items-center  me-2'>
-            <IoSearch />
+          <div className='border border-gray-600 rounded-2xl px-2 md:p-0.5 flex gap-2  md:w-50 items-center ms-1  me-2'>
+            <IoSearch className='text-gray-600 md:text-xl' />
             <input className='outline-0 w-full' type="search" name="" id="" placeholder={location} />
           </div>
 
-          <div className='border rounded-2xl px-2 p-0.5 flex gap-2  md:w-50 items-center  me-2'>
-            <IoSearch />
+          <div className='border border-gray-600 rounded-2xl px-2 md:p-0.5 flex gap-2  md:w-50 items-center  me-2'>
+            <IoSearch className='text-gray-600 md:text-xl' />
             <input className='outline-0 w-full' type="search" name="" id="" placeholder='Search salons, services' />
           </div>
         </div>
@@ -131,11 +129,11 @@ const Navbar = () => {
             >
               Home
             </NavLink>
-            <li onClick={()=>{goToServices(),setOpen(false)}}
-            className="cursor-pointer list-none hover:text-[var(--primary)] transition"
-          >
-            Services
-          </li>
+            <li onClick={() => { goToServices(), setOpen(false) }}
+              className="cursor-pointer list-none hover:text-[var(--primary)] transition"
+            >
+              Services
+            </li>
             <NavLink
               to="/earn-with-us"
               className={({ isActive }) =>
@@ -145,7 +143,7 @@ const Navbar = () => {
             >
               <button className='px-3 rounded  cursor-pointer'>Partner With Register</button>
             </NavLink>
-          
+
             <div className="flex justify-evenly">
               <NavLink to="/profile">
                 <button className=" px-5 py-2 rounded-xl font-medium cursor-pointer ">

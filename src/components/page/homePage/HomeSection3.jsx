@@ -5,14 +5,19 @@ import { useDispatch, useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom";
 import { getSalondata } from "../../../redux/userSlice/homeSalon";
 import HomeSection23 from "./HomeSection23";
+import AOS from "aos";
+import "aos/dist/aos.css";
+
 const HomeSection3 = () => {
   const [category, setCategory] = useState("men");
-
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
 
+ useEffect(() => {
+    AOS.init({ duration: 2000, once: true });
+  }, []);
 
-  const navigate = useNavigate()
   const handledetails = (id) => {
     navigate(`/home/product/${id}`)
   }
@@ -37,7 +42,7 @@ const HomeSection3 = () => {
   const { data, loading, error } = useSelector((state) => state.homeSalon);
   const ButtonStyle = (btnCat) => ({
     background:
-      category === btnCat ? "var(--primary-gradient)" : "#f0f0f0",
+      category === btnCat ? "#d6aeb0" : "",
     color: category === btnCat ? "white" : "black",
     transition: "0.3s",
   });
@@ -75,12 +80,13 @@ const HomeSection3 = () => {
     return distance.toFixed(2); // round karke return
   };
   return (
-    <div className="p-6 mt-3">
+    <div className="p-6 mt-3 ">
       <div>
-        <div className="flex gap-3 items-center font-medium p-2 mt-3">
+      <div>
+          <div className="flex gap-1 items-center font-medium p-2 mt-3 rounded-4xl bg-[#f7eded] md:w-90 sm:w-70 w-60 text-xs md:text-sm">
           <button
             onClick={() => setCategory("men")}
-            className="px-4 p-2 rounded flex items-center gap-3"
+            className="md:px-4 md:p-2 p-1 px-2 rounded-3xl flex items-center gap-3"
             style={ButtonStyle("men")}
           >
             <img className="w-7" src="https://cdn-icons-png.flaticon.com/128/3667/3667832.png" alt="" />
@@ -89,15 +95,16 @@ const HomeSection3 = () => {
 
           <button
             onClick={() => setCategory("women")}
-            className="px-4 p-2 rounded flex items-center gap-3"
+            className="md:px-4 md:p-2 p-1 px-2 rounded-3xl flex items-center gap-3"
             style={ButtonStyle("women")}
           >
             <img className="w-7" src="https://cdn-icons-png.flaticon.com/128/5498/5498588.png" alt="" />
             Women Salon
           </button>
         </div>
+      </div>
 
-        <div>
+        <div >
           <HomeSection23 category={category} />
         </div>
 
@@ -107,7 +114,7 @@ const HomeSection3 = () => {
         </div>
 
         {error && <p className="font-medium text-2xl text-red-500 text-center p-3">{error}</p>}
-        <div className="grid md:grid-cols-3 gap-4 lg:grid-cols-4">
+        <div data-aos="fade-right" className="grid md:grid-cols-3 gap-4 lg:grid-cols-4 mt-3">
 
           {loading &&
             Array.from({ length: 4 }).map((_, i) => (
@@ -120,7 +127,7 @@ const HomeSection3 = () => {
             data?.salons?.data.map((item) => (
               <div
                 key={item.id}
-                className="bg-white rounded-2xl shadow-sm hover:shadow-md  cursor-pointer transition-all"
+                className="bg-white rounded-2xl shadow-sm hover:shadow-md  cursor-pointer transition-all mt-2"
               >
                 <div className="h-36 bg-gray-200 rounded-lg">
                   {item.galleryImages.length > 1 ? item.galleryImages.slice(0, 1).map((img, i) => (

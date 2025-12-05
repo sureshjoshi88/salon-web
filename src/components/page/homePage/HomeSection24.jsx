@@ -54,7 +54,7 @@ const HomeSection24 = () => {
       </p>
 
       {/* Service Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-10">
+      <div data-aos="fade-up" className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-10">
         {services.map((item, i) => (
           <div
             key={i}
