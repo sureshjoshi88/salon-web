@@ -10,7 +10,7 @@ const HomeSection25 = () => {
         <div data-aos="fade-left" className="bg-white px-4 p-2 md:h-30 rounded-2xl shadow-lg hover:shadow-2xl transition-shadow duration-300 ">
           <div className='flex flex-wrap items-center justify-between p-1'>
             <h3 className="text-2xl font-bold text-[#5A2C1E]">Are You a Salon Owner?</h3>
-           <Link to='/earn-with-us'> <button className="bg-[#FFBC86] text-white font-medium p-1.5 cursor-pointer px-5  rounded-full shadow hover:bg-[#ffad6a] transition-all">
+           <Link to='/register'> <button className="bg-[#FFBC86] text-white font-medium p-1.5 cursor-pointer px-5  rounded-full shadow hover:bg-[#ffad6a] transition-all">
               Partner With Register
             </button></Link>
           </div>

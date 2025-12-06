@@ -24,7 +24,7 @@ const RegisterFromHeader = (props) => {
                     </div>
 
                     <div className="flex items-center gap-3">
-                        <div className={`flex items-center justify-center w-10 h-10 rounded-full  text-white text-xl ${props.green2 ? 'bg-green-400' : 'bg-[var(--primary)]'}`}>
+                        <div className={`flex items-center justify-center w-10 h-10 rounded-full   text-xl ${props.green2 ? 'bg-green-400 text-white' : 'bg-gray-200 text-[var(--primary)]'}`}>
                             {props.icon2 ? <FaCheck /> : <FaCartShopping />}                         </div>
                         <div>
                             <p className="text-sm font-medium">Shop Details</p>

@@ -87,7 +87,7 @@ const ProfileAdmin = () => {
                                 </div>
                             </article>
 
-                            <Link to="/earn-with-us">
+                            <Link to="/register">
 
                                 <article className="flex gap-3 items-start p-4 bg-gray-50 rounded-lg hover:shadow transition">
                                     <div className="flex-shrink-0 rounded-full p-3 bg-amber-100">

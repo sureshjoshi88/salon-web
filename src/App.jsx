@@ -12,7 +12,7 @@ function App() {
   return (
     <>
     
-    <RoleRegister/>
+    {/* <RoleRegister/> */}
       <Suspense fallback={<div className='flex justify-center items-center h-[100vh]  font-medium'><BeatLoader size={20} /></div>}>
       <AllRoute/>
       </Suspense>

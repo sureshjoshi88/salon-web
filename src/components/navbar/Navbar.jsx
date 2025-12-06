@@ -67,7 +67,7 @@ const Navbar = () => {
 
 
           <NavLink
-            to="/earn-with-us"
+            to="/register"
             className={({ isActive }) =>
               `cursor-pointer hover:text-[var(--primary)] transition ${isActive ? "text-[#B58152] font-semibold" : ""
               }`
@@ -135,7 +135,7 @@ const Navbar = () => {
               Services
             </li>
             <NavLink
-              to="/earn-with-us"
+              to="/register"
               className={({ isActive }) =>
                 `cursor-pointer hover:text-[var(--primary)] transition ${isActive ? "text-[#B58152] font-semibold" : ""
                 }`
