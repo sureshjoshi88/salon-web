@@ -103,32 +103,47 @@ console.log(data)
 
         {/* TABS */}
 
-        <div className='flex justify-around p-3 font-medium text-lg'>
+        <div className='grid sm:grid-cols-3 md:grid-cols-5 gap-3 p-3 font-medium md:text-lg'>
+          <div>
+
           <NavLink to="services" className={({ isActive }) =>
             isActive
               ? " font-medium border-b p-2"
               : ""
           }>Services</NavLink>
+          </div>
+          <div>
+
           <NavLink to="gallery" className={({ isActive }) =>
             isActive
               ? " font-medium border-b p-2"
               : ""
           }>Gallery</NavLink>
+          </div>
+          <div>
+
           <NavLink to="map" className={({ isActive }) =>
             isActive
               ? " font-medium border-b p-2"
               : ""
           }>Map & Location</NavLink>
+          </div>
+          <div>
+
           <NavLink to="reviews" className={({ isActive }) =>
             isActive
               ? " font-medium border-b p-2"
               : ""
           }>Reviews</NavLink>
+          </div>
+          <div>
+
           <NavLink to="specialists" className={({ isActive }) =>
             isActive
               ? " font-medium border-b p-2"
               : ""
           }>specialists</NavLink>
+          </div>
         </div>
         <div>
           <Outlet />
