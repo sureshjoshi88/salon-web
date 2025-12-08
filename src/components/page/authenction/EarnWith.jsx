@@ -10,7 +10,32 @@ import RegisterFromHeader from '../reusableComponent/RegisterFromHeader';
 const EarnWith = () => {
   const [ownership, setOwnership] = useState('personal')
   const [state, dispatch] = useReducer(registerFromReducer, initialState);
-
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    password: "",
+    role: "salon_owner",
+    salonData: {
+      shopType: "",
+      shopName: "",
+      salonCategory: "",
+      location: {
+        type: "Point",
+        coordinates: [0, 0], // [longitude, latitude]
+        address: "",
+        city: "",
+        state: "",
+        pincode: ""
+      },
+      governmentId: {
+        idType: "",
+        idNumber: "",
+        idImageUrl: ""
+      }
+    }
+  });
+  console.log(formData)
   const [partners, setPartners] = useState([
     { name: "", phone: "", whatsapp: "" },
   ]);
@@ -30,6 +55,85 @@ const EarnWith = () => {
     const updated = [...partners];
     updated.splice(index, 1);
     setPartners(updated);
+  };
+
+  const registerAdmin = () => {
+    try {
+      const myHeaders = new Headers();
+      myHeaders.append("Content-Type", "application/json");
+
+      const raw = JSON.stringify({
+        "name": "suresh",
+        "email": "suresh1234@gmail.com",
+        "phone": 9006543254,
+        "password": "suresh123",
+        "role": "salon_owner",
+        "salonData": {
+          "shopType": "personal",
+          "shopName": "suresh",
+          "salonCategory": "men",
+          "location": {
+            "coordinates": [
+              75.8577,
+              26.9124
+            ],
+            "address": "MI Road",
+            "city": "Jaipur",
+            "state": "Rajasthan",
+            "pincode": "302001"
+          },
+          "governmentId": {
+            "idType": "Aadhar",
+            "idNumber": "123456789",
+            "idImageUrl": "https://akm-img-a-in.tosshub.com/businesstoday/images/story/202304/untitled_design_90-sixteen_nine.jpg"
+          }
+        }
+      });
+
+      const requestOptions = {
+        method: "POST",
+        headers: myHeaders,
+        body: raw,
+        redirect: "follow"
+      };
+
+      fetch("https://saloonbackend-mumt.onrender.com/api/auth/signup", requestOptions)
+        .then((response) => response.text())
+        .then((result) => console.log(result))
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+
+  const handleChangeinput = (field, value) => {
+    setFormData(prev => ({
+      ...prev,
+      [field]: value
+    }));
+  };
+
+  const handleSalonChange = (field, value) => {
+    setFormData(prev => ({
+      ...prev,
+      salonData: {
+        ...prev.salonData,
+        [field]: value
+      }
+    }));
+  };
+
+  const handleLocationChange = (field, value) => {
+    setFormData(prev => ({
+      ...prev,
+      salonData: {
+        ...prev.salonData,
+        location: {
+          ...prev.salonData.location,
+          [field]: value
+        }
+      }
+    }));
   };
   return (
     <>
@@ -83,24 +187,30 @@ const EarnWith = () => {
                     <div>
                       <label htmlFor="ownerName" className="block text-sm font-medium text-gray-700">Owner Full Name</label>
                       <input style={{ background: "var(--secondary)" }}
+                        onChange={(e) => handleChangeinput("name", e.target.value)}
                         id="ownerName" name="ownerName" type="text" placeholder="Enter owner's full name" className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm outline-none h-10 p-3" />
                     </div>
 
                     <div>
                       <label htmlFor="contactNumber" className="block text-sm font-medium text-gray-700">Contact Number</label>
                       <input style={{ background: "var(--secondary)" }}
-                        id="contactNumber" name="" type="tel" placeholder="Enter contact number" className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm outline-none h-10 p-3" />
+                        id="contactNumber" name="" onChange={(e) => handleChangeinput("phone", e.target.value)}
+                        type="tel" placeholder="Enter contact number" className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm outline-none h-10 p-3" />
                     </div>
 
                     <div>
                       <label htmlFor="email1" className="block text-sm font-medium text-gray-700">Email</label>
                       <input style={{ background: "var(--secondary)" }}
+                        onChange={(e) => handleChangeinput("email", e.target.value)}
+
                         id="email1" name="" type="email" placeholder="Enter your email " className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm outline-none h-10 p-3" />
                     </div>
 
                     <div>
                       <label htmlFor="password" className="block text-sm font-medium text-gray-700">Password</label>
                       <input style={{ background: "var(--secondary)" }}
+                        onChange={(e) => handleChangeinput("password", e.target.value)}
+
                         id="password" name="" type="password" placeholder="Enter your password " className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm outline-none h-10 p-3" />
                     </div>
 
@@ -108,6 +218,8 @@ const EarnWith = () => {
                     <div>
                       <label htmlFor="whatsappNumber" className="block text-sm font-medium text-gray-700">WhatsApp Number</label>
                       <input style={{ background: "var(--secondary)" }}
+
+
                         id="whatsappNumber" name="whatsappNumber" type="tel" placeholder="Enter WhatsApp number" className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm outline-none h-10 p-3" />
                     </div>
                   </div>
@@ -120,6 +232,8 @@ const EarnWith = () => {
                       <div>
                         <label htmlFor="shopName" className="block text-sm font-medium text-gray-700">Shop / Salon Name</label>
                         <input style={{ background: "var(--secondary)" }}
+                          onChange={(e) => handleSalonChange("shopName", e.target.value)}
+
                           id="shopName" name="shopName" type="text" placeholder="Enter shop name" className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm outline-0 h-10 p-3" />
                       </div>
                       <div>
@@ -127,21 +241,20 @@ const EarnWith = () => {
                           Select Category <span className="text-red-500">*</span>
                         </label>
                         <select
+
                           className="w-full border border-[var(--secondary)] rounded-lg px-3 py-2 text-gray-700 focus:outline-none focus:ring-2 focus:ring-[var(--secondary)]"
-                          defaultValue=""
+                          onChange={(e) => handleSalonChange("salonCategory", e.target.value)}
+
                         >
                           <option value="" disabled>
                             Select Category
                           </option>
-                          <option value="aadhar">Men Salon</option>
-                          <option value="pan">Beauty Parlour</option>
-                          <option value="driving">Unisex Salon</option>
-                          <option value="passport">Spa</option>
+                          <option value="men">Men Salon</option>
+                          <option value="beautyParlour">Beauty Parlour</option>
+                          <option value="unisex">Unisex Salon</option>
+                          <option value="spa">Spa</option>
                         </select>
                       </div>
-                    </div>
-
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     </div>
                   </div>
                 </section>
@@ -155,24 +268,29 @@ const EarnWith = () => {
                       <div>
                         <label htmlFor="ownerName" className="block text-sm font-medium text-gray-700">Owner Full Name</label>
                         <input style={{ background: "var(--secondary)" }}
+                          onChange={(e) => handleChangeinput("name", e.target.value)}
+
                           id="ownerName" name="ownerName" type="text" placeholder="Enter owner's full name" className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm outline-none h-10 p-3" />
                       </div>
 
                       <div>
                         <label htmlFor="contactNumber" className="block text-sm font-medium text-gray-700">Contact Number</label>
                         <input style={{ background: "var(--secondary)" }}
+                          onChange={(e) => handleChangeinput("phone", e.target.value)}
                           id="contactNumber" name="contactNumber" type="tel" placeholder="Enter contact number" className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm outline-none h-10 p-3" />
                       </div>
 
                       <div>
                         <label htmlFor="email1" className="block text-sm font-medium text-gray-700">Email</label>
                         <input style={{ background: "var(--secondary)" }}
+                          onChange={(e) => handleChangeinput("email", e.target.value)}
                           id="email1" name="" type="email" placeholder="Enter your email " className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm outline-none h-10 p-3" />
                       </div>
 
                       <div>
                         <label htmlFor="password2" className="block text-sm font-medium text-gray-700">Password</label>
                         <input style={{ background: "var(--secondary)" }}
+                          onChange={(e) => handleChangeinput("password", e.target.value)}
                           id="password2" name="" type="password" placeholder="Enter your password " className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm outline-none h-10 p-3" />
                       </div>
 
@@ -190,6 +308,8 @@ const EarnWith = () => {
                       <div>
                         <label htmlFor="shopName" className="block text-sm font-medium text-gray-700">Shop / Salon Name</label>
                         <input style={{ background: "var(--secondary)" }}
+                          onChange={(e) => handleSalonChange("shopName", e.target.value)}
+
                           id="shopName" name="shopName" type="text" placeholder="Enter shop name" className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm outline-0 h-10 p-3" />
                       </div>
                       <div>
@@ -199,21 +319,24 @@ const EarnWith = () => {
                         <select
                           className="w-full border border-[var(--secondary)] rounded-lg px-3 py-2 text-gray-700 focus:outline-none focus:ring-2 focus:ring-[var(--secondary)]"
                           defaultValue=""
+                          onChange={(e) => handleSalonChange("salonCategory", e.target.value)}
+
+
                         >
                           <option value="" disabled>
                             Select Category
                           </option>
-                          <option value="aadhar">Men Salon</option>
-                          <option value="pan">Beauty Parlour</option>
-                          <option value="driving">Unisex Salon</option>
-                          <option value="passport">Spa</option>
+                          <option value="men">Men Salon</option>
+                          <option value="beautyParlour">Beauty Parlour</option>
+                          <option value="unisex">Unisex Salon</option>
+                          <option value="spa">Spa</option>
                         </select>
                       </div>
                     </div>
                   </section>
                   <section className="mb-6">
-                    <h3 className="text-lg font-semibold text-gray-800">Partner 1</h3>
-                    <div className="mt-4 grid grid-cols-1 gap-4">
+                    <h3 className="text-lg font-semibold text-gray-800">Partner </h3>
+                    {/* <div className="mt-4 grid grid-cols-1 gap-4">
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
 
                         <div>
@@ -235,12 +358,12 @@ const EarnWith = () => {
 
 
                       <button className="border bg-[var(--primary)] w-full py-2 rounded-md text-white font-medium">+ Add Staff Member</button>
-                    </div>
+                    </div> */}
 
                     <div className="space-y-6">
 
                       {partners.map((p, index) => (
-                        <div key={index} className="p-4 rounded-md bg-gray-50 border relative">
+                        <div key={index} className="rounded-md bg-gray-50  relative">
 
                           {index > 0 && (
                             <button
@@ -263,7 +386,7 @@ const EarnWith = () => {
                                 type="text"
                                 placeholder="Enter full name"
                                 value={p.name}
-                                onChange={(e) => handleChange(index, "name", e.target.value)}
+                                onChange={(e) => handleLocationChange("city", e.target.value)}
                                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm 
                 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm outline-0 h-10 p-3"
                               />
@@ -308,7 +431,7 @@ const EarnWith = () => {
                       <button
                         onClick={addPartner}
                         disabled={partners.length >= 2}
-                        className={`px-4 py-2 rounded font-medium ${partners.length >= 2
+                        className={`px-4 py-2 rounded font-medium w-full ${partners.length >= 2
                           ? "bg-gray-300 cursor-not-allowed"
                           : "bg-indigo-600 text-white"
                           }`}

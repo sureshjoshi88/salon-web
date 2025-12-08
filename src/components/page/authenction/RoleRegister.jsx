@@ -1,7 +1,7 @@
 import React from 'react'
 import { FaUserTie, FaUser } from "react-icons/fa";
 import { BiCheckCircle } from "react-icons/bi";
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const RoleRegister = () => {
     const navigate = useNavigate()
@@ -98,8 +98,9 @@ const RoleRegister = () => {
 
         {/* Sign In Link */}
         <p className="text-center mt-8 text-gray-500">
-          Already registered?{" "}
-          <button className="text-blue-600 font-semibold hover:underline">Sign In</button>
+          Already registered?
+          <Link to='/login'>
+          <button className="text-blue-600 font-semibold hover:underline"> Login</button></Link>
         </p>
       </div>
     </div>

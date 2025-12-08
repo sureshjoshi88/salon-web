@@ -9,8 +9,8 @@ const MapAndLocation = () => {
       </div>
       <p className='font-medium text-lg pt-2'>Address</p>
       <p className='text-sm'>123 Beauty Street, Beverly Hills, CA 90210</p>
-      <p className='font-medium text-lg pt-2'>Phone</p>
-      <p className='text-sm'>(555) 123-4567</p>
+      {/* <p className='font-medium text-lg pt-2'>Phone</p>
+      <p className='text-sm'>(555) 123-4567</p> */}
       <div className='p-2 flex gap-4 items-center'>
         <button className='bg-gray-600 text-white px-4 p-2 rounded-lg'>Get Directions</button>
         <button className='border border-gray-600 px-4 p-2 rounded-lg ml-2'>Call Salon</button>
