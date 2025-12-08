@@ -43,6 +43,7 @@ import SuperAdminProfile from '../page/superAdmin/SuperAdminProfile'
 import SuperAdminProtectRoute from '../page/authenction/SuperAdminProtectRoute'
 import Specialists from '../page/detailspage/detailsLayout/Specialists'
 import RoleRegister from '../page/authenction/RoleRegister'
+import IndependentAdmin from '../page/authenction/IndependentAdmin'
 
 const AllRoute = () => {
   return (
@@ -79,6 +80,7 @@ const AllRoute = () => {
           <Route path='/profile/edit' element={<CreateAccount />} />
           <Route path='/earn-with-us' element={<EarnWith />} />
           <Route path='/register' element={<RoleRegister/>}/>
+          <Route path='/independentAdmin' element={<IndependentAdmin/>}/>
         </Route>
 
 

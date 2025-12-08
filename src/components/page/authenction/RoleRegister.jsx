@@ -9,6 +9,10 @@ const RoleRegister = () => {
     const handaleNaviagetOwner = ()=>{
         navigate('/earn-with-us')
     }
+
+    const handaleNaviagetindependentAdmin = ()=>{
+        navigate('/independentAdmin')
+    }
   return (
 <div className="w-full min-h-screen flex justify-center bg-gray-50 py-10">
       <div className="w-[750px] bg-white p-10 rounded-xl shadow-md">
@@ -39,7 +43,7 @@ const RoleRegister = () => {
           </div>
 
           {/* Independent Professional */}
-          <div className="flex items-center justify-between p-5 bg-gray-50 hover:bg-gray-100 rounded-xl border cursor-pointer transition">
+          <div onClick={handaleNaviagetindependentAdmin} className="flex items-center justify-between p-5 bg-gray-50 hover:bg-gray-100 rounded-xl border cursor-pointer transition">
             <div className="flex items-center gap-4">
               <div className="w-14 h-14 flex items-center justify-center bg-pink-100 text-pink-700 text-2xl rounded-full">
                 <FaUser />
