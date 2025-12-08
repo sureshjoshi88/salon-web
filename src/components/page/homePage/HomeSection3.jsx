@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 import { FaMapMarkerAlt } from "react-icons/fa";
 import CardLoader from "./CardLoader";
 import { useDispatch, useSelector } from "react-redux"
@@ -125,7 +125,7 @@ const HomeSection3 = () => {
           {/* ---- Actual Data Cards ---- */}
           {!loading &&
             data?.salons?.data.map((item) => (
-              <div
+              <div onClick={() => handledetails(item._id)}
                 key={item.id}
                 className="bg-white rounded-2xl shadow-sm hover:shadow-md  cursor-pointer transition-all mt-2"
               >
@@ -162,7 +162,7 @@ const HomeSection3 = () => {
                   </div>
 
                   <div className="flex justify-end text-sm">
-                    <button onClick={() => handledetails(item._id)} className="text-indigo-600 font-medium hover:underline">
+                    <button className="text-indigo-600 font-medium hover:underline">
                       See More
                     </button>
                   </div>
@@ -177,4 +177,4 @@ const HomeSection3 = () => {
 };
 
 
-export default HomeSection3;
+export default memo(HomeSection3);

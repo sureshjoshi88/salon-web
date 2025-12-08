@@ -1,4 +1,4 @@
-import React, { use, useEffect, useState } from 'react'
+import React, { memo, use, useEffect, useState } from 'react'
 import { FaMapMarkerAlt, FaStar, FaRupeeSign, FaClock } from "react-icons/fa";
 import popularNearMe from '../../data';
 import AOS from "aos";
@@ -115,4 +115,4 @@ const HomeSection2 = () => {
   )
 }
 
-export default HomeSection2
+export default memo(HomeSection2)

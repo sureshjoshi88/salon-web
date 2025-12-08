@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, memo, useState } from "react";
 import { FaStar, FaRupeeSign, FaMapMarkerAlt, FaClock } from "react-icons/fa";
 import { RiColorFilterAiLine } from "react-icons/ri";
 
@@ -305,4 +305,4 @@ const HomeSection3 = () => {
   )
 }
 
-export default HomeSection3
+export default memo(HomeSection3)

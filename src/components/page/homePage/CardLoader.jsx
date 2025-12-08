@@ -1,4 +1,5 @@
 import React from 'react'
+import { memo } from 'react'
 
 const CardLoader = (props) => {
   return (
@@ -15,4 +16,4 @@ const CardLoader = (props) => {
   )
 }
 
-export default CardLoader
+export default memo(CardLoader)

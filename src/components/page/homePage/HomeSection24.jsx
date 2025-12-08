@@ -5,6 +5,7 @@ import img3 from "../../../assets/haircut.png"
 import img4 from "../../../assets/facial.png"
 import img5 from "../../../assets/waxing.png"
 import img6 from "../../../assets/makeup.png"
+import { memo } from "react"
 
 
 const HomeSection24 = () => {
@@ -81,4 +82,4 @@ const HomeSection24 = () => {
   );
 };
 
-export default HomeSection24;
+export default memo(HomeSection24);

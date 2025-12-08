@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { memo, useEffect } from 'react'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Navigation, Pagination, Autoplay } from 'swiper/modules'
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
@@ -13,13 +13,6 @@ const HomeSection1 = () => {
   useEffect(() => {
     AOS.init({ duration: 2000, once: true });
   }, []);
-
-
-  
-
-
-
-
 
   const data = [
     {
@@ -41,7 +34,7 @@ const HomeSection1 = () => {
   ]
   return (
     <div data-aos="fade-down">
-   
+
       <div>
         <div className="w-full relative ">
 
@@ -71,20 +64,20 @@ const HomeSection1 = () => {
                       <FaChevronLeft />
                     </button>
                     <div className='text-center '>
-                      <h2 className='font-bold md:text-5xl sm:text-2xl text-xl'>{ <TextType 
-  text={item.title}
-  typingSpeed={85}
-  pauseDuration={1800}
-  showCursor={true}
-  cursorCharacter="|"
-/>}</h2>
-                      <p className='font-semibold md:text-2xl md:pt-3 pt-2 sm:text-xl'>{  <TextType 
-  text={item.text}
-  typingSpeed={80}
-  pauseDuration={1800}
-  showCursor={true}
-  cursorCharacter="|"
-/>}</p>
+                      <h2 className='font-bold md:text-5xl sm:text-2xl text-xl'>{<TextType
+                        text={item.title}
+                        typingSpeed={85}
+                        pauseDuration={1800}
+                        showCursor={true}
+                        cursorCharacter="|"
+                      />}</h2>
+                      <p className='font-semibold md:text-2xl md:pt-3 pt-2 sm:text-xl'>{<TextType
+                        text={item.text}
+                        typingSpeed={80}
+                        pauseDuration={1800}
+                        showCursor={true}
+                        cursorCharacter="|"
+                      />}</p>
                       <p className='md:pt-3 sm:pt-2 pt-1 md:text-xl'>{item.time}</p>
                     </div>
                     <button style={{ background: 'var(--primary-gradient)' }} className="custom-next hidden md:flex cursor-pointer   text-black justify-center items-center h-15 w-15 text-2xl rounded-full  ">
@@ -104,4 +97,4 @@ const HomeSection1 = () => {
   )
 }
 
-export default HomeSection1
+export default memo(HomeSection1)

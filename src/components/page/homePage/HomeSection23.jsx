@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, memo, useState } from 'react'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Navigation, Pagination, Autoplay } from 'swiper/modules'
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
@@ -84,4 +84,4 @@ const HomeSection23 = (props) => {
     )
 }
 
-export default HomeSection23
+export default memo(HomeSection23)
