@@ -1,4 +1,4 @@
-import React, { useReducer, useState } from 'react'
+import React, { useEffect, useReducer, useState } from 'react'
 import { FiUser, FiUsers } from "react-icons/fi";
 import { initialState, registerFromReducer } from '../../../reducer/registerFrom';
 import { BsCardImage } from "react-icons/bs";
@@ -7,6 +7,8 @@ import RegisterFromHeader from '../reusableComponent/RegisterFromHeader';
 
 
 const EarnWith = () => {
+
+
   const [ownership, setOwnership] = useState('personal')
   const [state, dispatch] = useReducer(registerFromReducer, initialState);
   const [formData, setFormData] = useState({
@@ -122,6 +124,9 @@ const EarnWith = () => {
   }
 
 
+  useEffect(() => {
+  window.scrollTo(0, 0);
+}, [state.step]);
   return (
     <>
       <form>
