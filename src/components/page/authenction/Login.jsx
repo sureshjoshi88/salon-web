@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+  import { ToastContainer, toast } from 'react-toastify';
+
 const Login = () => {
+
+      const notify = (value) => toast(value);
+
 
   const navigate = useNavigate()
   const [form, setForm] = useState({ email: '', password: '' })
@@ -38,13 +43,13 @@ const Login = () => {
       .then((response) => response.json())
       .then((result) => {
         console.log(result)
+        notify(result.message)
         localStorage.setItem("authtoken", result.token);
         localStorage.setItem("userrole", result.user.role);
         if (result.user?.role === "customer") {
           localStorage.setItem("userdata", JSON.stringify(result.user));
           navigate("/")
           setForm({ email: "", password: "" });
-          alert(result.message)
         } else if (result.user.role === "salon_owner") {
           localStorage.setItem("admindata", JSON.stringify(result.user));
           navigate('/admin')
@@ -62,6 +67,9 @@ const Login = () => {
 
   return (
     <div>
+      <ToastContainer
+      theme="light"
+      />
       <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
         <div className="w-full max-w-md bg-white rounded-lg shadow-md p-6">
           <h2 className="text-2xl font-semibold text-gray-800 mb-4 text-center">Login</h2>

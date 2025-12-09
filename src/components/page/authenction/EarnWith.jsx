@@ -6,7 +6,6 @@ import { GrFormPreviousLink } from "react-icons/gr";
 import RegisterFromHeader from '../reusableComponent/RegisterFromHeader';
 
 
-
 const EarnWith = () => {
   const [ownership, setOwnership] = useState('personal')
   const [state, dispatch] = useReducer(registerFromReducer, initialState);
@@ -20,6 +19,7 @@ const EarnWith = () => {
       shopType: "",
       shopName: "",
       salonCategory: "",
+      galleryImages: [],
       location: {
         type: "Point",
         coordinates: [0, 0], // [longitude, latitude]
@@ -40,6 +40,13 @@ const EarnWith = () => {
     { name: "", phone: "", whatsapp: "" },
   ]);
 
+  const handleGallery = (e) => {
+    setFormData(prev => ({
+      ...prev,
+      salonData: { ...prev.salonData, galleryImages: [...e.target.files] }
+    }));
+  };
+
   const addPartner = () => {
     if (partners.length >= 2) return alert("You can add only 2 partners");
     setPartners([...partners, { name: "", phone: "", whatsapp: "" }]);
@@ -56,55 +63,6 @@ const EarnWith = () => {
     updated.splice(index, 1);
     setPartners(updated);
   };
-
-  const registerAdmin = () => {
-    try {
-      const myHeaders = new Headers();
-      myHeaders.append("Content-Type", "application/json");
-
-      const raw = JSON.stringify({
-        "name": "suresh",
-        "email": "suresh1234@gmail.com",
-        "phone": 9006543254,
-        "password": "suresh123",
-        "role": "salon_owner",
-        "salonData": {
-          "shopType": "personal",
-          "shopName": "suresh",
-          "salonCategory": "men",
-          "location": {
-            "coordinates": [
-              75.8577,
-              26.9124
-            ],
-            "address": "MI Road",
-            "city": "Jaipur",
-            "state": "Rajasthan",
-            "pincode": "302001"
-          },
-          "governmentId": {
-            "idType": "Aadhar",
-            "idNumber": "123456789",
-            "idImageUrl": "https://akm-img-a-in.tosshub.com/businesstoday/images/story/202304/untitled_design_90-sixteen_nine.jpg"
-          }
-        }
-      });
-
-      const requestOptions = {
-        method: "POST",
-        headers: myHeaders,
-        body: raw,
-        redirect: "follow"
-      };
-
-      fetch("https://saloonbackend-mumt.onrender.com/api/auth/signup", requestOptions)
-        .then((response) => response.text())
-        .then((result) => console.log(result))
-    } catch (error) {
-      console.error(error)
-    }
-  }
-
 
   const handleChangeinput = (field, value) => {
     setFormData(prev => ({
@@ -135,6 +93,35 @@ const EarnWith = () => {
       }
     }));
   };
+
+  const registerAdmin = (e) => {
+    e.preventDefault()
+    try {
+      const myHeaders = new Headers();
+      myHeaders.append("Content-Type", "application/json");
+
+      const raw = JSON.stringify(formData);
+
+      const requestOptions = {
+        method: "POST",
+        headers: myHeaders,
+        body: raw,
+        redirect: "follow"
+      };
+
+      fetch("https://saloonbackend-mumt.onrender.com/api/auth/signup", requestOptions)
+        .then((response) => response.json())
+        .then((result) =>{ 
+          console.log(result)
+          alert(result.message)
+          setFormData(formData.name='')
+        })
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+
   return (
     <>
       <form>
@@ -188,6 +175,7 @@ const EarnWith = () => {
                       <label htmlFor="ownerName" className="block text-sm font-medium text-gray-700">Owner Full Name</label>
                       <input style={{ background: "var(--secondary)" }}
                         onChange={(e) => handleChangeinput("name", e.target.value)}
+                        value={formData.name}
                         id="ownerName" name="ownerName" type="text" placeholder="Enter owner's full name" className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm outline-none h-10 p-3" />
                     </div>
 
@@ -195,6 +183,7 @@ const EarnWith = () => {
                       <label htmlFor="contactNumber" className="block text-sm font-medium text-gray-700">Contact Number</label>
                       <input style={{ background: "var(--secondary)" }}
                         id="contactNumber" name="" onChange={(e) => handleChangeinput("phone", e.target.value)}
+                        value={formData.phone}
                         type="tel" placeholder="Enter contact number" className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm outline-none h-10 p-3" />
                     </div>
 
@@ -318,7 +307,6 @@ const EarnWith = () => {
                         </label>
                         <select
                           className="w-full border border-[var(--secondary)] rounded-lg px-3 py-2 text-gray-700 focus:outline-none focus:ring-2 focus:ring-[var(--secondary)]"
-                          defaultValue=""
                           onChange={(e) => handleSalonChange("salonCategory", e.target.value)}
 
 
@@ -386,7 +374,7 @@ const EarnWith = () => {
                                 type="text"
                                 placeholder="Enter full name"
                                 value={p.name}
-                                onChange={(e) => handleLocationChange("city", e.target.value)}
+onChange={(e) => handleChange(index, "name", e.target.value)}
                                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm 
                 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm outline-0 h-10 p-3"
                               />
@@ -446,7 +434,7 @@ const EarnWith = () => {
                 </main>
               }
               <div className="flex justify-end">
-                <button onClick={() => dispatch({ type: "NEXT_STEP" })} className="cursor-pointer font-medium px-5 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700">Save & Continue</button>
+                <button type='button' onClick={() => dispatch({ type: "NEXT_STEP" })} className="cursor-pointer font-medium px-5 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700">Save & Continue</button>
               </div>
             </main>
           </div>
@@ -477,16 +465,16 @@ const EarnWith = () => {
                   <div className='grid md:grid-cols-4 gap-6'>
 
                     <label htmlFor='img1' className='bg-[var(--secondary)] h-40 flex items-center justify-center text-4xl cursor-pointer'><BsCardImage className='text-gray-600' />
-                      <input className='hidden' type="file" name="" id="img1" />
+                      <input onChange={handleGallery} className='hidden' type="file" name="img" id="img1" />
                     </label>
-                    <label htmlFor='img1' className='bg-[var(--secondary)] h-40 flex items-center justify-center text-4xl cursor-pointer'><BsCardImage className='text-gray-600' />
-                      <input className='hidden' type="file" name="" id="img1" />
+                    <label htmlFor='img2' className='bg-[var(--secondary)] h-40 flex items-center justify-center text-4xl cursor-pointer'><BsCardImage className='text-gray-600' />
+                      <input onChange={handleGallery} className='hidden' type="file" name="" id="img2" />
                     </label>
-                    <label htmlFor='img1' className='bg-[var(--secondary)] h-40 flex items-center justify-center text-4xl cursor-pointer'><BsCardImage className='text-gray-600' />
-                      <input className='hidden' type="file" name="" id="img1" />
+                    <label htmlFor='img3' className='bg-[var(--secondary)] h-40 flex items-center justify-center text-4xl cursor-pointer'><BsCardImage className='text-gray-600' />
+                      <input onChange={handleGallery} className='hidden' type="file" name="" id="img3" />
                     </label>
-                    <label htmlFor='img1' className='bg-[var(--secondary)] h-40 flex items-center justify-center text-4xl cursor-pointer'><BsCardImage className='text-gray-600' />
-                      <input className='hidden' type="file" name="" id="img1" />
+                    <label htmlFor='img4' className='bg-[var(--secondary)] h-40 flex items-center justify-center text-4xl cursor-pointer'><BsCardImage className='text-gray-600' />
+                      <input onChange={handleGallery} className='hidden' type="file" name="" id="img4" />
                     </label>
                   </div>
                 </section>
@@ -500,25 +488,52 @@ const EarnWith = () => {
 
                         <label htmlFor="shopadress" className="block text-sm font-medium text-gray-700">Complete Address *</label>
                         <input style={{ background: "var(--secondary)" }}
+                          onChange={(e) => handleLocationChange("address", e.target.value)}
                           id="shopadress" name="shopadress" type="text" placeholder="Shop No, Building, Street, Area" className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm outline-0 h-10 p-3" />
                       </div>
 
                       <div>
                         <label htmlFor="city" className="block text-sm font-medium text-gray-700">City *</label>
                         <input style={{ background: "var(--secondary)" }}
+                          onChange={(e) => handleLocationChange("city", e.target.value)}
+
                           id="city" name="city" type="text" placeholder="Enter your city name" className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm outline-0 h-10 p-3" />
                       </div>
                       <div>
                         <label htmlFor="state" className="block text-sm font-medium text-gray-700">State *</label>
                         <input style={{ background: "var(--secondary)" }}
+                          onChange={(e) => handleLocationChange("state", e.target.value)}
+
                           id="state" name="state" type="text" placeholder="Enter your state name" className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm outline-0 h-10 p-3" />
                       </div>
                       <div>
                         <label htmlFor="pincode" className="block text-sm font-medium text-gray-700">Pincode *</label>
                         <input style={{ background: "var(--secondary)" }}
+                          onChange={(e) => handleLocationChange("pincode", e.target.value)}
+
                           id="pincode" name="pincode" type="text" placeholder="Enter your pincode number" className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm outline-0 h-10 p-3" />
                       </div>
 
+                      <div>
+                        <label htmlFor="longitude" className="block text-sm font-medium text-gray-700">Longitude *</label>
+                        <input style={{ background: "var(--secondary)" }}
+                          onChange={(e) => handleLocationChange("coordinates", [
+                            Number(e.target.value),
+                            formData.salonData.location.coordinates[1]
+                          ])}
+                          id="longitude" name="longitude" type="text" placeholder="Enter your longitude number" className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm outline-0 h-10 p-3" />
+                      </div>
+                      <div>
+                        <label htmlFor="latitude" className="block text-sm font-medium text-gray-700">
+                          Latitude *
+                        </label>
+                        <input style={{ background: "var(--secondary)" }}
+                          onChange={(e) => handleLocationChange("coordinates", [
+                            formData.salonData.location.coordinates[0],
+                            Number(e.target.value)
+                          ])}
+                          id="latitude" name="latitude" type="text" placeholder="Enter your latitude number" className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm outline-0 h-10 p-3" />
+                      </div>
                     </div>
                   </div>
 
@@ -538,11 +553,11 @@ const EarnWith = () => {
                 </section>
 
                 <div className="flex justify-between items-center pt-4">
-                  <button onClick={() => dispatch({ type: "PREV_STEP" })} className="flex items-center gap-1 bg-gray-100 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-200 transition">
+                  <button type='button' onClick={() => dispatch({ type: "PREV_STEP" })} className="flex items-center gap-1 bg-gray-100 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-200 transition">
                     <GrFormPreviousLink size={16} />
                     Back
                   </button>
-                  <button onClick={() => dispatch({ type: "NEXT_STEP" })} className="cursor-pointer font-medium px-5 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700">Save & Continue</button>
+                  <button type='button' onClick={() => dispatch({ type: "NEXT_STEP" })} className="cursor-pointer font-medium px-5 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700">Save & Continue</button>
                 </div>
 
               </main>
@@ -577,14 +592,27 @@ const EarnWith = () => {
                   <select
                     className="w-full border border-gray-300 rounded-lg px-3 py-2 text-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
                     defaultValue=""
+                    onChange={(e) =>
+                      setFormData(prev => ({
+                        ...prev,
+                        salonData: {
+                          ...prev.salonData,
+                          governmentId: {
+                            ...prev.salonData.governmentId,
+                            idType: e.target.value
+                          }
+                        }
+                      }))
+                    }
                   >
                     <option value="" disabled>
                       Select ID proof type
                     </option>
-                    <option value="aadhar">Aadhar Card</option>
-                    <option value="pan">PAN Card</option>
-                    <option value="driving">Driving License</option>
-                    <option value="passport">Passport</option>
+                    <option value="Aadhar">Aadhar Card</option>
+                    <option value="PAN">PAN Card</option>
+                    <option value="DL">Driving License</option>
+                    <option value="GST">Gst</option>
+                    <option value="Certificate">Certificate</option>
                   </select>
                 </div>
 
@@ -594,6 +622,18 @@ const EarnWith = () => {
                     ID Number <span className="text-red-500">*</span>
                   </label>
                   <input
+                    onChange={(e) =>
+                      setFormData(prev => ({
+                        ...prev,
+                        salonData: {
+                          ...prev.salonData,
+                          governmentId: {
+                            ...prev.salonData.governmentId,
+                            idNumber: e.target.value
+                          }
+                        }
+                      }))
+                    }
                     type="text"
                     placeholder="Enter ID number"
                     className="w-full border border-gray-300 rounded-lg px-3 py-2 text-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
@@ -605,7 +645,21 @@ const EarnWith = () => {
                   <label className="block text-sm font-medium text-gray-700 mb-1">
                     Upload ID Proof <span className="text-red-500">*</span>
                   </label>
-                  <input className='hidden' type="file" id='documents' />
+                  <input className='hidden' type="file" id='documents'
+                    accept="image/*"
+                    onChange={(e) => {
+                      setFormData(prev => ({
+                        ...prev,
+                        salonData: {
+                          ...prev.salonData,
+                          governmentId: {
+                            ...prev.salonData.governmentId,
+                            idImage: e.target.files[0]  // File store hoga
+                          }
+                        }
+                      }));
+                    }}
+                  />
                   <label htmlFor='documents' className="border-2 border-gray-300 border-dashed rounded-lg p-6 flex flex-col items-center justify-center cursor-pointer hover:border-indigo-400 transition">
                     <div className="w-12 h-12 bg-gray-200 rounded-full flex items-center justify-center mb-2">
                       <span className="text-gray-500 text-xl">📎</span>
@@ -624,7 +678,7 @@ const EarnWith = () => {
                     Back
                   </button>
 
-                  <button className="bg-indigo-600 text-white px-5 py-2 rounded-lg hover:bg-indigo-700 transition">
+                  <button onClick={registerAdmin} className="bg-indigo-600 text-white px-5 py-2 rounded-lg hover:bg-indigo-700 transition">
                     Submit Registration
                   </button>
                 </div>

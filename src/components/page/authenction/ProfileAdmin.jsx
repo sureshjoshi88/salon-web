@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { FiGift } from "react-icons/fi";
 import { LiaCoinsSolid } from "react-icons/lia";
@@ -19,55 +19,59 @@ const Icon = ({ className = 'w-8 h-8 text-indigo-500' }) => (
     </svg>
 )
 
-const user  = JSON.parse(localStorage.getItem('userdata'))||{}
-const token = localStorage.getItem("authtoken")
 
-const handleLogout = ()=>{
-    localStorage.removeItem('userdata')
-    localStorage.removeItem('authtoken')
-    localStorage.removeItem("userrole")
-}
 
 const ProfileAdmin = () => {
+
+    const [tokenState, setTokenState] = useState(localStorage.getItem("authtoken"));
+    const [userState, setUserState] = useState(JSON.parse(localStorage.getItem('userdata')) || {});
+
+    const handleLogout = () => {
+        localStorage.removeItem('userdata')
+        localStorage.removeItem('authtoken')
+        localStorage.removeItem("userrole")
+        setTokenState(null);
+        setUserState({});
+    }
     return (
         <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
             <div className="w-full max-w-3xl bg-white rounded-xl shadow-lg overflow-hidden">
                 <div className="md:flex">
                     <aside style={{ background: "var(--primary-gradient)" }} className="md:w-1/3 p-6 text-white flex flex-col gap-4">
-                     <Link to="/profile/edit">
-                         <img
-                            className="w-20 h-20 rounded-full border-4 border-white mx-auto"
-                            src="https://i.pinimg.com/originals/cb/45/72/cb4572f19ab7505d552206ed5dfb3739.jpg"
-                            alt="Profile"
-                        />
-                     </Link>
-                       {token?<div className="text-center">
+                        <Link to="/profile/edit">
+                            <img
+                                className="w-20 h-20 rounded-full border-4 border-white mx-auto"
+                                src="https://i.pinimg.com/originals/cb/45/72/cb4572f19ab7505d552206ed5dfb3739.jpg"
+                                alt="Profile"
+                            />
+                        </Link>
+                        {tokenState ? <div className="text-center">
                             <h2 className="text-xl font-semibold">Welcome</h2>
-                            <p className="text-lg font-medium  mt-1">{user.name}</p>
-                            <p className="text-sm opacity-90 mt-1">{user.email}</p>
-                            <p className="text-sm opacity-90 mt-1">{user.phone}</p>
-                            <p className="text-sm opacity-90 mt-1">{user.role}</p>
-                        </div>: <div>
+                            <p className="text-lg font-medium  mt-1">{userState.name}</p>
+                            <p className="text-sm opacity-90 mt-1">{userState.email}</p>
+                            <p className="text-sm opacity-90 mt-1">{userState.phone}</p>
+                            <p className="text-sm opacity-90 mt-1">{userState.role}</p>
+                        </div> : <div>
                             <div className="text-center">
-                            <h2 className="text-xl font-semibold">Welcome</h2>
-                            <p className="text-sm opacity-90 mt-1">Sign in to view your complete profile</p>
-                        </div>
+                                <h2 className="text-xl font-semibold">Welcome</h2>
+                                <p className="text-sm opacity-90 mt-1">Sign in to view your complete profile</p>
+                            </div>
 
-                        <div className="mt-2 flex justify-center gap-3">
-                            <Link to="/login">
-                            <button className="bg-white text-indigo-700 font-semibold px-4 py-2 rounded-md shadow-sm hover:opacity-95">
-                                Login
-                            </button>
-                            </Link>
-                            <Link to="/sign-up">
-                                <button className="bg-transparent border border-white text-white px-4 py-2 rounded-md font-medium hover:bg-white hover:text-indigo-700 transition">
-                                    Sign Up
-                                </button>
-                            </Link>
-                        </div></div>}
+                            <div className="mt-2 flex justify-center gap-3">
+                                <Link to="/login">
+                                    <button className="bg-white text-indigo-700 font-semibold px-4 py-2 rounded-md shadow-sm hover:opacity-95">
+                                        Login
+                                    </button>
+                                </Link>
+                                <Link to="/sign-up">
+                                    <button className="bg-transparent border border-white text-white px-4 py-2 rounded-md font-medium hover:bg-white hover:text-indigo-700 transition">
+                                        Sign Up
+                                    </button>
+                                </Link>
+                            </div></div>}
 
                         <p className="text-xs opacity-85 text-center mt-4">Join our community — coins, offers and partner programs await.</p>
-                       {token && <div className='flex justify-center items-center p-2  md:mt-6'>
+                        {tokenState && <div className='flex justify-center items-center p-2  md:mt-6'>
                             <button onClick={handleLogout} className='rounded-2xl border px-6 p-1.5 font-medium cursor-pointer'>Logout</button>
                         </div>}
                     </aside>
