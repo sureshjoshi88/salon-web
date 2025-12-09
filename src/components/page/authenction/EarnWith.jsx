@@ -11,6 +11,10 @@ const EarnWith = () => {
 
   const [ownership, setOwnership] = useState('personal')
   const [state, dispatch] = useReducer(registerFromReducer, initialState);
+  const [partners, setPartners] = useState([
+    { name: "", phone: "", whatsapp: "" },
+  ]);
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -18,7 +22,7 @@ const EarnWith = () => {
     password: "",
     role: "salon_owner",
     salonData: {
-      shopType: "",
+      shopType: ownership,
       shopName: "",
       salonCategory: "",
       galleryImages: [],
@@ -35,19 +39,24 @@ const EarnWith = () => {
         idNumber: "",
         idImageUrl: ""
       }
-    }
+    },
+    partners
   });
   console.log(formData)
-  const [partners, setPartners] = useState([
-    { name: "", phone: "", whatsapp: "" },
-  ]);
 
-  const handleGallery = (e) => {
-    setFormData(prev => ({
-      ...prev,
-      salonData: { ...prev.salonData, galleryImages: [...e.target.files] }
-    }));
-  };
+
+ const handleGallery = (e) => {
+  const files = Array.from(e.target.files);
+
+  setFormData(prev => ({
+    ...prev,
+    salonData: {
+      ...prev.salonData,
+      galleryImages: [...prev.salonData.galleryImages, ...files]
+    }
+  }));
+};
+
 
   const addPartner = () => {
     if (partners.length >= 2) return alert("You can add only 2 partners");
@@ -113,10 +122,10 @@ const EarnWith = () => {
 
       fetch("https://saloonbackend-mumt.onrender.com/api/auth/signup", requestOptions)
         .then((response) => response.json())
-        .then((result) =>{ 
+        .then((result) => {
           console.log(result)
           alert(result.message)
-          setFormData(formData.name='')
+          setFormData(formData.name = '')
         })
     } catch (error) {
       console.error(error)
@@ -125,8 +134,8 @@ const EarnWith = () => {
 
 
   useEffect(() => {
-  window.scrollTo(0, 0);
-}, [state.step]);
+    window.scrollTo(0, 0);
+  }, [state.step]);
   return (
     <>
       <form>
@@ -154,8 +163,8 @@ const EarnWith = () => {
                     </div>
                   </label>
 
-                  <label className={`p-4 border rounded-lg cursor-pointer ${ownership === 'business' ? 'bg-[var(--primary)] text-white' : 'bg-white'}`}>
-                    <input type="radio" name="ownership" value="business" checked={ownership === 'business'} onChange={() => setOwnership('business')} className="hidden" />
+                  <label className={`p-4 border rounded-lg cursor-pointer ${ownership === 'partnership' ? 'bg-[var(--primary)] text-white' : 'bg-white'}`}>
+                    <input type="radio" name="ownership" value="partnership" checked={ownership === 'partnership'} onChange={() => setOwnership('partnership')} className="hidden" />
                     <div className="flex items-center gap-3">
                       <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center border">
                         <FiUsers className="w-5 h-5 text-indigo-600" />
@@ -196,6 +205,7 @@ const EarnWith = () => {
                       <label htmlFor="email1" className="block text-sm font-medium text-gray-700">Email</label>
                       <input style={{ background: "var(--secondary)" }}
                         onChange={(e) => handleChangeinput("email", e.target.value)}
+                        value={formData.email}
 
                         id="email1" name="" type="email" placeholder="Enter your email " className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm outline-none h-10 p-3" />
                     </div>
@@ -204,6 +214,7 @@ const EarnWith = () => {
                       <label htmlFor="password" className="block text-sm font-medium text-gray-700">Password</label>
                       <input style={{ background: "var(--secondary)" }}
                         onChange={(e) => handleChangeinput("password", e.target.value)}
+                        value={formData.password}
 
                         id="password" name="" type="password" placeholder="Enter your password " className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm outline-none h-10 p-3" />
                     </div>
@@ -227,6 +238,7 @@ const EarnWith = () => {
                         <label htmlFor="shopName" className="block text-sm font-medium text-gray-700">Shop / Salon Name</label>
                         <input style={{ background: "var(--secondary)" }}
                           onChange={(e) => handleSalonChange("shopName", e.target.value)}
+                          value={formData.salonData.shopName}
 
                           id="shopName" name="shopName" type="text" placeholder="Enter shop name" className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm outline-0 h-10 p-3" />
                       </div>
@@ -238,6 +250,7 @@ const EarnWith = () => {
 
                           className="w-full border border-[var(--secondary)] rounded-lg px-3 py-2 text-gray-700 focus:outline-none focus:ring-2 focus:ring-[var(--secondary)]"
                           onChange={(e) => handleSalonChange("salonCategory", e.target.value)}
+                          value={formData.salonData.salonCategory}
 
                         >
                           <option value="" disabled>
@@ -263,7 +276,7 @@ const EarnWith = () => {
                         <label htmlFor="ownerName" className="block text-sm font-medium text-gray-700">Owner Full Name</label>
                         <input style={{ background: "var(--secondary)" }}
                           onChange={(e) => handleChangeinput("name", e.target.value)}
-
+                          value={formData.name}
                           id="ownerName" name="ownerName" type="text" placeholder="Enter owner's full name" className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm outline-none h-10 p-3" />
                       </div>
 
@@ -271,6 +284,8 @@ const EarnWith = () => {
                         <label htmlFor="contactNumber" className="block text-sm font-medium text-gray-700">Contact Number</label>
                         <input style={{ background: "var(--secondary)" }}
                           onChange={(e) => handleChangeinput("phone", e.target.value)}
+                          value={formData.phone}
+
                           id="contactNumber" name="contactNumber" type="tel" placeholder="Enter contact number" className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm outline-none h-10 p-3" />
                       </div>
 
@@ -278,6 +293,8 @@ const EarnWith = () => {
                         <label htmlFor="email1" className="block text-sm font-medium text-gray-700">Email</label>
                         <input style={{ background: "var(--secondary)" }}
                           onChange={(e) => handleChangeinput("email", e.target.value)}
+                          value={formData.email}
+
                           id="email1" name="" type="email" placeholder="Enter your email " className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm outline-none h-10 p-3" />
                       </div>
 
@@ -285,6 +302,7 @@ const EarnWith = () => {
                         <label htmlFor="password2" className="block text-sm font-medium text-gray-700">Password</label>
                         <input style={{ background: "var(--secondary)" }}
                           onChange={(e) => handleChangeinput("password", e.target.value)}
+                          value={formData.password}
                           id="password2" name="" type="password" placeholder="Enter your password " className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm outline-none h-10 p-3" />
                       </div>
 
@@ -303,7 +321,7 @@ const EarnWith = () => {
                         <label htmlFor="shopName" className="block text-sm font-medium text-gray-700">Shop / Salon Name</label>
                         <input style={{ background: "var(--secondary)" }}
                           onChange={(e) => handleSalonChange("shopName", e.target.value)}
-
+                          value={formData.salonData.shopName}
                           id="shopName" name="shopName" type="text" placeholder="Enter shop name" className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm outline-0 h-10 p-3" />
                       </div>
                       <div>
@@ -313,6 +331,7 @@ const EarnWith = () => {
                         <select
                           className="w-full border border-[var(--secondary)] rounded-lg px-3 py-2 text-gray-700 focus:outline-none focus:ring-2 focus:ring-[var(--secondary)]"
                           onChange={(e) => handleSalonChange("salonCategory", e.target.value)}
+                          value={formData.salonData.salonCategory}
 
 
                         >
@@ -329,30 +348,6 @@ const EarnWith = () => {
                   </section>
                   <section className="mb-6">
                     <h3 className="text-lg font-semibold text-gray-800">Partner </h3>
-                    {/* <div className="mt-4 grid grid-cols-1 gap-4">
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-
-                        <div>
-                          <label htmlFor="Partner Name 1" className="block text-sm font-medium text-gray-700">Partner Name</label>
-                          <input style={{ background: "var(--secondary)" }}
-                            id="Partner Name 1" name="Partner Name 1" type="text" placeholder="Enter owner's full name" className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm outline-0 h-10 p-3" />
-                        </div>
-
-                        <div>
-                          <label htmlFor="Contact Number" className="block text-sm font-medium text-gray-700">Contact Number</label>
-                          <input style={{ background: "var(--secondary)" }}
-                            id="Contact Number" name="Contact Number" type="number" placeholder="Enter shop contact number" className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm outline-0 h-10 p-3" />
-                        </div>
-                        <div>
-                          <label htmlFor="WhatsApp Number" className="block text-sm font-medium text-gray-700">WhatsApp Number</label>
-                          <input style={{ background: "var(--secondary)" }} id="WhatsApp Number" name="" type="text" placeholder="Enter WhatsApp number" className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm outline-0 h-10 p-3" />
-                        </div>
-                      </div>
-
-
-                      <button className="border bg-[var(--primary)] w-full py-2 rounded-md text-white font-medium">+ Add Staff Member</button>
-                    </div> */}
-
                     <div className="space-y-6">
 
                       {partners.map((p, index) => (
@@ -361,7 +356,7 @@ const EarnWith = () => {
                           {index > 0 && (
                             <button
                               onClick={() => removePartner(index)}
-                              className="absolute right-2 top-2 text-red-500 text-sm"
+                              className="absolute right-2 top-2 m-2 text-red-500 text-sm"
                             >
                               ✖ Remove
                             </button>
@@ -379,7 +374,8 @@ const EarnWith = () => {
                                 type="text"
                                 placeholder="Enter full name"
                                 value={p.name}
-onChange={(e) => handleChange(index, "name", e.target.value)}
+                                onChange={(e) => handleChange(index, "name", e.target.value)}
+
                                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm 
                 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm outline-0 h-10 p-3"
                               />
@@ -470,16 +466,16 @@ onChange={(e) => handleChange(index, "name", e.target.value)}
                   <div className='grid md:grid-cols-4 gap-6'>
 
                     <label htmlFor='img1' className='bg-[var(--secondary)] h-40 flex items-center justify-center text-4xl cursor-pointer'><BsCardImage className='text-gray-600' />
-                      <input onChange={handleGallery} className='hidden' type="file" name="img" id="img1" />
+                      <input onChange={handleGallery} multiple className='hidden' type="file" name="img" id="img1" />
                     </label>
                     <label htmlFor='img2' className='bg-[var(--secondary)] h-40 flex items-center justify-center text-4xl cursor-pointer'><BsCardImage className='text-gray-600' />
-                      <input onChange={handleGallery} className='hidden' type="file" name="" id="img2" />
+                      <input onChange={handleGallery} multiple className='hidden' type="file" name="" id="img2" />
                     </label>
                     <label htmlFor='img3' className='bg-[var(--secondary)] h-40 flex items-center justify-center text-4xl cursor-pointer'><BsCardImage className='text-gray-600' />
-                      <input onChange={handleGallery} className='hidden' type="file" name="" id="img3" />
+                      <input onChange={handleGallery} multiple className='hidden' type="file" name="" id="img3" />
                     </label>
                     <label htmlFor='img4' className='bg-[var(--secondary)] h-40 flex items-center justify-center text-4xl cursor-pointer'><BsCardImage className='text-gray-600' />
-                      <input onChange={handleGallery} className='hidden' type="file" name="" id="img4" />
+                      <input onChange={handleGallery} multiple className='hidden' type="file" name="" id="img4" />
                     </label>
                   </div>
                 </section>
@@ -494,6 +490,7 @@ onChange={(e) => handleChange(index, "name", e.target.value)}
                         <label htmlFor="shopadress" className="block text-sm font-medium text-gray-700">Complete Address *</label>
                         <input style={{ background: "var(--secondary)" }}
                           onChange={(e) => handleLocationChange("address", e.target.value)}
+                          value={formData.salonData.location?.address}
                           id="shopadress" name="shopadress" type="text" placeholder="Shop No, Building, Street, Area" className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm outline-0 h-10 p-3" />
                       </div>
 
@@ -501,6 +498,7 @@ onChange={(e) => handleChange(index, "name", e.target.value)}
                         <label htmlFor="city" className="block text-sm font-medium text-gray-700">City *</label>
                         <input style={{ background: "var(--secondary)" }}
                           onChange={(e) => handleLocationChange("city", e.target.value)}
+                          value={formData.salonData.location.city}
 
                           id="city" name="city" type="text" placeholder="Enter your city name" className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm outline-0 h-10 p-3" />
                       </div>
@@ -508,6 +506,7 @@ onChange={(e) => handleChange(index, "name", e.target.value)}
                         <label htmlFor="state" className="block text-sm font-medium text-gray-700">State *</label>
                         <input style={{ background: "var(--secondary)" }}
                           onChange={(e) => handleLocationChange("state", e.target.value)}
+                          value={formData.salonData.location.state}
 
                           id="state" name="state" type="text" placeholder="Enter your state name" className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm outline-0 h-10 p-3" />
                       </div>
@@ -515,6 +514,7 @@ onChange={(e) => handleChange(index, "name", e.target.value)}
                         <label htmlFor="pincode" className="block text-sm font-medium text-gray-700">Pincode *</label>
                         <input style={{ background: "var(--secondary)" }}
                           onChange={(e) => handleLocationChange("pincode", e.target.value)}
+                          value={formData.salonData.location.pincode}
 
                           id="pincode" name="pincode" type="text" placeholder="Enter your pincode number" className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm outline-0 h-10 p-3" />
                       </div>
@@ -523,9 +523,11 @@ onChange={(e) => handleChange(index, "name", e.target.value)}
                         <label htmlFor="longitude" className="block text-sm font-medium text-gray-700">Longitude *</label>
                         <input style={{ background: "var(--secondary)" }}
                           onChange={(e) => handleLocationChange("coordinates", [
-                            Number(e.target.value),
+                            (e.target.value),
                             formData.salonData.location.coordinates[1]
                           ])}
+                          value={formData.salonData.location.coordinates[0]}
+
                           id="longitude" name="longitude" type="text" placeholder="Enter your longitude number" className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm outline-0 h-10 p-3" />
                       </div>
                       <div>
@@ -535,8 +537,9 @@ onChange={(e) => handleChange(index, "name", e.target.value)}
                         <input style={{ background: "var(--secondary)" }}
                           onChange={(e) => handleLocationChange("coordinates", [
                             formData.salonData.location.coordinates[0],
-                            Number(e.target.value)
+                            (e.target.value)
                           ])}
+                          value={formData.salonData.location.coordinates[1]}
                           id="latitude" name="latitude" type="text" placeholder="Enter your latitude number" className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm outline-0 h-10 p-3" />
                       </div>
                     </div>
@@ -639,6 +642,7 @@ onChange={(e) => handleChange(index, "name", e.target.value)}
                         }
                       }))
                     }
+
                     type="text"
                     placeholder="Enter ID number"
                     className="w-full border border-gray-300 rounded-lg px-3 py-2 text-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
@@ -653,17 +657,20 @@ onChange={(e) => handleChange(index, "name", e.target.value)}
                   <input className='hidden' type="file" id='documents'
                     accept="image/*"
                     onChange={(e) => {
+                      const file = e.target.files[0];
+
                       setFormData(prev => ({
                         ...prev,
                         salonData: {
                           ...prev.salonData,
                           governmentId: {
                             ...prev.salonData.governmentId,
-                            idImage: e.target.files[0]  // File store hoga
+                            idImageUrl: file  // Yahi store hoga
                           }
                         }
                       }));
                     }}
+
                   />
                   <label htmlFor='documents' className="border-2 border-gray-300 border-dashed rounded-lg p-6 flex flex-col items-center justify-center cursor-pointer hover:border-indigo-400 transition">
                     <div className="w-12 h-12 bg-gray-200 rounded-full flex items-center justify-center mb-2">
